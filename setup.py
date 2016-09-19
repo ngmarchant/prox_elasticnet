@@ -1,21 +1,34 @@
-# -*- coding: utf-8 -*-
+import os
+from os.path import join
 
-from setuptools import setup, find_packages
+import numpy
 
-with open('README.rst') as f:
-    readme = f.read()
+from sklearn._build_utils import get_blas_info
 
-with open('LICENSE') as f:
-    license = f.read()
 
-setup(
-    name='Prox-ElasticNet',
-    version='0.0.1',
-    description='A Python package which implements the elastic net using proximal methods',
-    long_description=readme,
-    author='Neil G. Marchant',
-    author_email='ngmarchant@gmail.com',
-    url='https://github.com/ngmarchant/prox-elasticnet',
-    license=license,
-    packages=find_packages(exclude=('tests', 'docs'))
-)
+def configuration(parent_package='', top_path=None):
+    from numpy.distutils.misc_util import Configuration
+
+    config = Configuration('prox_elasticnet', parent_package, top_path)
+
+    cblas_libs, blas_info = get_blas_info()
+
+    if os.name == 'posix':
+        cblas_libs.append('m')
+
+    config.add_extension('prox_fast', sources=['prox_fast.c'],
+                         libraries=cblas_libs,
+                         include_dirs=[join('..', 'src', 'cblas'),
+                                       numpy.get_include(),
+                                       blas_info.pop('include_dirs', [])],
+                         extra_compile_args=blas_info.pop('extra_compile_args',
+                                                          []), **blas_info)
+
+    # add other directories
+    config.add_subpackage('tests')
+
+    return config
+
+if __name__ == '__main__':
+    from numpy.distutils.core import setup
+    setup(**configuration(top_path='').todict())
