@@ -4,15 +4,18 @@
 
 import numpy as np
 import warnings
+from scipy import sparse
 
-from sklearn import (LinearModel, RegressorMixin, check_X_y, check_array,
-                    _pre_fit)
+from sklearn.linear_model.base import (LinearModel, _pre_fit)
+from sklearn.base import RegressorMixin
+from sklearn.utils.validation import (check_X_y, check_array)
+from sklearn.externals.six.moves import xrange
 
-from . import prox_fast
+import prox_fast
 
 def enet_path(X, y, l1_ratio=0.5, eps=1e-3, n_alphas=100, alphas=None,
               precompute='auto', Xy=None, copy_X=True, coef_init=None,
-              verbose=False, return_n_iter=False, positive=False,
+              verbose=False, return_n_iter=False,
               check_input=True, **params):
     """Compute elastic net path with coordinate descent
     The elastic net optimization function varies for mono and multi-outputs.
@@ -64,8 +67,6 @@ def enet_path(X, y, l1_ratio=0.5, eps=1e-3, n_alphas=100, alphas=None,
         keyword arguments passed to the coordinate descent solver.
     return_n_iter : bool
         whether to return the number of iterations or not.
-    positive : bool, default False
-        If set to True, forces coefficients to be positive.
     check_input : bool, default True
         Skip input validation checks, including the Gram matrix when provided
         assuming there are handled by the caller when check_input=False.
@@ -76,7 +77,7 @@ def enet_path(X, y, l1_ratio=0.5, eps=1e-3, n_alphas=100, alphas=None,
     coefs : array, shape (n_features, n_alphas) or \
             (n_outputs, n_features, n_alphas)
         Coefficients along the path.
-    dual_gaps : array, shape (n_alphas,)
+    rel_errors : array, shape (n_alphas,)
         The dual gaps at the end of the optimization for each alpha.
     n_iters : array-like, shape (n_alphas,)
         The number of iterations taken by the coordinate descent optimizer to
@@ -136,14 +137,8 @@ def enet_path(X, y, l1_ratio=0.5, eps=1e-3, n_alphas=100, alphas=None,
     n_alphas = len(alphas)
     tol = params.get('tol', 1e-4)
     max_iter = params.get('max_iter', 1000)
-    dual_gaps = np.empty(n_alphas)
+    rel_errors = np.empty(n_alphas)
     n_iters = []
-
-    rng = check_random_state(params.get('random_state', None))
-    selection = params.get('selection', 'cyclic')
-    if selection not in ['random', 'cyclic']:
-        raise ValueError("selection should be either random or cyclic.")
-    random = (selection == 'random')
 
     if not multi_output:
         coefs = np.empty((n_features, n_alphas), dtype=np.float64)
@@ -160,34 +155,34 @@ def enet_path(X, y, l1_ratio=0.5, eps=1e-3, n_alphas=100, alphas=None,
         l1_reg = alpha * l1_ratio * n_samples
         l2_reg = alpha * (1.0 - l1_ratio) * n_samples
         if not multi_output and sparse.isspmatrix(X):
-            model = cd_fast.sparse_enet_coordinate_descent(
+            model = prox_fast.sparse_enet_prox_gradient(
                 coef_, l1_reg, l2_reg, X.data, X.indices,
                 X.indptr, y, X_sparse_scaling,
-                max_iter, tol, rng, random, positive)
+                max_iter, tol)
+                # Remove multi_output option
         elif multi_output:
-            model = cd_fast.enet_coordinate_descent_multi_task(
-                coef_, l1_reg, l2_reg, X, y, max_iter, tol, rng, random)
+            model = cd_fast.enet_prox_gradient_multi_task(
+                coef_, l1_reg, l2_reg, X, y, max_iter, tol)
         elif isinstance(precompute, np.ndarray):
             # We expect precompute to be already Fortran ordered when bypassing
             # checks
             if check_input:
                 precompute = check_array(precompute, dtype=np.float64,
                                          order='C')
-            model = cd_fast.enet_coordinate_descent_gram(
+            model = prox_fast.enet_prox_gradient_gram(
                 coef_, l1_reg, l2_reg, precompute, Xy, y, max_iter,
-                tol, rng, random, positive)
+                tol)
         elif precompute is False:
-            model = cd_fast.enet_coordinate_descent(
-                coef_, l1_reg, l2_reg, X, y, max_iter, tol, rng, random,
-                positive)
+            model = prox_fast.enet_prox_gradient(
+                coef_, l1_reg, l2_reg, X, y, max_iter, tol)
         else:
             raise ValueError("Precompute should be one of True, False, "
                              "'auto' or array-like")
-        coef_, dual_gap_, eps_, n_iter_ = model
+        coef_, rel_error_, n_iter_ = model
         coefs[..., i] = coef_
-        dual_gaps[i] = dual_gap_
+        rel_errors[i] = rel_error_
         n_iters.append(n_iter_)
-        if dual_gap_ > eps_:
+        if rel_error_ > tol:
             warnings.warn('Objective did not converge.' +
                           ' You might want' +
                           ' to increase the number of iterations',
@@ -202,8 +197,8 @@ def enet_path(X, y, l1_ratio=0.5, eps=1e-3, n_alphas=100, alphas=None,
                 sys.stderr.write('.')
 
     if return_n_iter:
-        return alphas, coefs, dual_gaps, n_iters
-    return alphas, coefs, dual_gaps
+        return alphas, coefs, rel_errors, n_iters
+    return alphas, coefs, rel_errors
 
 class ElasticNet(LinearModel, RegressorMixin) :
     """Linear regression with combined L1 and L2 priors as regularizer.
@@ -265,8 +260,7 @@ class ElasticNet(LinearModel, RegressorMixin) :
     warm_start : bool, optional
         When set to ``True``, reuse the solution of the previous call to fit as
         initialization, otherwise, just erase the previous solution.
-    positive : bool, optional
-        When set to ``True``, forces the coefficients to be positive.
+
     Attributes
     ----------
     coef_ : array, shape (n_features,) | (n_targets, n_features)
@@ -289,7 +283,7 @@ class ElasticNet(LinearModel, RegressorMixin) :
 
     def __init__(self, alpha=1.0, l1_ratio=0.5, fit_intercept=True,
              normalize=False, precompute=False, max_iter=1000,
-             copy_X=True, tol=1e-4, warm_start=False, positive=False):
+             copy_X=True, tol=1e-4, warm_start=False):
         # Initialise parameters
         self.alpha = alpha
         self.l1_ratio = l1_ratio
@@ -299,8 +293,7 @@ class ElasticNet(LinearModel, RegressorMixin) :
         self.max_iter = max_iter
         self.copy_X = copy_X
         self.tol = tol
-#        self.warm_start = warm_start
-#        self.positive = positive
+        self.warm_start = warm_start
         # Initialise attributes
         self.coef_ = None
         self.intercept_ = 0.0
@@ -345,7 +338,7 @@ class ElasticNet(LinearModel, RegressorMixin) :
             if coef_.ndim == 1:
                 coef_ = coef_[np.newaxis, :]
 
-        dual_gaps_ = np.zeros(n_targets, dtype=np.float64)
+        rel_errors_ = np.zeros(n_targets, dtype=X.dtype)
         self.n_iter_ = []
 
         # Loop over different measurements of y (generalisation)
@@ -355,26 +348,24 @@ class ElasticNet(LinearModel, RegressorMixin) :
             else:
                 this_Xy = None
             # Perform the optimisation
-            _, this_coef, this_dual_gap, this_iter = \
+            _, this_coef, this_rel_error, this_iter = \
                 self.path(X, y[:, k],
                           l1_ratio=self.l1_ratio, eps=None,
                           n_alphas=None, alphas=[self.alpha],
                           precompute=precompute, Xy=this_Xy,
                           fit_intercept=False, normalize=False, copy_X=True,
-                          verbose=False, tol=self.tol, positive=self.positive,
+                          verbose=False, tol=self.tol,
                           X_offset=X_offset, X_scale=X_scale, return_n_iter=True,
                           coef_init=coef_[k], max_iter=self.max_iter,
-                          random_state=self.random_state,
-                          selection=self.selection,
                           check_input=False)
             coef_[k] = this_coef[:, 0]
-            dual_gaps_[k] = this_dual_gap[0]
+            rel_errors_[k] = this_rel_error[0]
             self.n_iter_.append(this_iter[0])
 
         if n_targets == 1:
             self.n_iter_ = self.n_iter_[0]
 
-        self.coef_, self.dual_gap_ = map(np.squeeze, [coef_, dual_gaps_])
+        self.coef_, self.rel_error_ = map(np.squeeze, [coef_, rel_errors_])
         self._set_intercept(X_offset, y_offset, X_scale)
 
         # return self for chaining fit and predict calls

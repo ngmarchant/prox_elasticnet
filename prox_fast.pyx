@@ -7,14 +7,15 @@ import numpy as np
 cimport numpy as np
 np.import_array()
 
-# Use to calculate eigenvalues of Gram matrix
-from numpy.linalg import eigh
+# Use to calculate optimal step size
+from numpy.linalg import norm
 
 cimport cython
 from cpython cimport bool
 import warnings
 
 from libc.math cimport fabs
+from libc.stdlib cimport malloc, free
 
 ctypedef np.float64_t DOUBLE
 
@@ -113,6 +114,27 @@ cdef inline double vmax(int n, double* a) nogil:
     return m
 
 
+cdef inline double sq_loss(int n_features, int n_samples, double *X, double *y,
+    double *v) nogil:
+    """Evaluates the square loss function at vector v.
+    The calculation performed is l <- 0.5 * norm(y - X v, 2)^2.
+    """
+    cdef double result
+    cdef double *r = <double *> malloc(n_samples * sizeof(double))
+    if not r:
+        with gil:
+            raise MemoryError()
+
+    dgemv(CblasColMajor, CblasNoTrans, n_samples, n_features, -1.0, X,
+          n_samples, v, 1, 0, r, 1)
+    daxpy(n_samples, 1.0, y, 1, r, 1)
+    result = 0.5 * ddot(n_samples, r, 1, r, 1)
+
+    free(r)
+
+    return result
+
+
 cdef inline void grad_sq_loss(int n_features, double *XtX, double *Xty,
     double *v, double *g) nogil:
     """Evaluates the gradient of the square loss function at vector v and
@@ -137,10 +159,45 @@ cdef inline void soft_threshold(double thres, int n_features, double *v) nogil:
             v[i] = 0
 
 
+cdef inline double sufficient_decrease(int n_features, int n_samples, double *X,
+    double *y, double* v, double* w, double *g, double sigma) nogil:
+    """ Checks whether there is a sufficient decrease in the objective for
+    step size sigma.
+    Returns True if (Term 1 + Term 2 + Term 3 > 0)
+    where   Term 1 = sq_loss(w) - sq_loss(v),
+            Term 2 = - (w - v)^T * g
+            Term 3 = - norm(w - v, 2)^2/(2*sigma)
+    Else returns False.
+    """
+    cdef double term1, term2, term3
+    cdef double *wvdiff = <double *> malloc(n_features * sizeof(double))
+    if not wvdiff:
+        with gil:
+            raise MemoryError()
+
+    # term1 <- sq_loss(w) - sq_loss(v)
+    term1 = sq_loss(n_features, n_samples, X, y, w) - sq_loss(n_features,
+        n_samples, X, y, v)
+
+    # wvdiff <- w - v
+    dcopy(n_features, w, 1, wvdiff, 1)
+    daxpy(n_features, -1.0, v, 1, wvdiff, 1)
+
+    # term2 <- -(wvdiff)^T g
+    term2 = - ddot(n_features, wvdiff, 1, g, 1)
+
+    # term3 <- - norm(w - v, 2)^2/(2*sigma)
+    term3 = - ddot(n_features, wvdiff, 1, wvdiff, 1) / (2 * sigma)
+
+    free(wvdiff)
+
+    return term1 + term2 + term3
+
+
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.cdivision(True)
-def enet_coordinate_descent(np.ndarray[DOUBLE, ndim=1] w,
+def enet_prox_gradient(np.ndarray[DOUBLE, ndim=1] w,
                             double alpha, double beta,
                             np.ndarray[DOUBLE, ndim=2, mode='fortran'] X,
                             np.ndarray[DOUBLE, ndim=1, mode='c'] y,
@@ -187,12 +244,9 @@ def enet_coordinate_descent(np.ndarray[DOUBLE, ndim=1] w,
              Number of iterations performed.
     """
 
-    # get the data information into easy vars
+    # Initialize C variables
     cdef unsigned int n_samples = X.shape[0]
     cdef unsigned int n_features = X.shape[1]
-
-    ############### new stuff
-    cdef int min_iter = 2   # TO DO: Make as option
     cdef int n_iter = 0
     cdef double t = 1.0
     cdef double t_prev
@@ -206,7 +260,6 @@ def enet_coordinate_descent(np.ndarray[DOUBLE, ndim=1] w,
     cdef np.ndarray[DOUBLE, ndim=1] g = np.empty(n_features)
     cdef np.ndarray[DOUBLE, ndim=1] delta_w = np.empty(n_features)
     cdef np.ndarray[DOUBLE, ndim=1] w_prev = np.empty(n_features)
-    cdef np.ndarray[DOUBLE, ndim=1] arg = np.empty(n_features)
     cdef np.ndarray[DOUBLE, ndim=2, mode='c'] XtX = np.empty([n_features, n_features])
     cdef np.ndarray[DOUBLE, ndim=1, mode='c'] Xty = np.empty(n_features)
 
@@ -222,13 +275,23 @@ def enet_coordinate_descent(np.ndarray[DOUBLE, ndim=1] w,
     # v <- w
     dcopy(n_features, <DOUBLE*>w.data, 1, <DOUBLE*>v.data, 1)
 
-    # Determine step size
-    # TO DO: avoid using numpy implementation?
-    evals, _ = eigh(XtX)
-    sigma = 1/evals[n_features - 1] #FIX THE PRE-FACTOR
+    # Determine optimal step size (1/Lipschitz constant)
+    sigma = 1/norm(XtX, ord=2)
 
     # Set shrink factor
     shrink_factor = 1.0/(1.0 + sigma * beta)
+
+    dcopy(n_features, <DOUBLE*>w.data, 1, <DOUBLE*>v.data, 1)
+    dscal(n_features, 0.8, <DOUBLE*>v.data, 1)
+    grad_sq_loss(n_features, <DOUBLE*>XtX.data, <DOUBLE*>Xty.data, <DOUBLE*>v.data,
+                         <DOUBLE*>g.data)
+
+    # Testing adaptive step size
+    cdef double eta = 0.5
+    sigma = 1
+    cdef int m = 0
+    print("Step size\n")
+    print(sigma)
 
     with nogil:
         for n_iter in range(max_iter):
@@ -247,6 +310,23 @@ def enet_coordinate_descent(np.ndarray[DOUBLE, ndim=1] w,
             # w <- shrink_factor * w
             dscal(n_features, shrink_factor, <DOUBLE*>w.data, 1)
 
+            # Check for a sufficient decrease in
+            while sufficient_decrease(n_features, n_samples,
+                <DOUBLE*>X.data, <DOUBLE*> y.data, <DOUBLE*> v.data,
+                <DOUBLE*> w.data, <DOUBLE*> g.data, sigma) > 0 :
+                # Try smaller step size
+                sigma = eta * sigma
+                # Evaluate prox-grad step again with smaller sigma
+                # w <- v - sigma * g
+                dcopy(n_features, <DOUBLE*>v.data, 1, <DOUBLE*>w.data, 1)
+                daxpy(n_features, -sigma, <DOUBLE*>g.data, 1, <DOUBLE*>w.data, 1)
+
+                # w <- S_{sigma*alpha}(w)
+                soft_threshold(sigma*alpha, n_features, <DOUBLE*>w.data)
+
+                # w <- shrink_factor * w
+                dscal(n_features, shrink_factor, <DOUBLE*>w.data, 1)
+
             # delta_w <- w - w_prev
             dcopy(n_features, <DOUBLE*>w.data, 1, <DOUBLE*>delta_w.data, 1)
             daxpy(n_features, -1.0, <DOUBLE*>w_prev.data, 1, <DOUBLE*>delta_w.data, 1)
@@ -256,13 +336,13 @@ def enet_coordinate_descent(np.ndarray[DOUBLE, ndim=1] w,
                              vmax(n_features, <DOUBLE*>w_prev.data))
             d_w_max = abs_max(n_features, <DOUBLE*>delta_w.data)
             rel_error = d_w_max/min_w_max
-            if (n_iter > min_iter) and (rel_error < tol):
+            if rel_error < tol:
             	# Have converged to within tolerance
                 break
 
+            # update acceleration parameter
             t_prev = t
             t = (1.0 + c_sqrt(1.0 + 4.0 * t_prev * t_prev))/2.0
-
             accel_parameter = (t_prev - 1.0)/t
 
             # v <- w + accel_parameter * delta_w
