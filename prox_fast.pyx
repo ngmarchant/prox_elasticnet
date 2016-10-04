@@ -114,25 +114,13 @@ cdef inline double vmax(int n, double* a) nogil:
     return m
 
 
-cdef inline double sq_loss(int n_features, int n_samples, double *X, double *y,
-    double *v) nogil:
-    """Evaluates the square loss function at vector v.
-    The calculation performed is l <- 0.5 * norm(y - X v, 2)^2.
+cdef inline double residual(int n_features, int n_samples, double *X, double *y,
+    double *w, double *r) nogil:
+    """Evaluates the residual at w: r <- X w - y.
     """
-    cdef double result
-    cdef double *r = <double *> malloc(n_samples * sizeof(double))
-    if not r:
-        with gil:
-            raise MemoryError()
-
-    dgemv(CblasColMajor, CblasNoTrans, n_samples, n_features, -1.0, X,
-          n_samples, v, 1, 0, r, 1)
-    daxpy(n_samples, 1.0, y, 1, r, 1)
-    result = 0.5 * ddot(n_samples, r, 1, r, 1)
-
-    free(r)
-
-    return result
+    dgemv(CblasColMajor, CblasNoTrans, n_samples, n_features, 1.0, X,
+          n_samples, w, 1, 0, r, 1)
+    daxpy(n_samples, -1.0, y, 1, r, 1)
 
 
 cdef inline void grad_sq_loss(int n_features, double *XtX, double *Xty,
@@ -160,7 +148,7 @@ cdef inline void soft_threshold(double thres, int n_features, double *v) nogil:
 
 
 cdef inline double sufficient_decrease(int n_features, int n_samples, double *X,
-    double *y, double* v, double* w, double *g, double sigma) nogil:
+    double *y, double* v, double* w, double *g, double sigma, double* rw) nogil:
     """ Checks whether there is a sufficient decrease in the objective for
     step size sigma.
     Returns True if (Term 1 + Term 2 + Term 3 > 0)
@@ -175,9 +163,20 @@ cdef inline double sufficient_decrease(int n_features, int n_samples, double *X,
         with gil:
             raise MemoryError()
 
+    # evaluate residual(w)
+    residual(n_features, n_samples, X, y, w, rw)
+
+    # evaluate residual(v)
+    cdef double *rv = <double *> malloc(n_samples * sizeof(double))
+    if not rv:
+        with gil:
+            raise MemoryError()
+    residual(n_features, n_samples, X, y, v, rv)
+
     # term1 <- sq_loss(w) - sq_loss(v)
-    term1 = sq_loss(n_features, n_samples, X, y, w) - sq_loss(n_features,
-        n_samples, X, y, v)
+    term1 = (0.5 * ddot(n_samples, rw, 1, rw, 1) -
+                0.5 * ddot(n_samples, rv, 1, rv, 1))
+    free(rv)
 
     # wvdiff <- w - v
     dcopy(n_features, w, 1, wvdiff, 1)
@@ -193,6 +192,37 @@ cdef inline double sufficient_decrease(int n_features, int n_samples, double *X,
 
     return term1 + term2 + term3
 
+
+cdef inline double duality_gap(int n_features, int n_samples, double *X,
+    double *y, double *w, double *rw, double alpha, double beta) nogil:
+    """
+    Evaluates the duality gap
+    """
+
+    cdef double z_infnorm
+    cdef double mu
+    cdef double w_norm1 = dasum(n_features, w, 1)
+    cdef double w_sq = ddot(n_features, w, 1, w, 1)
+
+    cdef double *z = <double *> malloc(n_features * sizeof(double))
+    if not z:
+        with gil:
+            raise MemoryError()
+
+    # z <- X^T rw + beta * w
+    dgemv(CblasColMajor, CblasTrans, n_samples, n_features, 1.0, X,
+          n_samples, rw, 1, 0, z, 1)
+    daxpy(n_features, beta, w, 1, z, 1)
+    z_infnorm = abs_max(n_features, z)
+    free(z)
+
+    mu = fmin(1, alpha/z_infnorm)
+
+    gap = (0.5 * (1 + mu*mu) * ddot(n_samples, rw, 1, rw, 1) +
+            mu * ddot(n_samples, rw, 1, y, 1) + alpha * w_norm1 +
+            0.5 * beta * (1 + mu*mu) * w_sq)
+
+    return gap
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
@@ -255,22 +285,25 @@ def enet_prox_gradient(np.ndarray[DOUBLE, ndim=1] w,
     cdef double accel_parameter
     cdef double min_w_max
     cdef double d_w_max
-    cdef double rel_error = float('inf')
+    cdef double gap
+    cdef double d_w_tol = tol
     cdef np.ndarray[DOUBLE, ndim=1] v = np.empty(n_features)
     cdef np.ndarray[DOUBLE, ndim=1] g = np.empty(n_features)
     cdef np.ndarray[DOUBLE, ndim=1] delta_w = np.empty(n_features)
     cdef np.ndarray[DOUBLE, ndim=1] w_prev = np.empty(n_features)
+    cdef np.ndarray[DOUBLE, ndim=1] rw = np.empty(n_samples)
     cdef np.ndarray[DOUBLE, ndim=2, mode='c'] XtX = np.empty([n_features, n_features])
     cdef np.ndarray[DOUBLE, ndim=1, mode='c'] Xty = np.empty(n_features)
 
     # XtX <- X^T*X
     dgemm(CblasColMajor, CblasTrans, CblasNoTrans, n_features, n_features,
-          n_samples, 1.0, <DOUBLE*>X.data, n_samples, <DOUBLE*>X.data, n_samples, 0,
-          <DOUBLE*>XtX.data, n_features)
+          n_samples, 1.0, <DOUBLE*>X.data, n_samples, <DOUBLE*>X.data,
+          n_samples, 0, <DOUBLE*>XtX.data, n_features)
 
     # Xty <- X^T*y
-    dgemv(CblasColMajor, CblasTrans, n_samples, n_features, 1.0, <DOUBLE*>X.data,
-          n_samples, <DOUBLE*>y.data, 1, 0, <DOUBLE*>Xty.data, 1)
+    dgemv(CblasColMajor, CblasTrans, n_samples, n_features, 1.0,
+            <DOUBLE*>X.data, n_samples, <DOUBLE*>y.data, 1, 0,
+            <DOUBLE*>Xty.data, 1)
 
     # v <- w
     dcopy(n_features, <DOUBLE*>w.data, 1, <DOUBLE*>v.data, 1)
@@ -283,12 +316,15 @@ def enet_prox_gradient(np.ndarray[DOUBLE, ndim=1] w,
 
     dcopy(n_features, <DOUBLE*>w.data, 1, <DOUBLE*>v.data, 1)
     dscal(n_features, 0.8, <DOUBLE*>v.data, 1)
-    grad_sq_loss(n_features, <DOUBLE*>XtX.data, <DOUBLE*>Xty.data, <DOUBLE*>v.data,
-                         <DOUBLE*>g.data)
+    grad_sq_loss(n_features, <DOUBLE*>XtX.data, <DOUBLE*>Xty.data,
+                        <DOUBLE*>v.data, <DOUBLE*>g.data)
+
+    # Scale tolerance by norm(y,2)^2
+    tol = tol * ddot(n_samples, <DOUBLE*>y.data, 1, <DOUBLE*>y.data, 1)
 
     # Testing adaptive step size
     cdef double eta = 0.5
-    sigma = 1
+    #sigma = 1
     cdef int m = 0
     print("Step size\n")
     print(sigma)
@@ -299,8 +335,8 @@ def enet_prox_gradient(np.ndarray[DOUBLE, ndim=1] w,
             dcopy(n_features, <DOUBLE*>w.data, 1, <DOUBLE*>w_prev.data, 1)
 
             # w <- v - sigma * (X^T * X * v - X^T * y)
-            grad_sq_loss(n_features, <DOUBLE*>XtX.data, <DOUBLE*>Xty.data, <DOUBLE*>v.data,
-                         <DOUBLE*>g.data)
+            grad_sq_loss(n_features, <DOUBLE*>XtX.data, <DOUBLE*>Xty.data,
+                <DOUBLE*>v.data, <DOUBLE*>g.data)
             dcopy(n_features, <DOUBLE*>v.data, 1, <DOUBLE*>w.data, 1)
             daxpy(n_features, -sigma, <DOUBLE*>g.data, 1, <DOUBLE*>w.data, 1)
 
@@ -313,13 +349,18 @@ def enet_prox_gradient(np.ndarray[DOUBLE, ndim=1] w,
             # Check for a sufficient decrease in
             while sufficient_decrease(n_features, n_samples,
                 <DOUBLE*>X.data, <DOUBLE*> y.data, <DOUBLE*> v.data,
-                <DOUBLE*> w.data, <DOUBLE*> g.data, sigma) > 0 :
+                <DOUBLE*> w.data, <DOUBLE*> g.data, sigma,
+                <DOUBLE*> rw.data) > 0 :
                 # Try smaller step size
                 sigma = eta * sigma
+                # update shrink_factor
+                shrink_factor = 1.0/(1.0 + sigma * beta)
+
                 # Evaluate prox-grad step again with smaller sigma
                 # w <- v - sigma * g
                 dcopy(n_features, <DOUBLE*>v.data, 1, <DOUBLE*>w.data, 1)
-                daxpy(n_features, -sigma, <DOUBLE*>g.data, 1, <DOUBLE*>w.data, 1)
+                daxpy(n_features, -sigma, <DOUBLE*>g.data, 1,
+                        <DOUBLE*>w.data, 1)
 
                 # w <- S_{sigma*alpha}(w)
                 soft_threshold(sigma*alpha, n_features, <DOUBLE*>w.data)
@@ -329,16 +370,22 @@ def enet_prox_gradient(np.ndarray[DOUBLE, ndim=1] w,
 
             # delta_w <- w - w_prev
             dcopy(n_features, <DOUBLE*>w.data, 1, <DOUBLE*>delta_w.data, 1)
-            daxpy(n_features, -1.0, <DOUBLE*>w_prev.data, 1, <DOUBLE*>delta_w.data, 1)
+            daxpy(n_features, -1.0, <DOUBLE*>w_prev.data, 1,
+                    <DOUBLE*>delta_w.data, 1)
 
             # calculate relative error
             min_w_max = fmin(vmax(n_features, <DOUBLE*>w.data),
                              vmax(n_features, <DOUBLE*>w_prev.data))
             d_w_max = abs_max(n_features, <DOUBLE*>delta_w.data)
-            rel_error = d_w_max/min_w_max
-            if rel_error < tol:
-            	# Have converged to within tolerance
-                break
+            if (n_iter > 2) and (min_w_max == 0 or d_w_max/min_w_max < d_w_tol
+                    or n_iter == max_iter - 1):
+                # check duality gap
+                gap = duality_gap(n_features, n_samples, <DOUBLE*>X.data,
+                        <DOUBLE*>y.data, <DOUBLE*>w.data, <DOUBLE*>rw.data,
+                        alpha, beta)
+                if gap < tol:
+                    # have reached desired tolerance
+                    break
 
             # update acceleration parameter
             t_prev = t
@@ -347,6 +394,7 @@ def enet_prox_gradient(np.ndarray[DOUBLE, ndim=1] w,
 
             # v <- w + accel_parameter * delta_w
             dcopy(n_features, <DOUBLE*>w.data, 1, <DOUBLE*>v.data, 1)
-            daxpy(n_features, accel_parameter, <DOUBLE*>delta_w.data, 1, <DOUBLE*>v.data, 1)
+            daxpy(n_features, accel_parameter, <DOUBLE*>delta_w.data, 1,
+                    <DOUBLE*>v.data, 1)
 
-    return w, rel_error, n_iter + 1
+    return w, gap, tol, n_iter + 1
