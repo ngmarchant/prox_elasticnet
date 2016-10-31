@@ -22,6 +22,15 @@ y = np.array([25.6514, 15.3334, -31.4318, -1.84991, 3.09794, 12.4448, -35.8246, 
 w = np.asfortranarray(np.array([0.0,0.0]))
 alpha = 0.1*len(y)
 beta = 0
-prox_fast.enet_prox_gradient(w,alpha,beta,X,y,100,0.000001)
+prox_fast.enet_prox_gradient(w,alpha,beta,X,y,10000,0.0000001)
+
+import prox_fast
+import numpy as np
+X = np.array([[6.75732, 2.46651], [16.502, -1.30344], [16.01, 6.29124], [-3.49426, 8.29463], [-5.76246, -2.31362], [15.2214, 3.97794], [6.33552, 5.17394], [13.5906, 14.6893], [12.4655, 1.89912], [-5.45923, 7.3574]],order='F')
+y = np.array([25.6514, 15.3334, -31.4318, -1.84991, 3.09794, 12.4448, -35.8246, 41.172, -15.1822, 21.0908],order='C')
+w = np.asfortranarray(np.array([0.0,0.0]))
+alpha = 0.1*len(y)
+beta = 0.1*len(y)
+prox_fast.enet_prox_gradient(w,alpha,beta,X,y,1000,0.00001)
 
 cython3 -a prox_fast.pyx && python3 setup.py build_ext --inplace
