@@ -1,5 +1,9 @@
 init:
-	pip install -r requirements.txt
+	pip3 install -r requirements.txt
 
+install:
+	python3 setup.py install --user
+    
 test:
-nosetests tests
+	cd tests
+	python3 -m "nose"
