@@ -5,7 +5,6 @@ import numpy
 
 from sklearn._build_utils import get_blas_info
 
-
 def configuration(parent_package='', top_path=None):
     from numpy.distutils.misc_util import Configuration
 
@@ -32,4 +31,19 @@ def configuration(parent_package='', top_path=None):
 
 if __name__ == '__main__':
     from numpy.distutils.core import setup
-    setup(**configuration(top_path='').todict())
+    with open('README.rst') as f:
+        readme = f.read()
+    
+    with open('LICENSE') as f:
+        license = f.read()
+    
+    setup(
+        version='0.0.1',
+        description='A Python package which implements the Elastic Net using the proximal gradient method',
+        long_description=readme,
+        author='Neil G. Marchant',
+        author_email='ngmarchant@gmail.com',
+        url='https://github.com/ngmarchant/prox_elasticnet',
+        license=license,
+        **configuration(top_path='').todict())
+
