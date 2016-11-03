@@ -15,7 +15,8 @@ def configuration(parent_package='', top_path=None):
 
     if os.name == 'posix':
         cblas_libs.append('m')
-
+    
+    # add cython extensions module
     config.add_extension('prox_fast', sources=['prox_fast.c'],
                          libraries=cblas_libs,
                          include_dirs=[join('..', 'src', 'cblas'),
@@ -24,7 +25,7 @@ def configuration(parent_package='', top_path=None):
                          extra_compile_args=blas_info.pop('extra_compile_args',
                                                           []), **blas_info)
 
-    # add other directories
+    # add the test directory
     config.add_subpackage('tests')
 
     return config

@@ -234,8 +234,8 @@ static CYTHON_INLINE float __PYX_NAN() {
   #endif
 #endif
 
-#define __PYX_HAVE__prox_fast
-#define __PYX_HAVE_API__prox_fast
+#define __PYX_HAVE__prox_elasticnet__prox_fast
+#define __PYX_HAVE_API__prox_elasticnet__prox_fast
 #include "string.h"
 #include "stdio.h"
 #include "stdlib.h"
@@ -473,7 +473,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "prox_fast.pyx",
+  "prox_elasticnet/prox_fast.pyx",
   "__init__.pxd",
   "type.pxd",
   "bool.pxd",
@@ -704,14 +704,14 @@ typedef npy_double __pyx_t_5numpy_double_t;
  */
 typedef npy_longdouble __pyx_t_5numpy_longdouble_t;
 
-/* "prox_fast.pyx":20
+/* "prox_elasticnet/prox_fast.pyx":20
  * from libc.stdlib cimport malloc, free
  * 
  * ctypedef np.float64_t DOUBLE             # <<<<<<<<<<<<<<
  * 
  * # -----------------------------------------------------------------------------
  */
-typedef __pyx_t_5numpy_float64_t __pyx_t_9prox_fast_DOUBLE;
+typedef __pyx_t_5numpy_float64_t __pyx_t_15prox_elasticnet_9prox_fast_DOUBLE;
 #if CYTHON_CCOMPLEX
   #ifdef __cplusplus
     typedef ::std::complex< float > __pyx_t_float_complex;
@@ -1194,20 +1194,23 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *, cha
 
 /* Module declarations from 'libc.math' */
 
-/* Module declarations from 'prox_fast' */
-static CYTHON_INLINE double __pyx_f_9prox_fast_fmin(double, double); /*proto*/
-static CYTHON_INLINE double __pyx_f_9prox_fast_abs_max(int, double *); /*proto*/
-static CYTHON_INLINE double __pyx_f_9prox_fast_vmax(int, double *); /*proto*/
-static CYTHON_INLINE double __pyx_f_9prox_fast_residual(int, int, double *, double *, double *, double *); /*proto*/
-static CYTHON_INLINE void __pyx_f_9prox_fast_grad_sq_loss(int, double *, double *, double *, double *); /*proto*/
-static CYTHON_INLINE void __pyx_f_9prox_fast_soft_threshold(double, int, double *); /*proto*/
-static CYTHON_INLINE double __pyx_f_9prox_fast_sufficient_decrease(int, int, double *, double *, double *, double); /*proto*/
-static CYTHON_INLINE double __pyx_f_9prox_fast_duality_gap(int, int, double *, double *, double *, double, double); /*proto*/
-static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_9prox_fast_DOUBLE = { "DOUBLE", NULL, sizeof(__pyx_t_9prox_fast_DOUBLE), { 0 }, 0, 'R', 0, 0 };
-#define __Pyx_MODULE_NAME "prox_fast"
-int __pyx_module_is_main_prox_fast = 0;
+/* Module declarations from 'prox_elasticnet.prox_fast' */
+static CYTHON_INLINE double __pyx_f_15prox_elasticnet_9prox_fast_fmin(double, double); /*proto*/
+static CYTHON_INLINE double __pyx_f_15prox_elasticnet_9prox_fast_abs_max(int, double *); /*proto*/
+static CYTHON_INLINE double __pyx_f_15prox_elasticnet_9prox_fast_vmax(int, double *); /*proto*/
+static CYTHON_INLINE double __pyx_f_15prox_elasticnet_9prox_fast_residual(int, int, double *, double *, double *, double *); /*proto*/
+static CYTHON_INLINE void __pyx_f_15prox_elasticnet_9prox_fast_grad_sq_loss_gram(int, double *, double *, double *, double *); /*proto*/
+static CYTHON_INLINE void __pyx_f_15prox_elasticnet_9prox_fast_grad_sq_loss(int, int, double *, double *, double *); /*proto*/
+static CYTHON_INLINE void __pyx_f_15prox_elasticnet_9prox_fast_soft_threshold(double, int, double *); /*proto*/
+static CYTHON_INLINE double __pyx_f_15prox_elasticnet_9prox_fast_suff_decrease(int, int, double *, double *, double *, double); /*proto*/
+static CYTHON_INLINE double __pyx_f_15prox_elasticnet_9prox_fast_suff_decrease_gram(int, double *, double *, double *, double); /*proto*/
+static CYTHON_INLINE double __pyx_f_15prox_elasticnet_9prox_fast_dual_gap(int, int, double *, double *, double *, double, double); /*proto*/
+static CYTHON_INLINE double __pyx_f_15prox_elasticnet_9prox_fast_dual_gap_gram(int, double *, double *, double *, double, double, double); /*proto*/
+static __Pyx_TypeInfo __Pyx_TypeInfo_nn___pyx_t_15prox_elasticnet_9prox_fast_DOUBLE = { "DOUBLE", NULL, sizeof(__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE), { 0 }, 0, 'R', 0, 0 };
+#define __Pyx_MODULE_NAME "prox_elasticnet.prox_fast"
+int __pyx_module_is_main_prox_elasticnet__prox_fast = 0;
 
-/* Implementation of 'prox_fast' */
+/* Implementation of 'prox_elasticnet.prox_fast' */
 static PyObject *__pyx_builtin_range;
 static PyObject *__pyx_builtin_MemoryError;
 static PyObject *__pyx_builtin_ValueError;
@@ -1218,6 +1221,7 @@ static char __pyx_k_I[] = "I";
 static char __pyx_k_L[] = "L";
 static char __pyx_k_O[] = "O";
 static char __pyx_k_Q[] = "Q";
+static char __pyx_k_T[] = "T";
 static char __pyx_k_X[] = "X";
 static char __pyx_k_b[] = "b";
 static char __pyx_k_d[] = "d";
@@ -1235,10 +1239,13 @@ static char __pyx_k_Zd[] = "Zd";
 static char __pyx_k_Zf[] = "Zf";
 static char __pyx_k_Zg[] = "Zg";
 static char __pyx_k_np[] = "np";
+static char __pyx_k_rv[] = "rv";
 static char __pyx_k_XtX[] = "XtX";
 static char __pyx_k_Xty[] = "Xty";
+static char __pyx_k_dot[] = "dot";
 static char __pyx_k_eta[] = "eta";
 static char __pyx_k_gap[] = "gap";
+static char __pyx_k_ord[] = "ord";
 static char __pyx_k_tol[] = "tol";
 static char __pyx_k_beta[] = "beta";
 static char __pyx_k_main[] = "__main__";
@@ -1256,22 +1263,25 @@ static char __pyx_k_w_prev[] = "w_prev";
 static char __pyx_k_d_w_max[] = "d_w_max";
 static char __pyx_k_d_w_tol[] = "d_w_tol";
 static char __pyx_k_delta_w[] = "delta_w";
-static char __pyx_k_sigma_0[] = "sigma_0";
 static char __pyx_k_max_iter[] = "max_iter";
 static char __pyx_k_warnings[] = "warnings";
+static char __pyx_k_init_step[] = "init_step";
 static char __pyx_k_min_w_max[] = "min_w_max";
 static char __pyx_k_n_samples[] = "n_samples";
-static char __pyx_k_prox_fast[] = "prox_fast";
+static char __pyx_k_y_norm_sq[] = "y_norm_sq";
 static char __pyx_k_ValueError[] = "ValueError";
 static char __pyx_k_n_features[] = "n_features";
 static char __pyx_k_MemoryError[] = "MemoryError";
+static char __pyx_k_fixed_sigma[] = "fixed_sigma";
 static char __pyx_k_RuntimeError[] = "RuntimeError";
 static char __pyx_k_numpy_linalg[] = "numpy.linalg";
 static char __pyx_k_shrink_factor[] = "shrink_factor";
 static char __pyx_k_accel_parameter[] = "accel_parameter";
 static char __pyx_k_enet_prox_gradient[] = "enet_prox_gradient";
+static char __pyx_k_enet_prox_gradient_gram[] = "enet_prox_gradient_gram";
+static char __pyx_k_prox_elasticnet_prox_fast[] = "prox_elasticnet.prox_fast";
 static char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
-static char __pyx_k_home_nmarchant_Dropbox_Educatio[] = "/home/nmarchant/Dropbox/Education/PhD/Introduction to Optimisation/prox-elasticnet/prox_fast.pyx";
+static char __pyx_k_home_nmarchant_Dropbox_Educatio[] = "/home/nmarchant/Dropbox/Education/PhD/Introduction to Optimisation/prox_elasticnet/prox_fast.pyx";
 static char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
 static char __pyx_k_Format_string_allocated_too_shor[] = "Format string allocated too short, see comment in numpy.pxd";
 static char __pyx_k_Non_native_byte_order_not_suppor[] = "Non-native byte order not supported";
@@ -1282,6 +1292,7 @@ static PyObject *__pyx_kp_u_Format_string_allocated_too_shor_2;
 static PyObject *__pyx_n_s_MemoryError;
 static PyObject *__pyx_kp_u_Non_native_byte_order_not_suppor;
 static PyObject *__pyx_n_s_RuntimeError;
+static PyObject *__pyx_n_s_T;
 static PyObject *__pyx_n_s_ValueError;
 static PyObject *__pyx_n_s_X;
 static PyObject *__pyx_n_s_XtX;
@@ -1292,13 +1303,17 @@ static PyObject *__pyx_n_s_beta;
 static PyObject *__pyx_n_s_d_w_max;
 static PyObject *__pyx_n_s_d_w_tol;
 static PyObject *__pyx_n_s_delta_w;
+static PyObject *__pyx_n_s_dot;
 static PyObject *__pyx_n_s_empty;
 static PyObject *__pyx_n_s_enet_prox_gradient;
+static PyObject *__pyx_n_s_enet_prox_gradient_gram;
 static PyObject *__pyx_n_s_eta;
+static PyObject *__pyx_n_s_fixed_sigma;
 static PyObject *__pyx_n_s_g;
 static PyObject *__pyx_n_s_gap;
 static PyObject *__pyx_kp_s_home_nmarchant_Dropbox_Educatio;
 static PyObject *__pyx_n_s_import;
+static PyObject *__pyx_n_s_init_step;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_max_iter;
 static PyObject *__pyx_n_s_min_w_max;
@@ -1311,11 +1326,12 @@ static PyObject *__pyx_n_s_norm;
 static PyObject *__pyx_n_s_np;
 static PyObject *__pyx_n_s_numpy;
 static PyObject *__pyx_n_s_numpy_linalg;
-static PyObject *__pyx_n_s_prox_fast;
+static PyObject *__pyx_n_s_ord;
+static PyObject *__pyx_n_s_prox_elasticnet_prox_fast;
 static PyObject *__pyx_n_s_range;
+static PyObject *__pyx_n_s_rv;
 static PyObject *__pyx_n_s_shrink_factor;
 static PyObject *__pyx_n_s_sigma;
-static PyObject *__pyx_n_s_sigma_0;
 static PyObject *__pyx_n_s_t;
 static PyObject *__pyx_n_s_t_prev;
 static PyObject *__pyx_n_s_test;
@@ -1326,9 +1342,13 @@ static PyObject *__pyx_n_s_w;
 static PyObject *__pyx_n_s_w_prev;
 static PyObject *__pyx_n_s_warnings;
 static PyObject *__pyx_n_s_y;
-static PyObject *__pyx_pf_9prox_fast_enet_prox_gradient(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_w, double __pyx_v_alpha, double __pyx_v_beta, PyArrayObject *__pyx_v_X, PyArrayObject *__pyx_v_y, int __pyx_v_max_iter, double __pyx_v_eta, double __pyx_v_sigma_0, double __pyx_v_tol); /* proto */
+static PyObject *__pyx_n_s_y_norm_sq;
+static PyObject *__pyx_pf_15prox_elasticnet_9prox_fast_enet_prox_gradient(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_w, double __pyx_v_alpha, double __pyx_v_beta, PyArrayObject *__pyx_v_X, PyArrayObject *__pyx_v_y, int __pyx_v_max_iter, double __pyx_v_eta, double __pyx_v_init_step, double __pyx_v_tol); /* proto */
+static PyObject *__pyx_pf_15prox_elasticnet_9prox_fast_2enet_prox_gradient_gram(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_w, double __pyx_v_alpha, double __pyx_v_beta, PyArrayObject *__pyx_v_XtX, PyArrayObject *__pyx_v_Xty, PyArrayObject *__pyx_v_y, int __pyx_v_max_iter, double __pyx_v_eta, double __pyx_v_init_step, double __pyx_v_tol); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
+static PyObject *__pyx_int_1;
+static PyObject *__pyx_int_2;
 static PyObject *__pyx_tuple_;
 static PyObject *__pyx_tuple__2;
 static PyObject *__pyx_tuple__3;
@@ -1336,9 +1356,11 @@ static PyObject *__pyx_tuple__4;
 static PyObject *__pyx_tuple__5;
 static PyObject *__pyx_tuple__6;
 static PyObject *__pyx_tuple__7;
+static PyObject *__pyx_tuple__9;
 static PyObject *__pyx_codeobj__8;
+static PyObject *__pyx_codeobj__10;
 
-/* "prox_fast.pyx":79
+/* "prox_elasticnet/prox_fast.pyx":67
  * #  Functions implemented in C (for speed)
  * # -----------------------------------------------------------------------------
  * cdef inline double fmax(double x, double y) nogil:             # <<<<<<<<<<<<<<
@@ -1346,11 +1368,11 @@ static PyObject *__pyx_codeobj__8;
  *     if x > y:
  */
 
-static CYTHON_INLINE double __pyx_f_9prox_fast_fmax(double __pyx_v_x, double __pyx_v_y) {
+static CYTHON_INLINE double __pyx_f_15prox_elasticnet_9prox_fast_fmax(double __pyx_v_x, double __pyx_v_y) {
   double __pyx_r;
   int __pyx_t_1;
 
-  /* "prox_fast.pyx":81
+  /* "prox_elasticnet/prox_fast.pyx":69
  * cdef inline double fmax(double x, double y) nogil:
  *     """ Returns max(x, y) """
  *     if x > y:             # <<<<<<<<<<<<<<
@@ -1360,7 +1382,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_fmax(double __pyx_v_x, double __p
   __pyx_t_1 = ((__pyx_v_x > __pyx_v_y) != 0);
   if (__pyx_t_1) {
 
-    /* "prox_fast.pyx":82
+    /* "prox_elasticnet/prox_fast.pyx":70
  *     """ Returns max(x, y) """
  *     if x > y:
  *         return x             # <<<<<<<<<<<<<<
@@ -1370,7 +1392,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_fmax(double __pyx_v_x, double __p
     __pyx_r = __pyx_v_x;
     goto __pyx_L0;
 
-    /* "prox_fast.pyx":81
+    /* "prox_elasticnet/prox_fast.pyx":69
  * cdef inline double fmax(double x, double y) nogil:
  *     """ Returns max(x, y) """
  *     if x > y:             # <<<<<<<<<<<<<<
@@ -1379,7 +1401,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_fmax(double __pyx_v_x, double __p
  */
   }
 
-  /* "prox_fast.pyx":83
+  /* "prox_elasticnet/prox_fast.pyx":71
  *     if x > y:
  *         return x
  *     return y             # <<<<<<<<<<<<<<
@@ -1389,7 +1411,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_fmax(double __pyx_v_x, double __p
   __pyx_r = __pyx_v_y;
   goto __pyx_L0;
 
-  /* "prox_fast.pyx":79
+  /* "prox_elasticnet/prox_fast.pyx":67
  * #  Functions implemented in C (for speed)
  * # -----------------------------------------------------------------------------
  * cdef inline double fmax(double x, double y) nogil:             # <<<<<<<<<<<<<<
@@ -1402,7 +1424,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_fmax(double __pyx_v_x, double __p
   return __pyx_r;
 }
 
-/* "prox_fast.pyx":86
+/* "prox_elasticnet/prox_fast.pyx":74
  * 
  * 
  * cdef inline double fmin(double x, double y) nogil:             # <<<<<<<<<<<<<<
@@ -1410,11 +1432,11 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_fmax(double __pyx_v_x, double __p
  *     if x < y:
  */
 
-static CYTHON_INLINE double __pyx_f_9prox_fast_fmin(double __pyx_v_x, double __pyx_v_y) {
+static CYTHON_INLINE double __pyx_f_15prox_elasticnet_9prox_fast_fmin(double __pyx_v_x, double __pyx_v_y) {
   double __pyx_r;
   int __pyx_t_1;
 
-  /* "prox_fast.pyx":88
+  /* "prox_elasticnet/prox_fast.pyx":76
  * cdef inline double fmin(double x, double y) nogil:
  *     """ Returns min(x, y) """
  *     if x < y:             # <<<<<<<<<<<<<<
@@ -1424,7 +1446,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_fmin(double __pyx_v_x, double __p
   __pyx_t_1 = ((__pyx_v_x < __pyx_v_y) != 0);
   if (__pyx_t_1) {
 
-    /* "prox_fast.pyx":89
+    /* "prox_elasticnet/prox_fast.pyx":77
  *     """ Returns min(x, y) """
  *     if x < y:
  *         return x             # <<<<<<<<<<<<<<
@@ -1434,7 +1456,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_fmin(double __pyx_v_x, double __p
     __pyx_r = __pyx_v_x;
     goto __pyx_L0;
 
-    /* "prox_fast.pyx":88
+    /* "prox_elasticnet/prox_fast.pyx":76
  * cdef inline double fmin(double x, double y) nogil:
  *     """ Returns min(x, y) """
  *     if x < y:             # <<<<<<<<<<<<<<
@@ -1443,7 +1465,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_fmin(double __pyx_v_x, double __p
  */
   }
 
-  /* "prox_fast.pyx":90
+  /* "prox_elasticnet/prox_fast.pyx":78
  *     if x < y:
  *         return x
  *     return y             # <<<<<<<<<<<<<<
@@ -1453,7 +1475,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_fmin(double __pyx_v_x, double __p
   __pyx_r = __pyx_v_y;
   goto __pyx_L0;
 
-  /* "prox_fast.pyx":86
+  /* "prox_elasticnet/prox_fast.pyx":74
  * 
  * 
  * cdef inline double fmin(double x, double y) nogil:             # <<<<<<<<<<<<<<
@@ -1466,7 +1488,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_fmin(double __pyx_v_x, double __p
   return __pyx_r;
 }
 
-/* "prox_fast.pyx":93
+/* "prox_elasticnet/prox_fast.pyx":81
  * 
  * 
  * cdef inline double abs_max(int n, double* a) nogil:             # <<<<<<<<<<<<<<
@@ -1474,7 +1496,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_fmin(double __pyx_v_x, double __p
  *     cdef int i
  */
 
-static CYTHON_INLINE double __pyx_f_9prox_fast_abs_max(int __pyx_v_n, double *__pyx_v_a) {
+static CYTHON_INLINE double __pyx_f_15prox_elasticnet_9prox_fast_abs_max(int __pyx_v_n, double *__pyx_v_a) {
   int __pyx_v_i;
   double __pyx_v_m;
   double __pyx_v_d;
@@ -1483,7 +1505,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_abs_max(int __pyx_v_n, double *__
   int __pyx_t_2;
   int __pyx_t_3;
 
-  /* "prox_fast.pyx":96
+  /* "prox_elasticnet/prox_fast.pyx":84
  *     """ Returns the maximum of the element-wise absolute value of vector a """
  *     cdef int i
  *     cdef double m = fabs(a[0])             # <<<<<<<<<<<<<<
@@ -1492,7 +1514,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_abs_max(int __pyx_v_n, double *__
  */
   __pyx_v_m = fabs((__pyx_v_a[0]));
 
-  /* "prox_fast.pyx":98
+  /* "prox_elasticnet/prox_fast.pyx":86
  *     cdef double m = fabs(a[0])
  *     cdef double d
  *     for i in range(1, n):             # <<<<<<<<<<<<<<
@@ -1503,7 +1525,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_abs_max(int __pyx_v_n, double *__
   for (__pyx_t_2 = 1; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
     __pyx_v_i = __pyx_t_2;
 
-    /* "prox_fast.pyx":99
+    /* "prox_elasticnet/prox_fast.pyx":87
  *     cdef double d
  *     for i in range(1, n):
  *         d = fabs(a[i])             # <<<<<<<<<<<<<<
@@ -1512,7 +1534,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_abs_max(int __pyx_v_n, double *__
  */
     __pyx_v_d = fabs((__pyx_v_a[__pyx_v_i]));
 
-    /* "prox_fast.pyx":100
+    /* "prox_elasticnet/prox_fast.pyx":88
  *     for i in range(1, n):
  *         d = fabs(a[i])
  *         if d > m:             # <<<<<<<<<<<<<<
@@ -1522,7 +1544,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_abs_max(int __pyx_v_n, double *__
     __pyx_t_3 = ((__pyx_v_d > __pyx_v_m) != 0);
     if (__pyx_t_3) {
 
-      /* "prox_fast.pyx":101
+      /* "prox_elasticnet/prox_fast.pyx":89
  *         d = fabs(a[i])
  *         if d > m:
  *             m = d             # <<<<<<<<<<<<<<
@@ -1531,7 +1553,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_abs_max(int __pyx_v_n, double *__
  */
       __pyx_v_m = __pyx_v_d;
 
-      /* "prox_fast.pyx":100
+      /* "prox_elasticnet/prox_fast.pyx":88
  *     for i in range(1, n):
  *         d = fabs(a[i])
  *         if d > m:             # <<<<<<<<<<<<<<
@@ -1541,7 +1563,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_abs_max(int __pyx_v_n, double *__
     }
   }
 
-  /* "prox_fast.pyx":102
+  /* "prox_elasticnet/prox_fast.pyx":90
  *         if d > m:
  *             m = d
  *     return m             # <<<<<<<<<<<<<<
@@ -1551,7 +1573,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_abs_max(int __pyx_v_n, double *__
   __pyx_r = __pyx_v_m;
   goto __pyx_L0;
 
-  /* "prox_fast.pyx":93
+  /* "prox_elasticnet/prox_fast.pyx":81
  * 
  * 
  * cdef inline double abs_max(int n, double* a) nogil:             # <<<<<<<<<<<<<<
@@ -1564,7 +1586,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_abs_max(int __pyx_v_n, double *__
   return __pyx_r;
 }
 
-/* "prox_fast.pyx":105
+/* "prox_elasticnet/prox_fast.pyx":93
  * 
  * 
  * cdef inline double vmax(int n, double* a) nogil:             # <<<<<<<<<<<<<<
@@ -1572,7 +1594,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_abs_max(int __pyx_v_n, double *__
  *     cdef int i
  */
 
-static CYTHON_INLINE double __pyx_f_9prox_fast_vmax(int __pyx_v_n, double *__pyx_v_a) {
+static CYTHON_INLINE double __pyx_f_15prox_elasticnet_9prox_fast_vmax(int __pyx_v_n, double *__pyx_v_a) {
   int __pyx_v_i;
   double __pyx_v_m;
   double __pyx_v_d;
@@ -1581,7 +1603,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_vmax(int __pyx_v_n, double *__pyx
   int __pyx_t_2;
   int __pyx_t_3;
 
-  /* "prox_fast.pyx":108
+  /* "prox_elasticnet/prox_fast.pyx":96
  *     """ Returns the maximum element of vector a """
  *     cdef int i
  *     cdef double m = a[0]             # <<<<<<<<<<<<<<
@@ -1590,7 +1612,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_vmax(int __pyx_v_n, double *__pyx
  */
   __pyx_v_m = (__pyx_v_a[0]);
 
-  /* "prox_fast.pyx":110
+  /* "prox_elasticnet/prox_fast.pyx":98
  *     cdef double m = a[0]
  *     cdef double d
  *     for i in range(1, n):             # <<<<<<<<<<<<<<
@@ -1601,7 +1623,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_vmax(int __pyx_v_n, double *__pyx
   for (__pyx_t_2 = 1; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
     __pyx_v_i = __pyx_t_2;
 
-    /* "prox_fast.pyx":111
+    /* "prox_elasticnet/prox_fast.pyx":99
  *     cdef double d
  *     for i in range(1, n):
  *         d = a[i]             # <<<<<<<<<<<<<<
@@ -1610,7 +1632,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_vmax(int __pyx_v_n, double *__pyx
  */
     __pyx_v_d = (__pyx_v_a[__pyx_v_i]);
 
-    /* "prox_fast.pyx":112
+    /* "prox_elasticnet/prox_fast.pyx":100
  *     for i in range(1, n):
  *         d = a[i]
  *         if d > m:             # <<<<<<<<<<<<<<
@@ -1620,7 +1642,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_vmax(int __pyx_v_n, double *__pyx
     __pyx_t_3 = ((__pyx_v_d > __pyx_v_m) != 0);
     if (__pyx_t_3) {
 
-      /* "prox_fast.pyx":113
+      /* "prox_elasticnet/prox_fast.pyx":101
  *         d = a[i]
  *         if d > m:
  *             m = d             # <<<<<<<<<<<<<<
@@ -1629,7 +1651,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_vmax(int __pyx_v_n, double *__pyx
  */
       __pyx_v_m = __pyx_v_d;
 
-      /* "prox_fast.pyx":112
+      /* "prox_elasticnet/prox_fast.pyx":100
  *     for i in range(1, n):
  *         d = a[i]
  *         if d > m:             # <<<<<<<<<<<<<<
@@ -1639,7 +1661,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_vmax(int __pyx_v_n, double *__pyx
     }
   }
 
-  /* "prox_fast.pyx":114
+  /* "prox_elasticnet/prox_fast.pyx":102
  *         if d > m:
  *             m = d
  *     return m             # <<<<<<<<<<<<<<
@@ -1649,7 +1671,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_vmax(int __pyx_v_n, double *__pyx
   __pyx_r = __pyx_v_m;
   goto __pyx_L0;
 
-  /* "prox_fast.pyx":105
+  /* "prox_elasticnet/prox_fast.pyx":93
  * 
  * 
  * cdef inline double vmax(int n, double* a) nogil:             # <<<<<<<<<<<<<<
@@ -1662,19 +1684,19 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_vmax(int __pyx_v_n, double *__pyx
   return __pyx_r;
 }
 
-/* "prox_fast.pyx":117
+/* "prox_elasticnet/prox_fast.pyx":105
  * 
  * 
  * cdef inline double residual(int n_features, int n_samples, double *X, double *y,             # <<<<<<<<<<<<<<
  *     double *w, double *r) nogil:
- *     """Evaluates the residual at w: r <- X w - y.
+ *     """
  */
 
-static CYTHON_INLINE double __pyx_f_9prox_fast_residual(int __pyx_v_n_features, int __pyx_v_n_samples, double *__pyx_v_X, double *__pyx_v_y, double *__pyx_v_w, double *__pyx_v_r) {
+static CYTHON_INLINE double __pyx_f_15prox_elasticnet_9prox_fast_residual(int __pyx_v_n_features, int __pyx_v_n_samples, double *__pyx_v_X, double *__pyx_v_y, double *__pyx_v_w, double *__pyx_v_r) {
   double __pyx_r;
 
-  /* "prox_fast.pyx":121
- *     """Evaluates the residual at w: r <- X w - y.
+  /* "prox_elasticnet/prox_fast.pyx":110
+ *     Evaluates the residual at w: r <- X w - y.
  *     """
  *     dgemv(CblasColMajor, CblasNoTrans, n_samples, n_features, 1.0, X,             # <<<<<<<<<<<<<<
  *           n_samples, w, 1, 0, r, 1)
@@ -1682,7 +1704,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_residual(int __pyx_v_n_features, 
  */
   cblas_dgemv(CblasColMajor, CblasNoTrans, __pyx_v_n_samples, __pyx_v_n_features, 1.0, __pyx_v_X, __pyx_v_n_samples, __pyx_v_w, 1, 0.0, __pyx_v_r, 1);
 
-  /* "prox_fast.pyx":123
+  /* "prox_elasticnet/prox_fast.pyx":112
  *     dgemv(CblasColMajor, CblasNoTrans, n_samples, n_features, 1.0, X,
  *           n_samples, w, 1, 0, r, 1)
  *     daxpy(n_samples, -1.0, y, 1, r, 1)             # <<<<<<<<<<<<<<
@@ -1691,12 +1713,12 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_residual(int __pyx_v_n_features, 
  */
   cblas_daxpy(__pyx_v_n_samples, -1.0, __pyx_v_y, 1, __pyx_v_r, 1);
 
-  /* "prox_fast.pyx":117
+  /* "prox_elasticnet/prox_fast.pyx":105
  * 
  * 
  * cdef inline double residual(int n_features, int n_samples, double *X, double *y,             # <<<<<<<<<<<<<<
  *     double *w, double *r) nogil:
- *     """Evaluates the residual at w: r <- X w - y.
+ *     """
  */
 
   /* function exit code */
@@ -1704,17 +1726,17 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_residual(int __pyx_v_n_features, 
   return __pyx_r;
 }
 
-/* "prox_fast.pyx":126
+/* "prox_elasticnet/prox_fast.pyx":115
  * 
  * 
- * cdef inline void grad_sq_loss(int n_features, double *XtX, double *Xty,             # <<<<<<<<<<<<<<
+ * cdef inline void grad_sq_loss_gram(int n_features, double *XtX, double *Xty,             # <<<<<<<<<<<<<<
  *     double *v, double *g) nogil:
- *     """Evaluates the gradient of the square loss function at vector v and
+ *     """
  */
 
-static CYTHON_INLINE void __pyx_f_9prox_fast_grad_sq_loss(int __pyx_v_n_features, double *__pyx_v_XtX, double *__pyx_v_Xty, double *__pyx_v_v, double *__pyx_v_g) {
+static CYTHON_INLINE void __pyx_f_15prox_elasticnet_9prox_fast_grad_sq_loss_gram(int __pyx_v_n_features, double *__pyx_v_XtX, double *__pyx_v_Xty, double *__pyx_v_v, double *__pyx_v_g) {
 
-  /* "prox_fast.pyx":132
+  /* "prox_elasticnet/prox_fast.pyx":122
  *     The calculation performed is: g <- XtX * v - Xty.
  *     """
  *     dgemv(CblasRowMajor, CblasNoTrans, n_features, n_features, 1.0, XtX,             # <<<<<<<<<<<<<<
@@ -1723,7 +1745,7 @@ static CYTHON_INLINE void __pyx_f_9prox_fast_grad_sq_loss(int __pyx_v_n_features
  */
   cblas_dgemv(CblasRowMajor, CblasNoTrans, __pyx_v_n_features, __pyx_v_n_features, 1.0, __pyx_v_XtX, __pyx_v_n_features, __pyx_v_v, 1, 0.0, __pyx_v_g, 1);
 
-  /* "prox_fast.pyx":134
+  /* "prox_elasticnet/prox_fast.pyx":124
  *     dgemv(CblasRowMajor, CblasNoTrans, n_features, n_features, 1.0, XtX,
  *           n_features, v, 1, 0, g, 1)
  *     daxpy(n_features, -1.0, Xty, 1, g, 1)             # <<<<<<<<<<<<<<
@@ -1732,32 +1754,62 @@ static CYTHON_INLINE void __pyx_f_9prox_fast_grad_sq_loss(int __pyx_v_n_features
  */
   cblas_daxpy(__pyx_v_n_features, -1.0, __pyx_v_Xty, 1, __pyx_v_g, 1);
 
-  /* "prox_fast.pyx":126
+  /* "prox_elasticnet/prox_fast.pyx":115
  * 
  * 
- * cdef inline void grad_sq_loss(int n_features, double *XtX, double *Xty,             # <<<<<<<<<<<<<<
+ * cdef inline void grad_sq_loss_gram(int n_features, double *XtX, double *Xty,             # <<<<<<<<<<<<<<
  *     double *v, double *g) nogil:
- *     """Evaluates the gradient of the square loss function at vector v and
+ *     """
  */
 
   /* function exit code */
 }
 
-/* "prox_fast.pyx":137
+/* "prox_elasticnet/prox_fast.pyx":127
  * 
  * 
- * cdef inline void soft_threshold(double thres, int n_features, double *v) nogil:             # <<<<<<<<<<<<<<
- *     """Applys the soft-thresholding operator S_thres to vector v.
+ * cdef inline void grad_sq_loss(int n_samples, int n_features, double *X,             # <<<<<<<<<<<<<<
+ *     double *r, double *g) nogil:
  *     """
  */
 
-static CYTHON_INLINE void __pyx_f_9prox_fast_soft_threshold(double __pyx_v_thres, int __pyx_v_n_features, double *__pyx_v_v) {
+static CYTHON_INLINE void __pyx_f_15prox_elasticnet_9prox_fast_grad_sq_loss(int __pyx_v_n_samples, int __pyx_v_n_features, double *__pyx_v_X, double *__pyx_v_r, double *__pyx_v_g) {
+
+  /* "prox_elasticnet/prox_fast.pyx":134
+ *     The calculation performed is: g <- X^T * r.
+ *     """
+ *     dgemv(CblasColMajor, CblasTrans, n_samples, n_features, 1.0, X,             # <<<<<<<<<<<<<<
+ *           n_samples, r, 1, 0, g, 1)
+ * 
+ */
+  cblas_dgemv(CblasColMajor, CblasTrans, __pyx_v_n_samples, __pyx_v_n_features, 1.0, __pyx_v_X, __pyx_v_n_samples, __pyx_v_r, 1, 0.0, __pyx_v_g, 1);
+
+  /* "prox_elasticnet/prox_fast.pyx":127
+ * 
+ * 
+ * cdef inline void grad_sq_loss(int n_samples, int n_features, double *X,             # <<<<<<<<<<<<<<
+ *     double *r, double *g) nogil:
+ *     """
+ */
+
+  /* function exit code */
+}
+
+/* "prox_elasticnet/prox_fast.pyx":138
+ * 
+ * 
+ * cdef inline void soft_threshold(double thres, int n_features, double *v) nogil:             # <<<<<<<<<<<<<<
+ *     """
+ *     Applys the soft-thresholding operator S_thres to vector v.
+ */
+
+static CYTHON_INLINE void __pyx_f_15prox_elasticnet_9prox_fast_soft_threshold(double __pyx_v_thres, int __pyx_v_n_features, double *__pyx_v_v) {
   int __pyx_v_i;
   int __pyx_t_1;
   int __pyx_t_2;
   int __pyx_t_3;
 
-  /* "prox_fast.pyx":141
+  /* "prox_elasticnet/prox_fast.pyx":143
  *     """
  *     cdef int i
  *     for i in range(0,n_features):             # <<<<<<<<<<<<<<
@@ -1768,7 +1820,7 @@ static CYTHON_INLINE void __pyx_f_9prox_fast_soft_threshold(double __pyx_v_thres
   for (__pyx_t_2 = 0; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
     __pyx_v_i = __pyx_t_2;
 
-    /* "prox_fast.pyx":142
+    /* "prox_elasticnet/prox_fast.pyx":144
  *     cdef int i
  *     for i in range(0,n_features):
  *         if v[i] >= thres:             # <<<<<<<<<<<<<<
@@ -1778,7 +1830,7 @@ static CYTHON_INLINE void __pyx_f_9prox_fast_soft_threshold(double __pyx_v_thres
     __pyx_t_3 = (((__pyx_v_v[__pyx_v_i]) >= __pyx_v_thres) != 0);
     if (__pyx_t_3) {
 
-      /* "prox_fast.pyx":143
+      /* "prox_elasticnet/prox_fast.pyx":145
  *     for i in range(0,n_features):
  *         if v[i] >= thres:
  *             v[i] = v[i] - thres             # <<<<<<<<<<<<<<
@@ -1787,7 +1839,7 @@ static CYTHON_INLINE void __pyx_f_9prox_fast_soft_threshold(double __pyx_v_thres
  */
       (__pyx_v_v[__pyx_v_i]) = ((__pyx_v_v[__pyx_v_i]) - __pyx_v_thres);
 
-      /* "prox_fast.pyx":142
+      /* "prox_elasticnet/prox_fast.pyx":144
  *     cdef int i
  *     for i in range(0,n_features):
  *         if v[i] >= thres:             # <<<<<<<<<<<<<<
@@ -1797,7 +1849,7 @@ static CYTHON_INLINE void __pyx_f_9prox_fast_soft_threshold(double __pyx_v_thres
       goto __pyx_L5;
     }
 
-    /* "prox_fast.pyx":144
+    /* "prox_elasticnet/prox_fast.pyx":146
  *         if v[i] >= thres:
  *             v[i] = v[i] - thres
  *         elif v[i] <= -thres:             # <<<<<<<<<<<<<<
@@ -1807,7 +1859,7 @@ static CYTHON_INLINE void __pyx_f_9prox_fast_soft_threshold(double __pyx_v_thres
     __pyx_t_3 = (((__pyx_v_v[__pyx_v_i]) <= (-__pyx_v_thres)) != 0);
     if (__pyx_t_3) {
 
-      /* "prox_fast.pyx":145
+      /* "prox_elasticnet/prox_fast.pyx":147
  *             v[i] = v[i] - thres
  *         elif v[i] <= -thres:
  *             v[i] = v[i] + thres             # <<<<<<<<<<<<<<
@@ -1816,7 +1868,7 @@ static CYTHON_INLINE void __pyx_f_9prox_fast_soft_threshold(double __pyx_v_thres
  */
       (__pyx_v_v[__pyx_v_i]) = ((__pyx_v_v[__pyx_v_i]) + __pyx_v_thres);
 
-      /* "prox_fast.pyx":144
+      /* "prox_elasticnet/prox_fast.pyx":146
  *         if v[i] >= thres:
  *             v[i] = v[i] - thres
  *         elif v[i] <= -thres:             # <<<<<<<<<<<<<<
@@ -1826,7 +1878,7 @@ static CYTHON_INLINE void __pyx_f_9prox_fast_soft_threshold(double __pyx_v_thres
       goto __pyx_L5;
     }
 
-    /* "prox_fast.pyx":147
+    /* "prox_elasticnet/prox_fast.pyx":149
  *             v[i] = v[i] + thres
  *         else:
  *             v[i] = 0             # <<<<<<<<<<<<<<
@@ -1839,26 +1891,26 @@ static CYTHON_INLINE void __pyx_f_9prox_fast_soft_threshold(double __pyx_v_thres
     __pyx_L5:;
   }
 
-  /* "prox_fast.pyx":137
+  /* "prox_elasticnet/prox_fast.pyx":138
  * 
  * 
  * cdef inline void soft_threshold(double thres, int n_features, double *v) nogil:             # <<<<<<<<<<<<<<
- *     """Applys the soft-thresholding operator S_thres to vector v.
  *     """
+ *     Applys the soft-thresholding operator S_thres to vector v.
  */
 
   /* function exit code */
 }
 
-/* "prox_fast.pyx":150
+/* "prox_elasticnet/prox_fast.pyx":152
  * 
  * 
- * cdef inline double sufficient_decrease(int n_features, int n_samples, double *X,             # <<<<<<<<<<<<<<
+ * cdef inline double suff_decrease(int n_features, int n_samples, double *X,             # <<<<<<<<<<<<<<
  *     double* v, double* w, double sigma) nogil:
- *     """ Evaluates the decrease in the objective at w compared to the quadratic
+ *     """
  */
 
-static CYTHON_INLINE double __pyx_f_9prox_fast_sufficient_decrease(int __pyx_v_n_features, int __pyx_v_n_samples, double *__pyx_v_X, double *__pyx_v_v, double *__pyx_v_w, double __pyx_v_sigma) {
+static CYTHON_INLINE double __pyx_f_15prox_elasticnet_9prox_fast_suff_decrease(int __pyx_v_n_features, int __pyx_v_n_samples, double *__pyx_v_X, double *__pyx_v_v, double *__pyx_v_w, double __pyx_v_sigma) {
   double __pyx_v_term1;
   double __pyx_v_term2;
   double *__pyx_v_wvdiff;
@@ -1873,18 +1925,18 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_sufficient_decrease(int __pyx_v_n
   #ifdef WITH_THREAD
   PyGILState_STATE __pyx_gilstate_save;
   #endif
-  __Pyx_RefNannySetupContext("sufficient_decrease", 1);
+  __Pyx_RefNannySetupContext("suff_decrease", 1);
 
-  /* "prox_fast.pyx":152
- * cdef inline double sufficient_decrease(int n_features, int n_samples, double *X,
+  /* "prox_elasticnet/prox_fast.pyx":154
+ * cdef inline double suff_decrease(int n_features, int n_samples, double *X,
  *     double* v, double* w, double sigma) nogil:
- *     """ Evaluates the decrease in the objective at w compared to the quadratic             # <<<<<<<<<<<<<<
+ *     """             # <<<<<<<<<<<<<<
+ *     Evaluates the decrease in the objective at w compared to the quadratic
  *     approximation of the objective at w centred on v.
- *     where   Term 1 = (1/2) * norm(w - v, 2)^2 / sigma
  */
   /*try:*/ {
 
-    /* "prox_fast.pyx":160
+    /* "prox_elasticnet/prox_fast.pyx":163
  * 
  *     # Allocate memory to store w - v
  *     cdef double *wvdiff = <double *> malloc(n_features * sizeof(double))             # <<<<<<<<<<<<<<
@@ -1893,7 +1945,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_sufficient_decrease(int __pyx_v_n
  */
     __pyx_v_wvdiff = ((double *)malloc((__pyx_v_n_features * (sizeof(double)))));
 
-    /* "prox_fast.pyx":161
+    /* "prox_elasticnet/prox_fast.pyx":164
  *     # Allocate memory to store w - v
  *     cdef double *wvdiff = <double *> malloc(n_features * sizeof(double))
  *     if not wvdiff:             # <<<<<<<<<<<<<<
@@ -1903,7 +1955,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_sufficient_decrease(int __pyx_v_n
     __pyx_t_1 = ((!(__pyx_v_wvdiff != 0)) != 0);
     if (__pyx_t_1) {
 
-      /* "prox_fast.pyx":162
+      /* "prox_elasticnet/prox_fast.pyx":165
  *     cdef double *wvdiff = <double *> malloc(n_features * sizeof(double))
  *     if not wvdiff:
  *         with gil:             # <<<<<<<<<<<<<<
@@ -1916,17 +1968,17 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_sufficient_decrease(int __pyx_v_n
           #endif
           /*try:*/ {
 
-            /* "prox_fast.pyx":163
+            /* "prox_elasticnet/prox_fast.pyx":166
  *     if not wvdiff:
  *         with gil:
  *             raise MemoryError()             # <<<<<<<<<<<<<<
  * 
  *     # diff <- w - v
  */
-            PyErr_NoMemory(); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 163; __pyx_clineno = __LINE__; goto __pyx_L8_error;}
+            PyErr_NoMemory(); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 166; __pyx_clineno = __LINE__; goto __pyx_L8_error;}
           }
 
-          /* "prox_fast.pyx":162
+          /* "prox_elasticnet/prox_fast.pyx":165
  *     cdef double *wvdiff = <double *> malloc(n_features * sizeof(double))
  *     if not wvdiff:
  *         with gil:             # <<<<<<<<<<<<<<
@@ -1943,7 +1995,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_sufficient_decrease(int __pyx_v_n
           }
       }
 
-      /* "prox_fast.pyx":161
+      /* "prox_elasticnet/prox_fast.pyx":164
  *     # Allocate memory to store w - v
  *     cdef double *wvdiff = <double *> malloc(n_features * sizeof(double))
  *     if not wvdiff:             # <<<<<<<<<<<<<<
@@ -1952,7 +2004,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_sufficient_decrease(int __pyx_v_n
  */
     }
 
-    /* "prox_fast.pyx":166
+    /* "prox_elasticnet/prox_fast.pyx":169
  * 
  *     # diff <- w - v
  *     dcopy(n_features, w, 1, wvdiff, 1)             # <<<<<<<<<<<<<<
@@ -1961,7 +2013,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_sufficient_decrease(int __pyx_v_n
  */
     cblas_dcopy(__pyx_v_n_features, __pyx_v_w, 1, __pyx_v_wvdiff, 1);
 
-    /* "prox_fast.pyx":167
+    /* "prox_elasticnet/prox_fast.pyx":170
  *     # diff <- w - v
  *     dcopy(n_features, w, 1, wvdiff, 1)
  *     daxpy(n_features, -1.0, v, 1, wvdiff, 1)             # <<<<<<<<<<<<<<
@@ -1970,7 +2022,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_sufficient_decrease(int __pyx_v_n
  */
     cblas_daxpy(__pyx_v_n_features, -1.0, __pyx_v_v, 1, __pyx_v_wvdiff, 1);
 
-    /* "prox_fast.pyx":170
+    /* "prox_elasticnet/prox_fast.pyx":173
  * 
  *     # term1 <- (1/2) * norm(w - v, 2)^2 / sigma
  *     term1 = 0.5 * ddot(n_features, wvdiff, 1, wvdiff, 1) / sigma             # <<<<<<<<<<<<<<
@@ -1986,11 +2038,11 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_sufficient_decrease(int __pyx_v_n
       #ifdef WITH_THREAD
       PyGILState_Release(__pyx_gilstate_save);
       #endif
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 170; __pyx_clineno = __LINE__; goto __pyx_L4_error;}
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L4_error;}
     }
     __pyx_v_term1 = (__pyx_t_2 / __pyx_v_sigma);
 
-    /* "prox_fast.pyx":173
+    /* "prox_elasticnet/prox_fast.pyx":176
  * 
  *     # Allocate memory to store X(w - v)
  *     cdef double *diff = <double *> malloc(n_samples * sizeof(double))             # <<<<<<<<<<<<<<
@@ -1999,7 +2051,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_sufficient_decrease(int __pyx_v_n
  */
     __pyx_v_diff = ((double *)malloc((__pyx_v_n_samples * (sizeof(double)))));
 
-    /* "prox_fast.pyx":174
+    /* "prox_elasticnet/prox_fast.pyx":177
  *     # Allocate memory to store X(w - v)
  *     cdef double *diff = <double *> malloc(n_samples * sizeof(double))
  *     if not diff:             # <<<<<<<<<<<<<<
@@ -2009,7 +2061,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_sufficient_decrease(int __pyx_v_n
     __pyx_t_1 = ((!(__pyx_v_diff != 0)) != 0);
     if (__pyx_t_1) {
 
-      /* "prox_fast.pyx":175
+      /* "prox_elasticnet/prox_fast.pyx":178
  *     cdef double *diff = <double *> malloc(n_samples * sizeof(double))
  *     if not diff:
  *         with gil:             # <<<<<<<<<<<<<<
@@ -2022,17 +2074,17 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_sufficient_decrease(int __pyx_v_n
           #endif
           /*try:*/ {
 
-            /* "prox_fast.pyx":176
+            /* "prox_elasticnet/prox_fast.pyx":179
  *     if not diff:
  *         with gil:
  *             raise MemoryError()             # <<<<<<<<<<<<<<
  * 
  *     # diff <- X * wvdiff
  */
-            PyErr_NoMemory(); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 176; __pyx_clineno = __LINE__; goto __pyx_L12_error;}
+            PyErr_NoMemory(); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 179; __pyx_clineno = __LINE__; goto __pyx_L12_error;}
           }
 
-          /* "prox_fast.pyx":175
+          /* "prox_elasticnet/prox_fast.pyx":178
  *     cdef double *diff = <double *> malloc(n_samples * sizeof(double))
  *     if not diff:
  *         with gil:             # <<<<<<<<<<<<<<
@@ -2049,7 +2101,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_sufficient_decrease(int __pyx_v_n
           }
       }
 
-      /* "prox_fast.pyx":174
+      /* "prox_elasticnet/prox_fast.pyx":177
  *     # Allocate memory to store X(w - v)
  *     cdef double *diff = <double *> malloc(n_samples * sizeof(double))
  *     if not diff:             # <<<<<<<<<<<<<<
@@ -2058,7 +2110,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_sufficient_decrease(int __pyx_v_n
  */
     }
 
-    /* "prox_fast.pyx":179
+    /* "prox_elasticnet/prox_fast.pyx":182
  * 
  *     # diff <- X * wvdiff
  *     dgemv(CblasColMajor, CblasNoTrans, n_samples, n_features, 1.0, X,             # <<<<<<<<<<<<<<
@@ -2067,7 +2119,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_sufficient_decrease(int __pyx_v_n
  */
     cblas_dgemv(CblasColMajor, CblasNoTrans, __pyx_v_n_samples, __pyx_v_n_features, 1.0, __pyx_v_X, __pyx_v_n_samples, __pyx_v_wvdiff, 1, 0.0, __pyx_v_diff, 1);
 
-    /* "prox_fast.pyx":182
+    /* "prox_elasticnet/prox_fast.pyx":185
  *           n_samples, wvdiff, 1, 0, diff, 1)
  * 
  *     free(wvdiff)             # <<<<<<<<<<<<<<
@@ -2076,7 +2128,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_sufficient_decrease(int __pyx_v_n
  */
     free(__pyx_v_wvdiff);
 
-    /* "prox_fast.pyx":185
+    /* "prox_elasticnet/prox_fast.pyx":188
  * 
  *     # term2 <- - (1/2) * norm(X * (w - v), 2)^2
  *     term2 = - 0.5 * ddot(n_samples, diff, 1, diff, 1)             # <<<<<<<<<<<<<<
@@ -2085,7 +2137,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_sufficient_decrease(int __pyx_v_n
  */
     __pyx_v_term2 = (-0.5 * cblas_ddot(__pyx_v_n_samples, __pyx_v_diff, 1, __pyx_v_diff, 1));
 
-    /* "prox_fast.pyx":187
+    /* "prox_elasticnet/prox_fast.pyx":190
  *     term2 = - 0.5 * ddot(n_samples, diff, 1, diff, 1)
  * 
  *     free(diff)             # <<<<<<<<<<<<<<
@@ -2094,7 +2146,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_sufficient_decrease(int __pyx_v_n
  */
     free(__pyx_v_diff);
 
-    /* "prox_fast.pyx":189
+    /* "prox_elasticnet/prox_fast.pyx":192
  *     free(diff)
  * 
  *     return term1 + term2             # <<<<<<<<<<<<<<
@@ -2105,12 +2157,12 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_sufficient_decrease(int __pyx_v_n
     goto __pyx_L3_return;
   }
 
-  /* "prox_fast.pyx":152
- * cdef inline double sufficient_decrease(int n_features, int n_samples, double *X,
+  /* "prox_elasticnet/prox_fast.pyx":154
+ * cdef inline double suff_decrease(int n_features, int n_samples, double *X,
  *     double* v, double* w, double sigma) nogil:
- *     """ Evaluates the decrease in the objective at w compared to the quadratic             # <<<<<<<<<<<<<<
+ *     """             # <<<<<<<<<<<<<<
+ *     Evaluates the decrease in the objective at w compared to the quadratic
  *     approximation of the objective at w centred on v.
- *     where   Term 1 = (1/2) * norm(w - v, 2)^2 / sigma
  */
   /*finally:*/ {
     __pyx_L3_return: {
@@ -2127,19 +2179,19 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_sufficient_decrease(int __pyx_v_n
     }
   }
 
-  /* "prox_fast.pyx":150
+  /* "prox_elasticnet/prox_fast.pyx":152
  * 
  * 
- * cdef inline double sufficient_decrease(int n_features, int n_samples, double *X,             # <<<<<<<<<<<<<<
+ * cdef inline double suff_decrease(int n_features, int n_samples, double *X,             # <<<<<<<<<<<<<<
  *     double* v, double* w, double sigma) nogil:
- *     """ Evaluates the decrease in the objective at w compared to the quadratic
+ *     """
  */
 
   /* function exit code */
   __pyx_r = 0;
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_WriteUnraisable("prox_fast.sufficient_decrease", __pyx_clineno, __pyx_lineno, __pyx_filename, 0, 1);
+  __Pyx_WriteUnraisable("prox_elasticnet.prox_fast.suff_decrease", __pyx_clineno, __pyx_lineno, __pyx_filename, 0, 1);
   __pyx_r = 0;
   __pyx_L0:;
   #ifdef WITH_THREAD
@@ -2148,15 +2200,342 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_sufficient_decrease(int __pyx_v_n
   return __pyx_r;
 }
 
-/* "prox_fast.pyx":192
+/* "prox_elasticnet/prox_fast.pyx":195
  * 
  * 
- * cdef inline double duality_gap(int n_features, int n_samples, double *X,             # <<<<<<<<<<<<<<
+ * cdef inline double suff_decrease_gram(int n_features, double *XtX,             # <<<<<<<<<<<<<<
+ *     double* v, double* w, double sigma) nogil:
+ *     """
+ */
+
+static CYTHON_INLINE double __pyx_f_15prox_elasticnet_9prox_fast_suff_decrease_gram(int __pyx_v_n_features, double *__pyx_v_XtX, double *__pyx_v_v, double *__pyx_v_w, double __pyx_v_sigma) {
+  double __pyx_v_term1;
+  double __pyx_v_term2;
+  double *__pyx_v_wvdiff;
+  double *__pyx_v_H;
+  double __pyx_v_term3;
+  double __pyx_v_term4;
+  double __pyx_r;
+  __Pyx_RefNannyDeclarations
+  int __pyx_t_1;
+  double __pyx_t_2;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  #ifdef WITH_THREAD
+  PyGILState_STATE __pyx_gilstate_save;
+  #endif
+  __Pyx_RefNannySetupContext("suff_decrease_gram", 1);
+
+  /* "prox_elasticnet/prox_fast.pyx":197
+ * cdef inline double suff_decrease_gram(int n_features, double *XtX,
+ *     double* v, double* w, double sigma) nogil:
+ *     """             # <<<<<<<<<<<<<<
+ *     Evaluates the decrease in the objective at w compared to the quadratic
+ *     approximation of the objective at w centred on v.
+ */
+  /*try:*/ {
+
+    /* "prox_elasticnet/prox_fast.pyx":208
+ * 
+ *     # Allocate memory to store w - v
+ *     cdef double *wvdiff = <double *> malloc(n_features * sizeof(double))             # <<<<<<<<<<<<<<
+ *     if not wvdiff:
+ *         with gil:
+ */
+    __pyx_v_wvdiff = ((double *)malloc((__pyx_v_n_features * (sizeof(double)))));
+
+    /* "prox_elasticnet/prox_fast.pyx":209
+ *     # Allocate memory to store w - v
+ *     cdef double *wvdiff = <double *> malloc(n_features * sizeof(double))
+ *     if not wvdiff:             # <<<<<<<<<<<<<<
+ *         with gil:
+ *             raise MemoryError()
+ */
+    __pyx_t_1 = ((!(__pyx_v_wvdiff != 0)) != 0);
+    if (__pyx_t_1) {
+
+      /* "prox_elasticnet/prox_fast.pyx":210
+ *     cdef double *wvdiff = <double *> malloc(n_features * sizeof(double))
+ *     if not wvdiff:
+ *         with gil:             # <<<<<<<<<<<<<<
+ *             raise MemoryError()
+ * 
+ */
+      {
+          #ifdef WITH_THREAD
+          PyGILState_STATE __pyx_gilstate_save = PyGILState_Ensure();
+          #endif
+          /*try:*/ {
+
+            /* "prox_elasticnet/prox_fast.pyx":211
+ *     if not wvdiff:
+ *         with gil:
+ *             raise MemoryError()             # <<<<<<<<<<<<<<
+ * 
+ *     # diff <- w - v
+ */
+            PyErr_NoMemory(); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 211; __pyx_clineno = __LINE__; goto __pyx_L8_error;}
+          }
+
+          /* "prox_elasticnet/prox_fast.pyx":210
+ *     cdef double *wvdiff = <double *> malloc(n_features * sizeof(double))
+ *     if not wvdiff:
+ *         with gil:             # <<<<<<<<<<<<<<
+ *             raise MemoryError()
+ * 
+ */
+          /*finally:*/ {
+            __pyx_L8_error: {
+              #ifdef WITH_THREAD
+              PyGILState_Release(__pyx_gilstate_save);
+              #endif
+              goto __pyx_L4_error;
+            }
+          }
+      }
+
+      /* "prox_elasticnet/prox_fast.pyx":209
+ *     # Allocate memory to store w - v
+ *     cdef double *wvdiff = <double *> malloc(n_features * sizeof(double))
+ *     if not wvdiff:             # <<<<<<<<<<<<<<
+ *         with gil:
+ *             raise MemoryError()
+ */
+    }
+
+    /* "prox_elasticnet/prox_fast.pyx":214
+ * 
+ *     # diff <- w - v
+ *     dcopy(n_features, w, 1, wvdiff, 1)             # <<<<<<<<<<<<<<
+ *     daxpy(n_features, -1.0, v, 1, wvdiff, 1)
+ * 
+ */
+    cblas_dcopy(__pyx_v_n_features, __pyx_v_w, 1, __pyx_v_wvdiff, 1);
+
+    /* "prox_elasticnet/prox_fast.pyx":215
+ *     # diff <- w - v
+ *     dcopy(n_features, w, 1, wvdiff, 1)
+ *     daxpy(n_features, -1.0, v, 1, wvdiff, 1)             # <<<<<<<<<<<<<<
+ * 
+ *     # term1 <- (1/2) * norm(w - v, 2)^2 / sigma
+ */
+    cblas_daxpy(__pyx_v_n_features, -1.0, __pyx_v_v, 1, __pyx_v_wvdiff, 1);
+
+    /* "prox_elasticnet/prox_fast.pyx":218
+ * 
+ *     # term1 <- (1/2) * norm(w - v, 2)^2 / sigma
+ *     term1 = 0.5 * ddot(n_features, wvdiff, 1, wvdiff, 1) / sigma             # <<<<<<<<<<<<<<
+ * 
+ *     free(wvdiff)
+ */
+    __pyx_t_2 = (0.5 * cblas_ddot(__pyx_v_n_features, __pyx_v_wvdiff, 1, __pyx_v_wvdiff, 1));
+    if (unlikely(__pyx_v_sigma == 0)) {
+      #ifdef WITH_THREAD
+      PyGILState_STATE __pyx_gilstate_save = PyGILState_Ensure();
+      #endif
+      PyErr_SetString(PyExc_ZeroDivisionError, "float division");
+      #ifdef WITH_THREAD
+      PyGILState_Release(__pyx_gilstate_save);
+      #endif
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 218; __pyx_clineno = __LINE__; goto __pyx_L4_error;}
+    }
+    __pyx_v_term1 = (__pyx_t_2 / __pyx_v_sigma);
+
+    /* "prox_elasticnet/prox_fast.pyx":220
+ *     term1 = 0.5 * ddot(n_features, wvdiff, 1, wvdiff, 1) / sigma
+ * 
+ *     free(wvdiff)             # <<<<<<<<<<<<<<
+ * 
+ *     # Allocate memory to store H = XtX * w (and then XtX * v)
+ */
+    free(__pyx_v_wvdiff);
+
+    /* "prox_elasticnet/prox_fast.pyx":223
+ * 
+ *     # Allocate memory to store H = XtX * w (and then XtX * v)
+ *     cdef double *H = <double *> malloc(n_features * sizeof(double))             # <<<<<<<<<<<<<<
+ *     if not H:
+ *         with gil:
+ */
+    __pyx_v_H = ((double *)malloc((__pyx_v_n_features * (sizeof(double)))));
+
+    /* "prox_elasticnet/prox_fast.pyx":224
+ *     # Allocate memory to store H = XtX * w (and then XtX * v)
+ *     cdef double *H = <double *> malloc(n_features * sizeof(double))
+ *     if not H:             # <<<<<<<<<<<<<<
+ *         with gil:
+ *             raise MemoryError()
+ */
+    __pyx_t_1 = ((!(__pyx_v_H != 0)) != 0);
+    if (__pyx_t_1) {
+
+      /* "prox_elasticnet/prox_fast.pyx":225
+ *     cdef double *H = <double *> malloc(n_features * sizeof(double))
+ *     if not H:
+ *         with gil:             # <<<<<<<<<<<<<<
+ *             raise MemoryError()
+ * 
+ */
+      {
+          #ifdef WITH_THREAD
+          PyGILState_STATE __pyx_gilstate_save = PyGILState_Ensure();
+          #endif
+          /*try:*/ {
+
+            /* "prox_elasticnet/prox_fast.pyx":226
+ *     if not H:
+ *         with gil:
+ *             raise MemoryError()             # <<<<<<<<<<<<<<
+ * 
+ *     # H <- XtX w
+ */
+            PyErr_NoMemory(); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 226; __pyx_clineno = __LINE__; goto __pyx_L12_error;}
+          }
+
+          /* "prox_elasticnet/prox_fast.pyx":225
+ *     cdef double *H = <double *> malloc(n_features * sizeof(double))
+ *     if not H:
+ *         with gil:             # <<<<<<<<<<<<<<
+ *             raise MemoryError()
+ * 
+ */
+          /*finally:*/ {
+            __pyx_L12_error: {
+              #ifdef WITH_THREAD
+              PyGILState_Release(__pyx_gilstate_save);
+              #endif
+              goto __pyx_L4_error;
+            }
+          }
+      }
+
+      /* "prox_elasticnet/prox_fast.pyx":224
+ *     # Allocate memory to store H = XtX * w (and then XtX * v)
+ *     cdef double *H = <double *> malloc(n_features * sizeof(double))
+ *     if not H:             # <<<<<<<<<<<<<<
+ *         with gil:
+ *             raise MemoryError()
+ */
+    }
+
+    /* "prox_elasticnet/prox_fast.pyx":229
+ * 
+ *     # H <- XtX w
+ *     dgemv(CblasRowMajor, CblasNoTrans, n_features, n_features, 1.0, XtX,             # <<<<<<<<<<<<<<
+ *           n_features, w, 1, 0, H, 1)
+ *     term2 = -0.5 * ddot(n_features, w, 1, H, 1)
+ */
+    cblas_dgemv(CblasRowMajor, CblasNoTrans, __pyx_v_n_features, __pyx_v_n_features, 1.0, __pyx_v_XtX, __pyx_v_n_features, __pyx_v_w, 1, 0.0, __pyx_v_H, 1);
+
+    /* "prox_elasticnet/prox_fast.pyx":231
+ *     dgemv(CblasRowMajor, CblasNoTrans, n_features, n_features, 1.0, XtX,
+ *           n_features, w, 1, 0, H, 1)
+ *     term2 = -0.5 * ddot(n_features, w, 1, H, 1)             # <<<<<<<<<<<<<<
+ * 
+ *     # H <- XtX v
+ */
+    __pyx_v_term2 = (-0.5 * cblas_ddot(__pyx_v_n_features, __pyx_v_w, 1, __pyx_v_H, 1));
+
+    /* "prox_elasticnet/prox_fast.pyx":234
+ * 
+ *     # H <- XtX v
+ *     dgemv(CblasRowMajor, CblasNoTrans, n_features, n_features, 1.0, XtX,             # <<<<<<<<<<<<<<
+ *           n_features, v, 1, 0, H, 1)
+ *     term3 = -0.5 * ddot(n_features, v, 1, H, 1)
+ */
+    cblas_dgemv(CblasRowMajor, CblasNoTrans, __pyx_v_n_features, __pyx_v_n_features, 1.0, __pyx_v_XtX, __pyx_v_n_features, __pyx_v_v, 1, 0.0, __pyx_v_H, 1);
+
+    /* "prox_elasticnet/prox_fast.pyx":236
+ *     dgemv(CblasRowMajor, CblasNoTrans, n_features, n_features, 1.0, XtX,
+ *           n_features, v, 1, 0, H, 1)
+ *     term3 = -0.5 * ddot(n_features, v, 1, H, 1)             # <<<<<<<<<<<<<<
+ *     term4 = ddot(n_features, w, 1, H, 1)
+ * 
+ */
+    __pyx_v_term3 = (-0.5 * cblas_ddot(__pyx_v_n_features, __pyx_v_v, 1, __pyx_v_H, 1));
+
+    /* "prox_elasticnet/prox_fast.pyx":237
+ *           n_features, v, 1, 0, H, 1)
+ *     term3 = -0.5 * ddot(n_features, v, 1, H, 1)
+ *     term4 = ddot(n_features, w, 1, H, 1)             # <<<<<<<<<<<<<<
+ * 
+ *     free(H)
+ */
+    __pyx_v_term4 = cblas_ddot(__pyx_v_n_features, __pyx_v_w, 1, __pyx_v_H, 1);
+
+    /* "prox_elasticnet/prox_fast.pyx":239
+ *     term4 = ddot(n_features, w, 1, H, 1)
+ * 
+ *     free(H)             # <<<<<<<<<<<<<<
+ * 
+ *     return term1 + term2 + term3 + term4
+ */
+    free(__pyx_v_H);
+
+    /* "prox_elasticnet/prox_fast.pyx":241
+ *     free(H)
+ * 
+ *     return term1 + term2 + term3 + term4             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+    __pyx_r = (((__pyx_v_term1 + __pyx_v_term2) + __pyx_v_term3) + __pyx_v_term4);
+    goto __pyx_L3_return;
+  }
+
+  /* "prox_elasticnet/prox_fast.pyx":197
+ * cdef inline double suff_decrease_gram(int n_features, double *XtX,
+ *     double* v, double* w, double sigma) nogil:
+ *     """             # <<<<<<<<<<<<<<
+ *     Evaluates the decrease in the objective at w compared to the quadratic
+ *     approximation of the objective at w centred on v.
+ */
+  /*finally:*/ {
+    __pyx_L3_return: {
+      #ifdef WITH_THREAD
+      __pyx_gilstate_save = PyGILState_Ensure();
+      #endif
+      goto __pyx_L0;
+    }
+    __pyx_L4_error: {
+      #ifdef WITH_THREAD
+      __pyx_gilstate_save = PyGILState_Ensure();
+      #endif
+      goto __pyx_L1_error;
+    }
+  }
+
+  /* "prox_elasticnet/prox_fast.pyx":195
+ * 
+ * 
+ * cdef inline double suff_decrease_gram(int n_features, double *XtX,             # <<<<<<<<<<<<<<
+ *     double* v, double* w, double sigma) nogil:
+ *     """
+ */
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_WriteUnraisable("prox_elasticnet.prox_fast.suff_decrease_gram", __pyx_clineno, __pyx_lineno, __pyx_filename, 0, 1);
+  __pyx_r = 0;
+  __pyx_L0:;
+  #ifdef WITH_THREAD
+  PyGILState_Release(__pyx_gilstate_save);
+  #endif
+  return __pyx_r;
+}
+
+/* "prox_elasticnet/prox_fast.pyx":244
+ * 
+ * 
+ * cdef inline double dual_gap(int n_features, int n_samples, double *X,             # <<<<<<<<<<<<<<
  *     double *y, double *w, double alpha, double beta) nogil:
  *     """
  */
 
-static CYTHON_INLINE double __pyx_f_9prox_fast_duality_gap(int __pyx_v_n_features, int __pyx_v_n_samples, double *__pyx_v_X, double *__pyx_v_y, double *__pyx_v_w, double __pyx_v_alpha, double __pyx_v_beta) {
+static CYTHON_INLINE double __pyx_f_15prox_elasticnet_9prox_fast_dual_gap(int __pyx_v_n_features, int __pyx_v_n_samples, double *__pyx_v_X, double *__pyx_v_y, double *__pyx_v_w, double __pyx_v_alpha, double __pyx_v_beta) {
   double __pyx_v_z_infnorm;
   double __pyx_v_mu;
   double __pyx_v_w_norm1;
@@ -2173,10 +2552,10 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_duality_gap(int __pyx_v_n_feature
   #ifdef WITH_THREAD
   PyGILState_STATE __pyx_gilstate_save;
   #endif
-  __Pyx_RefNannySetupContext("duality_gap", 1);
+  __Pyx_RefNannySetupContext("dual_gap", 1);
 
-  /* "prox_fast.pyx":194
- * cdef inline double duality_gap(int n_features, int n_samples, double *X,
+  /* "prox_elasticnet/prox_fast.pyx":246
+ * cdef inline double dual_gap(int n_features, int n_samples, double *X,
  *     double *y, double *w, double alpha, double beta) nogil:
  *     """             # <<<<<<<<<<<<<<
  *     Evaluates the duality gap
@@ -2184,7 +2563,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_duality_gap(int __pyx_v_n_feature
  */
   /*try:*/ {
 
-    /* "prox_fast.pyx":200
+    /* "prox_elasticnet/prox_fast.pyx":251
  *     cdef double z_infnorm
  *     cdef double mu
  *     cdef double w_norm1 = dasum(n_features, w, 1)             # <<<<<<<<<<<<<<
@@ -2193,7 +2572,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_duality_gap(int __pyx_v_n_feature
  */
     __pyx_v_w_norm1 = cblas_dasum(__pyx_v_n_features, __pyx_v_w, 1);
 
-    /* "prox_fast.pyx":201
+    /* "prox_elasticnet/prox_fast.pyx":252
  *     cdef double mu
  *     cdef double w_norm1 = dasum(n_features, w, 1)
  *     cdef double w_sq = ddot(n_features, w, 1, w, 1)             # <<<<<<<<<<<<<<
@@ -2202,7 +2581,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_duality_gap(int __pyx_v_n_feature
  */
     __pyx_v_w_sq = cblas_ddot(__pyx_v_n_features, __pyx_v_w, 1, __pyx_v_w, 1);
 
-    /* "prox_fast.pyx":204
+    /* "prox_elasticnet/prox_fast.pyx":255
  * 
  *     # evaluate residual(w)
  *     cdef double *rw = <double *> malloc(n_samples * sizeof(double))             # <<<<<<<<<<<<<<
@@ -2211,7 +2590,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_duality_gap(int __pyx_v_n_feature
  */
     __pyx_v_rw = ((double *)malloc((__pyx_v_n_samples * (sizeof(double)))));
 
-    /* "prox_fast.pyx":205
+    /* "prox_elasticnet/prox_fast.pyx":256
  *     # evaluate residual(w)
  *     cdef double *rw = <double *> malloc(n_samples * sizeof(double))
  *     if not rw:             # <<<<<<<<<<<<<<
@@ -2221,7 +2600,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_duality_gap(int __pyx_v_n_feature
     __pyx_t_1 = ((!(__pyx_v_rw != 0)) != 0);
     if (__pyx_t_1) {
 
-      /* "prox_fast.pyx":206
+      /* "prox_elasticnet/prox_fast.pyx":257
  *     cdef double *rw = <double *> malloc(n_samples * sizeof(double))
  *     if not rw:
  *         with gil:             # <<<<<<<<<<<<<<
@@ -2234,17 +2613,17 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_duality_gap(int __pyx_v_n_feature
           #endif
           /*try:*/ {
 
-            /* "prox_fast.pyx":207
+            /* "prox_elasticnet/prox_fast.pyx":258
  *     if not rw:
  *         with gil:
  *             raise MemoryError()             # <<<<<<<<<<<<<<
  *     residual(n_features, n_samples, X, y, w, rw)
  * 
  */
-            PyErr_NoMemory(); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 207; __pyx_clineno = __LINE__; goto __pyx_L8_error;}
+            PyErr_NoMemory(); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 258; __pyx_clineno = __LINE__; goto __pyx_L8_error;}
           }
 
-          /* "prox_fast.pyx":206
+          /* "prox_elasticnet/prox_fast.pyx":257
  *     cdef double *rw = <double *> malloc(n_samples * sizeof(double))
  *     if not rw:
  *         with gil:             # <<<<<<<<<<<<<<
@@ -2261,7 +2640,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_duality_gap(int __pyx_v_n_feature
           }
       }
 
-      /* "prox_fast.pyx":205
+      /* "prox_elasticnet/prox_fast.pyx":256
  *     # evaluate residual(w)
  *     cdef double *rw = <double *> malloc(n_samples * sizeof(double))
  *     if not rw:             # <<<<<<<<<<<<<<
@@ -2270,16 +2649,16 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_duality_gap(int __pyx_v_n_feature
  */
     }
 
-    /* "prox_fast.pyx":208
+    /* "prox_elasticnet/prox_fast.pyx":259
  *         with gil:
  *             raise MemoryError()
  *     residual(n_features, n_samples, X, y, w, rw)             # <<<<<<<<<<<<<<
  * 
  *     cdef double *z = <double *> malloc(n_features * sizeof(double))
  */
-    __pyx_f_9prox_fast_residual(__pyx_v_n_features, __pyx_v_n_samples, __pyx_v_X, __pyx_v_y, __pyx_v_w, __pyx_v_rw);
+    __pyx_f_15prox_elasticnet_9prox_fast_residual(__pyx_v_n_features, __pyx_v_n_samples, __pyx_v_X, __pyx_v_y, __pyx_v_w, __pyx_v_rw);
 
-    /* "prox_fast.pyx":210
+    /* "prox_elasticnet/prox_fast.pyx":261
  *     residual(n_features, n_samples, X, y, w, rw)
  * 
  *     cdef double *z = <double *> malloc(n_features * sizeof(double))             # <<<<<<<<<<<<<<
@@ -2288,7 +2667,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_duality_gap(int __pyx_v_n_feature
  */
     __pyx_v_z = ((double *)malloc((__pyx_v_n_features * (sizeof(double)))));
 
-    /* "prox_fast.pyx":211
+    /* "prox_elasticnet/prox_fast.pyx":262
  * 
  *     cdef double *z = <double *> malloc(n_features * sizeof(double))
  *     if not z:             # <<<<<<<<<<<<<<
@@ -2298,7 +2677,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_duality_gap(int __pyx_v_n_feature
     __pyx_t_1 = ((!(__pyx_v_z != 0)) != 0);
     if (__pyx_t_1) {
 
-      /* "prox_fast.pyx":212
+      /* "prox_elasticnet/prox_fast.pyx":263
  *     cdef double *z = <double *> malloc(n_features * sizeof(double))
  *     if not z:
  *         with gil:             # <<<<<<<<<<<<<<
@@ -2311,17 +2690,17 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_duality_gap(int __pyx_v_n_feature
           #endif
           /*try:*/ {
 
-            /* "prox_fast.pyx":213
+            /* "prox_elasticnet/prox_fast.pyx":264
  *     if not z:
  *         with gil:
  *             raise MemoryError()             # <<<<<<<<<<<<<<
  * 
  *     # z <- X^T * rw + beta * w
  */
-            PyErr_NoMemory(); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 213; __pyx_clineno = __LINE__; goto __pyx_L12_error;}
+            PyErr_NoMemory(); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 264; __pyx_clineno = __LINE__; goto __pyx_L12_error;}
           }
 
-          /* "prox_fast.pyx":212
+          /* "prox_elasticnet/prox_fast.pyx":263
  *     cdef double *z = <double *> malloc(n_features * sizeof(double))
  *     if not z:
  *         with gil:             # <<<<<<<<<<<<<<
@@ -2338,7 +2717,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_duality_gap(int __pyx_v_n_feature
           }
       }
 
-      /* "prox_fast.pyx":211
+      /* "prox_elasticnet/prox_fast.pyx":262
  * 
  *     cdef double *z = <double *> malloc(n_features * sizeof(double))
  *     if not z:             # <<<<<<<<<<<<<<
@@ -2347,7 +2726,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_duality_gap(int __pyx_v_n_feature
  */
     }
 
-    /* "prox_fast.pyx":216
+    /* "prox_elasticnet/prox_fast.pyx":267
  * 
  *     # z <- X^T * rw + beta * w
  *     dgemv(CblasColMajor, CblasTrans, n_samples, n_features, 1.0, X,             # <<<<<<<<<<<<<<
@@ -2356,7 +2735,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_duality_gap(int __pyx_v_n_feature
  */
     cblas_dgemv(CblasColMajor, CblasTrans, __pyx_v_n_samples, __pyx_v_n_features, 1.0, __pyx_v_X, __pyx_v_n_samples, __pyx_v_rw, 1, 0.0, __pyx_v_z, 1);
 
-    /* "prox_fast.pyx":218
+    /* "prox_elasticnet/prox_fast.pyx":269
  *     dgemv(CblasColMajor, CblasTrans, n_samples, n_features, 1.0, X,
  *           n_samples, rw, 1, 0, z, 1)
  *     daxpy(n_features, beta, w, 1, z, 1)             # <<<<<<<<<<<<<<
@@ -2365,44 +2744,76 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_duality_gap(int __pyx_v_n_feature
  */
     cblas_daxpy(__pyx_v_n_features, __pyx_v_beta, __pyx_v_w, 1, __pyx_v_z, 1);
 
-    /* "prox_fast.pyx":219
+    /* "prox_elasticnet/prox_fast.pyx":270
  *           n_samples, rw, 1, 0, z, 1)
  *     daxpy(n_features, beta, w, 1, z, 1)
  *     z_infnorm = abs_max(n_features, z)             # <<<<<<<<<<<<<<
  *     free(z)
  * 
  */
-    __pyx_v_z_infnorm = __pyx_f_9prox_fast_abs_max(__pyx_v_n_features, __pyx_v_z);
+    __pyx_v_z_infnorm = __pyx_f_15prox_elasticnet_9prox_fast_abs_max(__pyx_v_n_features, __pyx_v_z);
 
-    /* "prox_fast.pyx":220
+    /* "prox_elasticnet/prox_fast.pyx":271
  *     daxpy(n_features, beta, w, 1, z, 1)
  *     z_infnorm = abs_max(n_features, z)
  *     free(z)             # <<<<<<<<<<<<<<
  * 
- *     mu = fmin(1, alpha/z_infnorm)
+ *     if z_infnorm > alpha:
  */
     free(__pyx_v_z);
 
-    /* "prox_fast.pyx":222
+    /* "prox_elasticnet/prox_fast.pyx":273
  *     free(z)
  * 
- *     mu = fmin(1, alpha/z_infnorm)             # <<<<<<<<<<<<<<
+ *     if z_infnorm > alpha:             # <<<<<<<<<<<<<<
+ *         mu = alpha/z_infnorm
+ *     else:
+ */
+    __pyx_t_1 = ((__pyx_v_z_infnorm > __pyx_v_alpha) != 0);
+    if (__pyx_t_1) {
+
+      /* "prox_elasticnet/prox_fast.pyx":274
+ * 
+ *     if z_infnorm > alpha:
+ *         mu = alpha/z_infnorm             # <<<<<<<<<<<<<<
+ *     else:
+ *         mu = 1
+ */
+      if (unlikely(__pyx_v_z_infnorm == 0)) {
+        #ifdef WITH_THREAD
+        PyGILState_STATE __pyx_gilstate_save = PyGILState_Ensure();
+        #endif
+        PyErr_SetString(PyExc_ZeroDivisionError, "float division");
+        #ifdef WITH_THREAD
+        PyGILState_Release(__pyx_gilstate_save);
+        #endif
+        {__pyx_filename = __pyx_f[0]; __pyx_lineno = 274; __pyx_clineno = __LINE__; goto __pyx_L4_error;}
+      }
+      __pyx_v_mu = (__pyx_v_alpha / __pyx_v_z_infnorm);
+
+      /* "prox_elasticnet/prox_fast.pyx":273
+ *     free(z)
+ * 
+ *     if z_infnorm > alpha:             # <<<<<<<<<<<<<<
+ *         mu = alpha/z_infnorm
+ *     else:
+ */
+      goto __pyx_L14;
+    }
+
+    /* "prox_elasticnet/prox_fast.pyx":276
+ *         mu = alpha/z_infnorm
+ *     else:
+ *         mu = 1             # <<<<<<<<<<<<<<
  * 
  *     gap = (0.5 * (1 + mu*mu) * ddot(n_samples, rw, 1, rw, 1) +
  */
-    if (unlikely(__pyx_v_z_infnorm == 0)) {
-      #ifdef WITH_THREAD
-      PyGILState_STATE __pyx_gilstate_save = PyGILState_Ensure();
-      #endif
-      PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-      #ifdef WITH_THREAD
-      PyGILState_Release(__pyx_gilstate_save);
-      #endif
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 222; __pyx_clineno = __LINE__; goto __pyx_L4_error;}
+    /*else*/ {
+      __pyx_v_mu = 1.0;
     }
-    __pyx_v_mu = __pyx_f_9prox_fast_fmin(1.0, (__pyx_v_alpha / __pyx_v_z_infnorm));
+    __pyx_L14:;
 
-    /* "prox_fast.pyx":225
+    /* "prox_elasticnet/prox_fast.pyx":279
  * 
  *     gap = (0.5 * (1 + mu*mu) * ddot(n_samples, rw, 1, rw, 1) +
  *             mu * ddot(n_samples, rw, 1, y, 1) + alpha * w_norm1 +             # <<<<<<<<<<<<<<
@@ -2411,7 +2822,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_duality_gap(int __pyx_v_n_feature
  */
     __pyx_v_gap = (((((0.5 * (1.0 + (__pyx_v_mu * __pyx_v_mu))) * cblas_ddot(__pyx_v_n_samples, __pyx_v_rw, 1, __pyx_v_rw, 1)) + (__pyx_v_mu * cblas_ddot(__pyx_v_n_samples, __pyx_v_rw, 1, __pyx_v_y, 1))) + (__pyx_v_alpha * __pyx_v_w_norm1)) + (((0.5 * __pyx_v_beta) * (1.0 + (__pyx_v_mu * __pyx_v_mu))) * __pyx_v_w_sq));
 
-    /* "prox_fast.pyx":228
+    /* "prox_elasticnet/prox_fast.pyx":282
  *             0.5 * beta * (1 + mu*mu) * w_sq)
  * 
  *     free(rw)             # <<<<<<<<<<<<<<
@@ -2420,19 +2831,19 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_duality_gap(int __pyx_v_n_feature
  */
     free(__pyx_v_rw);
 
-    /* "prox_fast.pyx":230
+    /* "prox_elasticnet/prox_fast.pyx":284
  *     free(rw)
  * 
  *     return gap             # <<<<<<<<<<<<<<
  * 
- * @cython.boundscheck(False)
+ * 
  */
     __pyx_r = __pyx_v_gap;
     goto __pyx_L3_return;
   }
 
-  /* "prox_fast.pyx":194
- * cdef inline double duality_gap(int n_features, int n_samples, double *X,
+  /* "prox_elasticnet/prox_fast.pyx":246
+ * cdef inline double dual_gap(int n_features, int n_samples, double *X,
  *     double *y, double *w, double alpha, double beta) nogil:
  *     """             # <<<<<<<<<<<<<<
  *     Evaluates the duality gap
@@ -2453,10 +2864,10 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_duality_gap(int __pyx_v_n_feature
     }
   }
 
-  /* "prox_fast.pyx":192
+  /* "prox_elasticnet/prox_fast.pyx":244
  * 
  * 
- * cdef inline double duality_gap(int n_features, int n_samples, double *X,             # <<<<<<<<<<<<<<
+ * cdef inline double dual_gap(int n_features, int n_samples, double *X,             # <<<<<<<<<<<<<<
  *     double *y, double *w, double alpha, double beta) nogil:
  *     """
  */
@@ -2465,7 +2876,7 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_duality_gap(int __pyx_v_n_feature
   __pyx_r = 0;
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_WriteUnraisable("prox_fast.duality_gap", __pyx_clineno, __pyx_lineno, __pyx_filename, 0, 1);
+  __Pyx_WriteUnraisable("prox_elasticnet.prox_fast.dual_gap", __pyx_clineno, __pyx_lineno, __pyx_filename, 0, 1);
   __pyx_r = 0;
   __pyx_L0:;
   #ifdef WITH_THREAD
@@ -2474,7 +2885,307 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_duality_gap(int __pyx_v_n_feature
   return __pyx_r;
 }
 
-/* "prox_fast.pyx":235
+/* "prox_elasticnet/prox_fast.pyx":287
+ * 
+ * 
+ * cdef inline double dual_gap_gram(int n_features, double *XtX,             # <<<<<<<<<<<<<<
+ *     double *Xty, double *w, double alpha, double beta, double y_norm_sq) nogil:
+ *     """
+ */
+
+static CYTHON_INLINE double __pyx_f_15prox_elasticnet_9prox_fast_dual_gap_gram(int __pyx_v_n_features, double *__pyx_v_XtX, double *__pyx_v_Xty, double *__pyx_v_w, double __pyx_v_alpha, double __pyx_v_beta, double __pyx_v_y_norm_sq) {
+  double __pyx_v_z_infnorm;
+  double __pyx_v_mu;
+  double __pyx_v_w_norm1;
+  double __pyx_v_w_norm_sq;
+  double __pyx_v_h;
+  double *__pyx_v_H;
+  double __pyx_v_rw_norm_sq;
+  double __pyx_v_gap;
+  double __pyx_r;
+  __Pyx_RefNannyDeclarations
+  int __pyx_t_1;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  #ifdef WITH_THREAD
+  PyGILState_STATE __pyx_gilstate_save;
+  #endif
+  __Pyx_RefNannySetupContext("dual_gap_gram", 1);
+
+  /* "prox_elasticnet/prox_fast.pyx":289
+ * cdef inline double dual_gap_gram(int n_features, double *XtX,
+ *     double *Xty, double *w, double alpha, double beta, double y_norm_sq) nogil:
+ *     """             # <<<<<<<<<<<<<<
+ *     Evaluates the duality gap
+ *     """
+ */
+  /*try:*/ {
+
+    /* "prox_elasticnet/prox_fast.pyx":294
+ *     cdef double z_infnorm
+ *     cdef double mu
+ *     cdef double w_norm1 = dasum(n_features, w, 1)             # <<<<<<<<<<<<<<
+ *     cdef double w_norm_sq = ddot(n_features, w, 1, w, 1)
+ *     cdef double h = ddot(n_features, Xty, 1, w, 1)      # h <- Xty^T * w
+ */
+    __pyx_v_w_norm1 = cblas_dasum(__pyx_v_n_features, __pyx_v_w, 1);
+
+    /* "prox_elasticnet/prox_fast.pyx":295
+ *     cdef double mu
+ *     cdef double w_norm1 = dasum(n_features, w, 1)
+ *     cdef double w_norm_sq = ddot(n_features, w, 1, w, 1)             # <<<<<<<<<<<<<<
+ *     cdef double h = ddot(n_features, Xty, 1, w, 1)      # h <- Xty^T * w
+ * 
+ */
+    __pyx_v_w_norm_sq = cblas_ddot(__pyx_v_n_features, __pyx_v_w, 1, __pyx_v_w, 1);
+
+    /* "prox_elasticnet/prox_fast.pyx":296
+ *     cdef double w_norm1 = dasum(n_features, w, 1)
+ *     cdef double w_norm_sq = ddot(n_features, w, 1, w, 1)
+ *     cdef double h = ddot(n_features, Xty, 1, w, 1)      # h <- Xty^T * w             # <<<<<<<<<<<<<<
+ * 
+ *     # Allocate memory for H <- XtX * w (and use it later to calculate z_infnorm)
+ */
+    __pyx_v_h = cblas_ddot(__pyx_v_n_features, __pyx_v_Xty, 1, __pyx_v_w, 1);
+
+    /* "prox_elasticnet/prox_fast.pyx":299
+ * 
+ *     # Allocate memory for H <- XtX * w (and use it later to calculate z_infnorm)
+ *     cdef double *H = <double *> malloc(n_features * sizeof(double))             # <<<<<<<<<<<<<<
+ *     if not H:
+ *         with gil:
+ */
+    __pyx_v_H = ((double *)malloc((__pyx_v_n_features * (sizeof(double)))));
+
+    /* "prox_elasticnet/prox_fast.pyx":300
+ *     # Allocate memory for H <- XtX * w (and use it later to calculate z_infnorm)
+ *     cdef double *H = <double *> malloc(n_features * sizeof(double))
+ *     if not H:             # <<<<<<<<<<<<<<
+ *         with gil:
+ *             raise MemoryError()
+ */
+    __pyx_t_1 = ((!(__pyx_v_H != 0)) != 0);
+    if (__pyx_t_1) {
+
+      /* "prox_elasticnet/prox_fast.pyx":301
+ *     cdef double *H = <double *> malloc(n_features * sizeof(double))
+ *     if not H:
+ *         with gil:             # <<<<<<<<<<<<<<
+ *             raise MemoryError()
+ *     # H <- XtX * w
+ */
+      {
+          #ifdef WITH_THREAD
+          PyGILState_STATE __pyx_gilstate_save = PyGILState_Ensure();
+          #endif
+          /*try:*/ {
+
+            /* "prox_elasticnet/prox_fast.pyx":302
+ *     if not H:
+ *         with gil:
+ *             raise MemoryError()             # <<<<<<<<<<<<<<
+ *     # H <- XtX * w
+ *     dgemv(CblasRowMajor, CblasNoTrans, n_features, n_features, 1.0, XtX,
+ */
+            PyErr_NoMemory(); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 302; __pyx_clineno = __LINE__; goto __pyx_L8_error;}
+          }
+
+          /* "prox_elasticnet/prox_fast.pyx":301
+ *     cdef double *H = <double *> malloc(n_features * sizeof(double))
+ *     if not H:
+ *         with gil:             # <<<<<<<<<<<<<<
+ *             raise MemoryError()
+ *     # H <- XtX * w
+ */
+          /*finally:*/ {
+            __pyx_L8_error: {
+              #ifdef WITH_THREAD
+              PyGILState_Release(__pyx_gilstate_save);
+              #endif
+              goto __pyx_L4_error;
+            }
+          }
+      }
+
+      /* "prox_elasticnet/prox_fast.pyx":300
+ *     # Allocate memory for H <- XtX * w (and use it later to calculate z_infnorm)
+ *     cdef double *H = <double *> malloc(n_features * sizeof(double))
+ *     if not H:             # <<<<<<<<<<<<<<
+ *         with gil:
+ *             raise MemoryError()
+ */
+    }
+
+    /* "prox_elasticnet/prox_fast.pyx":304
+ *             raise MemoryError()
+ *     # H <- XtX * w
+ *     dgemv(CblasRowMajor, CblasNoTrans, n_features, n_features, 1.0, XtX,             # <<<<<<<<<<<<<<
+ *           n_features, w, 1, 0, H, 1)
+ * 
+ */
+    cblas_dgemv(CblasRowMajor, CblasNoTrans, __pyx_v_n_features, __pyx_v_n_features, 1.0, __pyx_v_XtX, __pyx_v_n_features, __pyx_v_w, 1, 0.0, __pyx_v_H, 1);
+
+    /* "prox_elasticnet/prox_fast.pyx":308
+ * 
+ *     # rw_norm_sq <- y_norm_sq + w^T * XtX * w - 2 * Xty^T * w
+ *     rw_norm_sq = ( y_norm_sq + ddot(n_features, w, 1, H, 1) - 2 * h)             # <<<<<<<<<<<<<<
+ * 
+ *     # z <- XtX * w - Xty + beta * w
+ */
+    __pyx_v_rw_norm_sq = ((__pyx_v_y_norm_sq + cblas_ddot(__pyx_v_n_features, __pyx_v_w, 1, __pyx_v_H, 1)) - (2.0 * __pyx_v_h));
+
+    /* "prox_elasticnet/prox_fast.pyx":311
+ * 
+ *     # z <- XtX * w - Xty + beta * w
+ *     daxpy(n_features, -1.0, Xty, 1, H, 1)             # <<<<<<<<<<<<<<
+ *     daxpy(n_features, beta, w, 1, H, 1)
+ *     z_infnorm = abs_max(n_features, H)
+ */
+    cblas_daxpy(__pyx_v_n_features, -1.0, __pyx_v_Xty, 1, __pyx_v_H, 1);
+
+    /* "prox_elasticnet/prox_fast.pyx":312
+ *     # z <- XtX * w - Xty + beta * w
+ *     daxpy(n_features, -1.0, Xty, 1, H, 1)
+ *     daxpy(n_features, beta, w, 1, H, 1)             # <<<<<<<<<<<<<<
+ *     z_infnorm = abs_max(n_features, H)
+ *     free(H)
+ */
+    cblas_daxpy(__pyx_v_n_features, __pyx_v_beta, __pyx_v_w, 1, __pyx_v_H, 1);
+
+    /* "prox_elasticnet/prox_fast.pyx":313
+ *     daxpy(n_features, -1.0, Xty, 1, H, 1)
+ *     daxpy(n_features, beta, w, 1, H, 1)
+ *     z_infnorm = abs_max(n_features, H)             # <<<<<<<<<<<<<<
+ *     free(H)
+ * 
+ */
+    __pyx_v_z_infnorm = __pyx_f_15prox_elasticnet_9prox_fast_abs_max(__pyx_v_n_features, __pyx_v_H);
+
+    /* "prox_elasticnet/prox_fast.pyx":314
+ *     daxpy(n_features, beta, w, 1, H, 1)
+ *     z_infnorm = abs_max(n_features, H)
+ *     free(H)             # <<<<<<<<<<<<<<
+ * 
+ *     if z_infnorm > alpha:
+ */
+    free(__pyx_v_H);
+
+    /* "prox_elasticnet/prox_fast.pyx":316
+ *     free(H)
+ * 
+ *     if z_infnorm > alpha:             # <<<<<<<<<<<<<<
+ *         mu = alpha/z_infnorm
+ *     else:
+ */
+    __pyx_t_1 = ((__pyx_v_z_infnorm > __pyx_v_alpha) != 0);
+    if (__pyx_t_1) {
+
+      /* "prox_elasticnet/prox_fast.pyx":317
+ * 
+ *     if z_infnorm > alpha:
+ *         mu = alpha/z_infnorm             # <<<<<<<<<<<<<<
+ *     else:
+ *         mu = 1
+ */
+      if (unlikely(__pyx_v_z_infnorm == 0)) {
+        #ifdef WITH_THREAD
+        PyGILState_STATE __pyx_gilstate_save = PyGILState_Ensure();
+        #endif
+        PyErr_SetString(PyExc_ZeroDivisionError, "float division");
+        #ifdef WITH_THREAD
+        PyGILState_Release(__pyx_gilstate_save);
+        #endif
+        {__pyx_filename = __pyx_f[0]; __pyx_lineno = 317; __pyx_clineno = __LINE__; goto __pyx_L4_error;}
+      }
+      __pyx_v_mu = (__pyx_v_alpha / __pyx_v_z_infnorm);
+
+      /* "prox_elasticnet/prox_fast.pyx":316
+ *     free(H)
+ * 
+ *     if z_infnorm > alpha:             # <<<<<<<<<<<<<<
+ *         mu = alpha/z_infnorm
+ *     else:
+ */
+      goto __pyx_L10;
+    }
+
+    /* "prox_elasticnet/prox_fast.pyx":319
+ *         mu = alpha/z_infnorm
+ *     else:
+ *         mu = 1             # <<<<<<<<<<<<<<
+ * 
+ *     gap = (0.5 * (1.0 + mu*mu) * rw_norm_sq +
+ */
+    /*else*/ {
+      __pyx_v_mu = 1.0;
+    }
+    __pyx_L10:;
+
+    /* "prox_elasticnet/prox_fast.pyx":322
+ * 
+ *     gap = (0.5 * (1.0 + mu*mu) * rw_norm_sq +
+ *             mu * (h - y_norm_sq) + alpha * w_norm1 +             # <<<<<<<<<<<<<<
+ *             0.5 * beta * (1.0 + mu*mu) * w_norm_sq)
+ * 
+ */
+    __pyx_v_gap = (((((0.5 * (1.0 + (__pyx_v_mu * __pyx_v_mu))) * __pyx_v_rw_norm_sq) + (__pyx_v_mu * (__pyx_v_h - __pyx_v_y_norm_sq))) + (__pyx_v_alpha * __pyx_v_w_norm1)) + (((0.5 * __pyx_v_beta) * (1.0 + (__pyx_v_mu * __pyx_v_mu))) * __pyx_v_w_norm_sq));
+
+    /* "prox_elasticnet/prox_fast.pyx":325
+ *             0.5 * beta * (1.0 + mu*mu) * w_norm_sq)
+ * 
+ *     return gap             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+    __pyx_r = __pyx_v_gap;
+    goto __pyx_L3_return;
+  }
+
+  /* "prox_elasticnet/prox_fast.pyx":289
+ * cdef inline double dual_gap_gram(int n_features, double *XtX,
+ *     double *Xty, double *w, double alpha, double beta, double y_norm_sq) nogil:
+ *     """             # <<<<<<<<<<<<<<
+ *     Evaluates the duality gap
+ *     """
+ */
+  /*finally:*/ {
+    __pyx_L3_return: {
+      #ifdef WITH_THREAD
+      __pyx_gilstate_save = PyGILState_Ensure();
+      #endif
+      goto __pyx_L0;
+    }
+    __pyx_L4_error: {
+      #ifdef WITH_THREAD
+      __pyx_gilstate_save = PyGILState_Ensure();
+      #endif
+      goto __pyx_L1_error;
+    }
+  }
+
+  /* "prox_elasticnet/prox_fast.pyx":287
+ * 
+ * 
+ * cdef inline double dual_gap_gram(int n_features, double *XtX,             # <<<<<<<<<<<<<<
+ *     double *Xty, double *w, double alpha, double beta, double y_norm_sq) nogil:
+ *     """
+ */
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_WriteUnraisable("prox_elasticnet.prox_fast.dual_gap_gram", __pyx_clineno, __pyx_lineno, __pyx_filename, 0, 1);
+  __pyx_r = 0;
+  __pyx_L0:;
+  #ifdef WITH_THREAD
+  PyGILState_Release(__pyx_gilstate_save);
+  #endif
+  return __pyx_r;
+}
+
+/* "prox_elasticnet/prox_fast.pyx":331
  * @cython.wraparound(False)
  * @cython.cdivision(True)
  * def enet_prox_gradient(np.ndarray[DOUBLE, ndim=1] w,             # <<<<<<<<<<<<<<
@@ -2483,10 +3194,10 @@ static CYTHON_INLINE double __pyx_f_9prox_fast_duality_gap(int __pyx_v_n_feature
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9prox_fast_1enet_prox_gradient(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_9prox_fast_enet_prox_gradient[] = "Cython implementation of Fast Iterative Shrinkage Thresholding Algorithm\n    (FISTA) for elastic-net regression.\n\n        The objective function is:\n\n        (1/2) * norm(X*w - y, 2)^2 + alpha norm(w, 1) + (beta/2) norm(w, 2)^2\n\n    Parameters\n    ----------\n    w : np.ndarray, shape (n_features,)\n        Initial guess for weights\n\n    alpha : double\n            l-1 regularization parameter\n\n    beta : double\n           l-2 regularization parameter\n\n    X : Fortan-contiguous np.ndarray, shape (n_samples, n_features)\n        Training data\n\n    y : C-contiguous np.ndarray, shape (n_samples,)\n        Target values\n\n    max_iter : int\n               Maximum number of iterations\n\n    eta : double\n          backtracking line search shrinkage parameter\n\n    sigma_0 : double\n              initial step size parameter\n\n    tol : double\n          Stop if relative error < tol\n\n    Returns\n    -------\n    w : np.ndarray, shape (n_parameters,)\n        Optimal weight vector.\n\n    rel_error : double\n                Relative error achieved.\n\n    n_iter : int\n             Number of iterations performed.\n    ";
-static PyMethodDef __pyx_mdef_9prox_fast_1enet_prox_gradient = {"enet_prox_gradient", (PyCFunction)__pyx_pw_9prox_fast_1enet_prox_gradient, METH_VARARGS|METH_KEYWORDS, __pyx_doc_9prox_fast_enet_prox_gradient};
-static PyObject *__pyx_pw_9prox_fast_1enet_prox_gradient(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_15prox_elasticnet_9prox_fast_1enet_prox_gradient(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_15prox_elasticnet_9prox_fast_enet_prox_gradient[] = "Cython implementation of Fast Iterative Shrinkage Thresholding Algorithm\n    (FISTA) for elastic-net regression.\n\n        The objective function is:\n\n        (1/2) * norm(X*w - y, 2)^2 + alpha norm(w, 1) + (beta/2) norm(w, 2)^2\n\n    Parameters\n    ----------\n    w : np.ndarray, shape (n_features,)\n        initial guess for weights\n\n    alpha : double\n        l-1 regularization parameter\n\n    beta : double\n        l-2 regularization parameter\n\n    X : Fortan-contiguous np.ndarray, shape (n_samples, n_features)\n        training data\n\n    y : C-contiguous np.ndarray, shape (n_samples,)\n        target values\n\n    max_iter : int\n        maximum number of iterations\n\n    eta : double\n        backtracking line search shrinkage parameter\n\n    init_step : double\n        initial step size parameter\n\n    tol : double\n        stop if duality gap is less than tol\n\n    Returns\n    -------\n    w : np.ndarray, shape (n_parameters,)\n        optimal weight vector\n\n    gap : double\n        duality gap achieved\n\n    n_iter : int\n        number of iterations performed\n\n    sigma : double\n        current value of step size\n    ";
+static PyMethodDef __pyx_mdef_15prox_elasticnet_9prox_fast_1enet_prox_gradient = {"enet_prox_gradient", (PyCFunction)__pyx_pw_15prox_elasticnet_9prox_fast_1enet_prox_gradient, METH_VARARGS|METH_KEYWORDS, __pyx_doc_15prox_elasticnet_9prox_fast_enet_prox_gradient};
+static PyObject *__pyx_pw_15prox_elasticnet_9prox_fast_1enet_prox_gradient(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyArrayObject *__pyx_v_w = 0;
   double __pyx_v_alpha;
   double __pyx_v_beta;
@@ -2494,7 +3205,7 @@ static PyObject *__pyx_pw_9prox_fast_1enet_prox_gradient(PyObject *__pyx_self, P
   PyArrayObject *__pyx_v_y = 0;
   int __pyx_v_max_iter;
   double __pyx_v_eta;
-  double __pyx_v_sigma_0;
+  double __pyx_v_init_step;
   double __pyx_v_tol;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
@@ -2503,7 +3214,7 @@ static PyObject *__pyx_pw_9prox_fast_1enet_prox_gradient(PyObject *__pyx_self, P
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("enet_prox_gradient (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_w,&__pyx_n_s_alpha,&__pyx_n_s_beta,&__pyx_n_s_X,&__pyx_n_s_y,&__pyx_n_s_max_iter,&__pyx_n_s_eta,&__pyx_n_s_sigma_0,&__pyx_n_s_tol,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_w,&__pyx_n_s_alpha,&__pyx_n_s_beta,&__pyx_n_s_X,&__pyx_n_s_y,&__pyx_n_s_max_iter,&__pyx_n_s_eta,&__pyx_n_s_init_step,&__pyx_n_s_tol,0};
     PyObject* values[9] = {0,0,0,0,0,0,0,0,0};
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
@@ -2529,46 +3240,46 @@ static PyObject *__pyx_pw_9prox_fast_1enet_prox_gradient(PyObject *__pyx_self, P
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_alpha)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("enet_prox_gradient", 1, 9, 9, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 235; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("enet_prox_gradient", 1, 9, 9, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 331; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_beta)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("enet_prox_gradient", 1, 9, 9, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 235; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("enet_prox_gradient", 1, 9, 9, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 331; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_X)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("enet_prox_gradient", 1, 9, 9, 3); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 235; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("enet_prox_gradient", 1, 9, 9, 3); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 331; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_y)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("enet_prox_gradient", 1, 9, 9, 4); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 235; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("enet_prox_gradient", 1, 9, 9, 4); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 331; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  5:
         if (likely((values[5] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_max_iter)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("enet_prox_gradient", 1, 9, 9, 5); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 235; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("enet_prox_gradient", 1, 9, 9, 5); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 331; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  6:
         if (likely((values[6] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_eta)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("enet_prox_gradient", 1, 9, 9, 6); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 235; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("enet_prox_gradient", 1, 9, 9, 6); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 331; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  7:
-        if (likely((values[7] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_sigma_0)) != 0)) kw_args--;
+        if (likely((values[7] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_init_step)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("enet_prox_gradient", 1, 9, 9, 7); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 235; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("enet_prox_gradient", 1, 9, 9, 7); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 331; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  8:
         if (likely((values[8] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_tol)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("enet_prox_gradient", 1, 9, 9, 8); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 235; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("enet_prox_gradient", 1, 9, 9, 8); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 331; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "enet_prox_gradient") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 235; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "enet_prox_gradient") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 331; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 9) {
       goto __pyx_L5_argtuple_error;
@@ -2584,27 +3295,27 @@ static PyObject *__pyx_pw_9prox_fast_1enet_prox_gradient(PyObject *__pyx_self, P
       values[8] = PyTuple_GET_ITEM(__pyx_args, 8);
     }
     __pyx_v_w = ((PyArrayObject *)values[0]);
-    __pyx_v_alpha = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_alpha == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 236; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_beta = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_beta == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 236; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_alpha = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_alpha == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 332; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_beta = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_beta == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 332; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     __pyx_v_X = ((PyArrayObject *)values[3]);
     __pyx_v_y = ((PyArrayObject *)values[4]);
-    __pyx_v_max_iter = __Pyx_PyInt_As_int(values[5]); if (unlikely((__pyx_v_max_iter == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 239; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_eta = __pyx_PyFloat_AsDouble(values[6]); if (unlikely((__pyx_v_eta == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 239; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_sigma_0 = __pyx_PyFloat_AsDouble(values[7]); if (unlikely((__pyx_v_sigma_0 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 239; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_tol = __pyx_PyFloat_AsDouble(values[8]); if (unlikely((__pyx_v_tol == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 240; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_max_iter = __Pyx_PyInt_As_int(values[5]); if (unlikely((__pyx_v_max_iter == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 335; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_eta = __pyx_PyFloat_AsDouble(values[6]); if (unlikely((__pyx_v_eta == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 335; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_init_step = __pyx_PyFloat_AsDouble(values[7]); if (unlikely((__pyx_v_init_step == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 335; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_tol = __pyx_PyFloat_AsDouble(values[8]); if (unlikely((__pyx_v_tol == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 336; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("enet_prox_gradient", 1, 9, 9, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 235; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("enet_prox_gradient", 1, 9, 9, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 331; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("prox_fast.enet_prox_gradient", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("prox_elasticnet.prox_fast.enet_prox_gradient", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_w), __pyx_ptype_5numpy_ndarray, 1, "w", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 235; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_X), __pyx_ptype_5numpy_ndarray, 1, "X", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 237; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_y), __pyx_ptype_5numpy_ndarray, 1, "y", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 238; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_9prox_fast_enet_prox_gradient(__pyx_self, __pyx_v_w, __pyx_v_alpha, __pyx_v_beta, __pyx_v_X, __pyx_v_y, __pyx_v_max_iter, __pyx_v_eta, __pyx_v_sigma_0, __pyx_v_tol);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_w), __pyx_ptype_5numpy_ndarray, 1, "w", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 331; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_X), __pyx_ptype_5numpy_ndarray, 1, "X", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 333; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_y), __pyx_ptype_5numpy_ndarray, 1, "y", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 334; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_15prox_elasticnet_9prox_fast_enet_prox_gradient(__pyx_self, __pyx_v_w, __pyx_v_alpha, __pyx_v_beta, __pyx_v_X, __pyx_v_y, __pyx_v_max_iter, __pyx_v_eta, __pyx_v_init_step, __pyx_v_tol);
 
   /* function exit code */
   goto __pyx_L0;
@@ -2615,7 +3326,7 @@ static PyObject *__pyx_pw_9prox_fast_1enet_prox_gradient(PyObject *__pyx_self, P
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9prox_fast_enet_prox_gradient(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_w, double __pyx_v_alpha, double __pyx_v_beta, PyArrayObject *__pyx_v_X, PyArrayObject *__pyx_v_y, int __pyx_v_max_iter, double __pyx_v_eta, double __pyx_v_sigma_0, double __pyx_v_tol) {
+static PyObject *__pyx_pf_15prox_elasticnet_9prox_fast_enet_prox_gradient(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_w, double __pyx_v_alpha, double __pyx_v_beta, PyArrayObject *__pyx_v_X, PyArrayObject *__pyx_v_y, int __pyx_v_max_iter, double __pyx_v_eta, double __pyx_v_init_step, double __pyx_v_tol) {
   unsigned int __pyx_v_n_samples;
   unsigned int __pyx_v_n_features;
   int __pyx_v_n_iter;
@@ -2628,14 +3339,1203 @@ static PyObject *__pyx_pf_9prox_fast_enet_prox_gradient(CYTHON_UNUSED PyObject *
   double __pyx_v_d_w_max;
   double __pyx_v_gap;
   double __pyx_v_d_w_tol;
+  double __pyx_v_y_norm_sq;
   PyArrayObject *__pyx_v_v = 0;
   PyArrayObject *__pyx_v_g = 0;
   PyArrayObject *__pyx_v_delta_w = 0;
   PyArrayObject *__pyx_v_w_prev = 0;
-  PyArrayObject *__pyx_v_XtX = 0;
-  PyArrayObject *__pyx_v_Xty = 0;
+  PyArrayObject *__pyx_v_rv = 0;
+  unsigned int __pyx_v_fixed_sigma;
+  PyObject *__pyx_v_XtX = NULL;
   __Pyx_LocalBuf_ND __pyx_pybuffernd_X;
   __Pyx_Buffer __pyx_pybuffer_X;
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_delta_w;
+  __Pyx_Buffer __pyx_pybuffer_delta_w;
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_g;
+  __Pyx_Buffer __pyx_pybuffer_g;
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_rv;
+  __Pyx_Buffer __pyx_pybuffer_rv;
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_v;
+  __Pyx_Buffer __pyx_pybuffer_v;
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_w;
+  __Pyx_Buffer __pyx_pybuffer_w;
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_w_prev;
+  __Pyx_Buffer __pyx_pybuffer_w_prev;
+  __Pyx_LocalBuf_ND __pyx_pybuffernd_y;
+  __Pyx_Buffer __pyx_pybuffer_y;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  PyArrayObject *__pyx_t_6 = NULL;
+  PyArrayObject *__pyx_t_7 = NULL;
+  PyArrayObject *__pyx_t_8 = NULL;
+  PyArrayObject *__pyx_t_9 = NULL;
+  PyArrayObject *__pyx_t_10 = NULL;
+  int __pyx_t_11;
+  int __pyx_t_12;
+  Py_ssize_t __pyx_t_13;
+  double __pyx_t_14;
+  int __pyx_t_15;
+  int __pyx_t_16;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("enet_prox_gradient", 0);
+  __pyx_pybuffer_v.pybuffer.buf = NULL;
+  __pyx_pybuffer_v.refcount = 0;
+  __pyx_pybuffernd_v.data = NULL;
+  __pyx_pybuffernd_v.rcbuffer = &__pyx_pybuffer_v;
+  __pyx_pybuffer_g.pybuffer.buf = NULL;
+  __pyx_pybuffer_g.refcount = 0;
+  __pyx_pybuffernd_g.data = NULL;
+  __pyx_pybuffernd_g.rcbuffer = &__pyx_pybuffer_g;
+  __pyx_pybuffer_delta_w.pybuffer.buf = NULL;
+  __pyx_pybuffer_delta_w.refcount = 0;
+  __pyx_pybuffernd_delta_w.data = NULL;
+  __pyx_pybuffernd_delta_w.rcbuffer = &__pyx_pybuffer_delta_w;
+  __pyx_pybuffer_w_prev.pybuffer.buf = NULL;
+  __pyx_pybuffer_w_prev.refcount = 0;
+  __pyx_pybuffernd_w_prev.data = NULL;
+  __pyx_pybuffernd_w_prev.rcbuffer = &__pyx_pybuffer_w_prev;
+  __pyx_pybuffer_rv.pybuffer.buf = NULL;
+  __pyx_pybuffer_rv.refcount = 0;
+  __pyx_pybuffernd_rv.data = NULL;
+  __pyx_pybuffernd_rv.rcbuffer = &__pyx_pybuffer_rv;
+  __pyx_pybuffer_w.pybuffer.buf = NULL;
+  __pyx_pybuffer_w.refcount = 0;
+  __pyx_pybuffernd_w.data = NULL;
+  __pyx_pybuffernd_w.rcbuffer = &__pyx_pybuffer_w;
+  __pyx_pybuffer_X.pybuffer.buf = NULL;
+  __pyx_pybuffer_X.refcount = 0;
+  __pyx_pybuffernd_X.data = NULL;
+  __pyx_pybuffernd_X.rcbuffer = &__pyx_pybuffer_X;
+  __pyx_pybuffer_y.pybuffer.buf = NULL;
+  __pyx_pybuffer_y.refcount = 0;
+  __pyx_pybuffernd_y.data = NULL;
+  __pyx_pybuffernd_y.rcbuffer = &__pyx_pybuffer_y;
+  {
+    __Pyx_BufFmt_StackElem __pyx_stack[1];
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_w.rcbuffer->pybuffer, (PyObject*)__pyx_v_w, &__Pyx_TypeInfo_nn___pyx_t_15prox_elasticnet_9prox_fast_DOUBLE, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 331; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  }
+  __pyx_pybuffernd_w.diminfo[0].strides = __pyx_pybuffernd_w.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_w.diminfo[0].shape = __pyx_pybuffernd_w.rcbuffer->pybuffer.shape[0];
+  {
+    __Pyx_BufFmt_StackElem __pyx_stack[1];
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_X.rcbuffer->pybuffer, (PyObject*)__pyx_v_X, &__Pyx_TypeInfo_nn___pyx_t_15prox_elasticnet_9prox_fast_DOUBLE, PyBUF_FORMAT| PyBUF_F_CONTIGUOUS, 2, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 331; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  }
+  __pyx_pybuffernd_X.diminfo[0].strides = __pyx_pybuffernd_X.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_X.diminfo[0].shape = __pyx_pybuffernd_X.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_X.diminfo[1].strides = __pyx_pybuffernd_X.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_X.diminfo[1].shape = __pyx_pybuffernd_X.rcbuffer->pybuffer.shape[1];
+  {
+    __Pyx_BufFmt_StackElem __pyx_stack[1];
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_y.rcbuffer->pybuffer, (PyObject*)__pyx_v_y, &__Pyx_TypeInfo_nn___pyx_t_15prox_elasticnet_9prox_fast_DOUBLE, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 331; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  }
+  __pyx_pybuffernd_y.diminfo[0].strides = __pyx_pybuffernd_y.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_y.diminfo[0].shape = __pyx_pybuffernd_y.rcbuffer->pybuffer.shape[0];
+
+  /* "prox_elasticnet/prox_fast.pyx":389
+ * 
+ *     # Initialize C variables
+ *     cdef unsigned int n_samples = X.shape[0]             # <<<<<<<<<<<<<<
+ *     cdef unsigned int n_features = X.shape[1]
+ *     cdef int n_iter = 0
+ */
+  __pyx_v_n_samples = (__pyx_v_X->dimensions[0]);
+
+  /* "prox_elasticnet/prox_fast.pyx":390
+ *     # Initialize C variables
+ *     cdef unsigned int n_samples = X.shape[0]
+ *     cdef unsigned int n_features = X.shape[1]             # <<<<<<<<<<<<<<
+ *     cdef int n_iter = 0
+ *     cdef double t = 1.0
+ */
+  __pyx_v_n_features = (__pyx_v_X->dimensions[1]);
+
+  /* "prox_elasticnet/prox_fast.pyx":391
+ *     cdef unsigned int n_samples = X.shape[0]
+ *     cdef unsigned int n_features = X.shape[1]
+ *     cdef int n_iter = 0             # <<<<<<<<<<<<<<
+ *     cdef double t = 1.0
+ *     cdef double t_prev
+ */
+  __pyx_v_n_iter = 0;
+
+  /* "prox_elasticnet/prox_fast.pyx":392
+ *     cdef unsigned int n_features = X.shape[1]
+ *     cdef int n_iter = 0
+ *     cdef double t = 1.0             # <<<<<<<<<<<<<<
+ *     cdef double t_prev
+ *     cdef double sigma = init_step
+ */
+  __pyx_v_t = 1.0;
+
+  /* "prox_elasticnet/prox_fast.pyx":394
+ *     cdef double t = 1.0
+ *     cdef double t_prev
+ *     cdef double sigma = init_step             # <<<<<<<<<<<<<<
+ *     cdef double shrink_factor
+ *     cdef double accel_parameter
+ */
+  __pyx_v_sigma = __pyx_v_init_step;
+
+  /* "prox_elasticnet/prox_fast.pyx":400
+ *     cdef double d_w_max
+ *     cdef double gap
+ *     cdef double d_w_tol = tol             # <<<<<<<<<<<<<<
+ *     cdef double y_norm_sq
+ *     cdef np.ndarray[DOUBLE, ndim=1] v = np.empty(n_features)
+ */
+  __pyx_v_d_w_tol = __pyx_v_tol;
+
+  /* "prox_elasticnet/prox_fast.pyx":402
+ *     cdef double d_w_tol = tol
+ *     cdef double y_norm_sq
+ *     cdef np.ndarray[DOUBLE, ndim=1] v = np.empty(n_features)             # <<<<<<<<<<<<<<
+ *     cdef np.ndarray[DOUBLE, ndim=1] g = np.empty(n_features)
+ *     cdef np.ndarray[DOUBLE, ndim=1] delta_w = np.empty(n_features)
+ */
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 402; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_empty); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 402; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyInt_From_unsigned_int(__pyx_v_n_features); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 402; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_4 = NULL;
+  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_3))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_3, function);
+    }
+  }
+  if (!__pyx_t_4) {
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 402; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_GOTREF(__pyx_t_1);
+  } else {
+    __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 402; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4); __pyx_t_4 = NULL;
+    __Pyx_GIVEREF(__pyx_t_2);
+    PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_t_2);
+    __pyx_t_2 = 0;
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 402; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 402; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_6 = ((PyArrayObject *)__pyx_t_1);
+  {
+    __Pyx_BufFmt_StackElem __pyx_stack[1];
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_v.rcbuffer->pybuffer, (PyObject*)__pyx_t_6, &__Pyx_TypeInfo_nn___pyx_t_15prox_elasticnet_9prox_fast_DOUBLE, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
+      __pyx_v_v = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_v.rcbuffer->pybuffer.buf = NULL;
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 402; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    } else {__pyx_pybuffernd_v.diminfo[0].strides = __pyx_pybuffernd_v.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_v.diminfo[0].shape = __pyx_pybuffernd_v.rcbuffer->pybuffer.shape[0];
+    }
+  }
+  __pyx_t_6 = 0;
+  __pyx_v_v = ((PyArrayObject *)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "prox_elasticnet/prox_fast.pyx":403
+ *     cdef double y_norm_sq
+ *     cdef np.ndarray[DOUBLE, ndim=1] v = np.empty(n_features)
+ *     cdef np.ndarray[DOUBLE, ndim=1] g = np.empty(n_features)             # <<<<<<<<<<<<<<
+ *     cdef np.ndarray[DOUBLE, ndim=1] delta_w = np.empty(n_features)
+ *     cdef np.ndarray[DOUBLE, ndim=1] w_prev = np.empty(n_features)
+ */
+  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 403; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_empty); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 403; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = __Pyx_PyInt_From_unsigned_int(__pyx_v_n_features); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 403; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_2 = NULL;
+  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_5))) {
+    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_5);
+    if (likely(__pyx_t_2)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+      __Pyx_INCREF(__pyx_t_2);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_5, function);
+    }
+  }
+  if (!__pyx_t_2) {
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 403; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_GOTREF(__pyx_t_1);
+  } else {
+    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 403; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2); __pyx_t_2 = NULL;
+    __Pyx_GIVEREF(__pyx_t_3);
+    PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_t_3);
+    __pyx_t_3 = 0;
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 403; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 403; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_7 = ((PyArrayObject *)__pyx_t_1);
+  {
+    __Pyx_BufFmt_StackElem __pyx_stack[1];
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_g.rcbuffer->pybuffer, (PyObject*)__pyx_t_7, &__Pyx_TypeInfo_nn___pyx_t_15prox_elasticnet_9prox_fast_DOUBLE, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
+      __pyx_v_g = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_g.rcbuffer->pybuffer.buf = NULL;
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 403; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    } else {__pyx_pybuffernd_g.diminfo[0].strides = __pyx_pybuffernd_g.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_g.diminfo[0].shape = __pyx_pybuffernd_g.rcbuffer->pybuffer.shape[0];
+    }
+  }
+  __pyx_t_7 = 0;
+  __pyx_v_g = ((PyArrayObject *)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "prox_elasticnet/prox_fast.pyx":404
+ *     cdef np.ndarray[DOUBLE, ndim=1] v = np.empty(n_features)
+ *     cdef np.ndarray[DOUBLE, ndim=1] g = np.empty(n_features)
+ *     cdef np.ndarray[DOUBLE, ndim=1] delta_w = np.empty(n_features)             # <<<<<<<<<<<<<<
+ *     cdef np.ndarray[DOUBLE, ndim=1] w_prev = np.empty(n_features)
+ *     cdef np.ndarray[DOUBLE, ndim=1] rv = np.empty(n_samples)
+ */
+  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 404; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_empty); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 404; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_5 = __Pyx_PyInt_From_unsigned_int(__pyx_v_n_features); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 404; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_3 = NULL;
+  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_4))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_4);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_4, function);
+    }
+  }
+  if (!__pyx_t_3) {
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 404; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_GOTREF(__pyx_t_1);
+  } else {
+    __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 404; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_3); __pyx_t_3 = NULL;
+    __Pyx_GIVEREF(__pyx_t_5);
+    PyTuple_SET_ITEM(__pyx_t_2, 0+1, __pyx_t_5);
+    __pyx_t_5 = 0;
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 404; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 404; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_8 = ((PyArrayObject *)__pyx_t_1);
+  {
+    __Pyx_BufFmt_StackElem __pyx_stack[1];
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_w.rcbuffer->pybuffer, (PyObject*)__pyx_t_8, &__Pyx_TypeInfo_nn___pyx_t_15prox_elasticnet_9prox_fast_DOUBLE, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
+      __pyx_v_delta_w = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_delta_w.rcbuffer->pybuffer.buf = NULL;
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 404; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    } else {__pyx_pybuffernd_delta_w.diminfo[0].strides = __pyx_pybuffernd_delta_w.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_w.diminfo[0].shape = __pyx_pybuffernd_delta_w.rcbuffer->pybuffer.shape[0];
+    }
+  }
+  __pyx_t_8 = 0;
+  __pyx_v_delta_w = ((PyArrayObject *)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "prox_elasticnet/prox_fast.pyx":405
+ *     cdef np.ndarray[DOUBLE, ndim=1] g = np.empty(n_features)
+ *     cdef np.ndarray[DOUBLE, ndim=1] delta_w = np.empty(n_features)
+ *     cdef np.ndarray[DOUBLE, ndim=1] w_prev = np.empty(n_features)             # <<<<<<<<<<<<<<
+ *     cdef np.ndarray[DOUBLE, ndim=1] rv = np.empty(n_samples)
+ *     cdef unsigned int fixed_sigma
+ */
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 405; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_empty); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 405; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_4 = __Pyx_PyInt_From_unsigned_int(__pyx_v_n_features); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 405; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_5 = NULL;
+  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_5)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_5);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  if (!__pyx_t_5) {
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 405; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_GOTREF(__pyx_t_1);
+  } else {
+    __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 405; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_5); __pyx_t_5 = NULL;
+    __Pyx_GIVEREF(__pyx_t_4);
+    PyTuple_SET_ITEM(__pyx_t_3, 0+1, __pyx_t_4);
+    __pyx_t_4 = 0;
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 405; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 405; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_9 = ((PyArrayObject *)__pyx_t_1);
+  {
+    __Pyx_BufFmt_StackElem __pyx_stack[1];
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_w_prev.rcbuffer->pybuffer, (PyObject*)__pyx_t_9, &__Pyx_TypeInfo_nn___pyx_t_15prox_elasticnet_9prox_fast_DOUBLE, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
+      __pyx_v_w_prev = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_w_prev.rcbuffer->pybuffer.buf = NULL;
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 405; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    } else {__pyx_pybuffernd_w_prev.diminfo[0].strides = __pyx_pybuffernd_w_prev.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_w_prev.diminfo[0].shape = __pyx_pybuffernd_w_prev.rcbuffer->pybuffer.shape[0];
+    }
+  }
+  __pyx_t_9 = 0;
+  __pyx_v_w_prev = ((PyArrayObject *)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "prox_elasticnet/prox_fast.pyx":406
+ *     cdef np.ndarray[DOUBLE, ndim=1] delta_w = np.empty(n_features)
+ *     cdef np.ndarray[DOUBLE, ndim=1] w_prev = np.empty(n_features)
+ *     cdef np.ndarray[DOUBLE, ndim=1] rv = np.empty(n_samples)             # <<<<<<<<<<<<<<
+ *     cdef unsigned int fixed_sigma
+ * 
+ */
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 406; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_empty); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 406; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_PyInt_From_unsigned_int(__pyx_v_n_samples); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 406; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_4 = NULL;
+  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_3))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_3, function);
+    }
+  }
+  if (!__pyx_t_4) {
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 406; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_GOTREF(__pyx_t_1);
+  } else {
+    __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 406; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4); __pyx_t_4 = NULL;
+    __Pyx_GIVEREF(__pyx_t_2);
+    PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_t_2);
+    __pyx_t_2 = 0;
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 406; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 406; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_10 = ((PyArrayObject *)__pyx_t_1);
+  {
+    __Pyx_BufFmt_StackElem __pyx_stack[1];
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_rv.rcbuffer->pybuffer, (PyObject*)__pyx_t_10, &__Pyx_TypeInfo_nn___pyx_t_15prox_elasticnet_9prox_fast_DOUBLE, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
+      __pyx_v_rv = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_rv.rcbuffer->pybuffer.buf = NULL;
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 406; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    } else {__pyx_pybuffernd_rv.diminfo[0].strides = __pyx_pybuffernd_rv.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_rv.diminfo[0].shape = __pyx_pybuffernd_rv.rcbuffer->pybuffer.shape[0];
+    }
+  }
+  __pyx_t_10 = 0;
+  __pyx_v_rv = ((PyArrayObject *)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "prox_elasticnet/prox_fast.pyx":409
+ *     cdef unsigned int fixed_sigma
+ * 
+ *     if eta == 0 or init_step == 0:             # <<<<<<<<<<<<<<
+ *         # Use fixed step size
+ *         fixed_sigma = 1
+ */
+  __pyx_t_12 = ((__pyx_v_eta == 0.0) != 0);
+  if (!__pyx_t_12) {
+  } else {
+    __pyx_t_11 = __pyx_t_12;
+    goto __pyx_L4_bool_binop_done;
+  }
+  __pyx_t_12 = ((__pyx_v_init_step == 0.0) != 0);
+  __pyx_t_11 = __pyx_t_12;
+  __pyx_L4_bool_binop_done:;
+  if (__pyx_t_11) {
+
+    /* "prox_elasticnet/prox_fast.pyx":411
+ *     if eta == 0 or init_step == 0:
+ *         # Use fixed step size
+ *         fixed_sigma = 1             # <<<<<<<<<<<<<<
+ *         # Determine optimal step size
+ *         XtX = np.dot(X.T, X)
+ */
+    __pyx_v_fixed_sigma = 1;
+
+    /* "prox_elasticnet/prox_fast.pyx":413
+ *         fixed_sigma = 1
+ *         # Determine optimal step size
+ *         XtX = np.dot(X.T, X)             # <<<<<<<<<<<<<<
+ *         sigma = 1/norm(XtX, ord=2)
+ *     else:
+ */
+    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 413; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_dot); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 413; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_X), __pyx_n_s_T); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 413; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_2 = NULL;
+    __pyx_t_13 = 0;
+    if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_5))) {
+      __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_5);
+      if (likely(__pyx_t_2)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+        __Pyx_INCREF(__pyx_t_2);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_5, function);
+        __pyx_t_13 = 1;
+      }
+    }
+    __pyx_t_4 = PyTuple_New(2+__pyx_t_13); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 413; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_4);
+    if (__pyx_t_2) {
+      __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2); __pyx_t_2 = NULL;
+    }
+    __Pyx_GIVEREF(__pyx_t_3);
+    PyTuple_SET_ITEM(__pyx_t_4, 0+__pyx_t_13, __pyx_t_3);
+    __Pyx_INCREF(((PyObject *)__pyx_v_X));
+    __Pyx_GIVEREF(((PyObject *)__pyx_v_X));
+    PyTuple_SET_ITEM(__pyx_t_4, 1+__pyx_t_13, ((PyObject *)__pyx_v_X));
+    __pyx_t_3 = 0;
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 413; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_v_XtX = __pyx_t_1;
+    __pyx_t_1 = 0;
+
+    /* "prox_elasticnet/prox_fast.pyx":414
+ *         # Determine optimal step size
+ *         XtX = np.dot(X.T, X)
+ *         sigma = 1/norm(XtX, ord=2)             # <<<<<<<<<<<<<<
+ *     else:
+ *         # Use adaptive step size selected by backtracking line search
+ */
+    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_norm); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 414; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 414; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_INCREF(__pyx_v_XtX);
+    __Pyx_GIVEREF(__pyx_v_XtX);
+    PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_v_XtX);
+    __pyx_t_4 = PyDict_New(); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 414; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_4);
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_ord, __pyx_int_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 414; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_5, __pyx_t_4); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 414; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_4 = __Pyx_PyNumber_Divide(__pyx_int_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 414; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __pyx_t_14 = __pyx_PyFloat_AsDouble(__pyx_t_4); if (unlikely((__pyx_t_14 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 414; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_v_sigma = __pyx_t_14;
+
+    /* "prox_elasticnet/prox_fast.pyx":409
+ *     cdef unsigned int fixed_sigma
+ * 
+ *     if eta == 0 or init_step == 0:             # <<<<<<<<<<<<<<
+ *         # Use fixed step size
+ *         fixed_sigma = 1
+ */
+    goto __pyx_L3;
+  }
+
+  /* "prox_elasticnet/prox_fast.pyx":417
+ *     else:
+ *         # Use adaptive step size selected by backtracking line search
+ *         fixed_sigma = 0             # <<<<<<<<<<<<<<
+ * 
+ *     with nogil:
+ */
+  /*else*/ {
+    __pyx_v_fixed_sigma = 0;
+  }
+  __pyx_L3:;
+
+  /* "prox_elasticnet/prox_fast.pyx":419
+ *         fixed_sigma = 0
+ * 
+ *     with nogil:             # <<<<<<<<<<<<<<
+ *         y_norm_sq = ddot(n_samples, <DOUBLE*>y.data, 1, <DOUBLE*>y.data, 1)
+ *         # Scale tolerance by norm(y,2)^2
+ */
+  {
+      #ifdef WITH_THREAD
+      PyThreadState *_save;
+      Py_UNBLOCK_THREADS
+      #endif
+      /*try:*/ {
+
+        /* "prox_elasticnet/prox_fast.pyx":420
+ * 
+ *     with nogil:
+ *         y_norm_sq = ddot(n_samples, <DOUBLE*>y.data, 1, <DOUBLE*>y.data, 1)             # <<<<<<<<<<<<<<
+ *         # Scale tolerance by norm(y,2)^2
+ *         tol = tol * y_norm_sq
+ */
+        __pyx_v_y_norm_sq = cblas_ddot(__pyx_v_n_samples, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_y->data), 1, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_y->data), 1);
+
+        /* "prox_elasticnet/prox_fast.pyx":422
+ *         y_norm_sq = ddot(n_samples, <DOUBLE*>y.data, 1, <DOUBLE*>y.data, 1)
+ *         # Scale tolerance by norm(y,2)^2
+ *         tol = tol * y_norm_sq             # <<<<<<<<<<<<<<
+ * 
+ *         # Set shrink factor
+ */
+        __pyx_v_tol = (__pyx_v_tol * __pyx_v_y_norm_sq);
+
+        /* "prox_elasticnet/prox_fast.pyx":425
+ * 
+ *         # Set shrink factor
+ *         shrink_factor = 1.0/(1.0 + sigma * beta)             # <<<<<<<<<<<<<<
+ * 
+ *         # v <- w
+ */
+        __pyx_v_shrink_factor = (1.0 / (1.0 + (__pyx_v_sigma * __pyx_v_beta)));
+
+        /* "prox_elasticnet/prox_fast.pyx":428
+ * 
+ *         # v <- w
+ *         dcopy(n_features, <DOUBLE*>w.data, 1, <DOUBLE*>v.data, 1)             # <<<<<<<<<<<<<<
+ * 
+ *         for n_iter in range(max_iter):
+ */
+        cblas_dcopy(__pyx_v_n_features, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w->data), 1, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_v->data), 1);
+
+        /* "prox_elasticnet/prox_fast.pyx":430
+ *         dcopy(n_features, <DOUBLE*>w.data, 1, <DOUBLE*>v.data, 1)
+ * 
+ *         for n_iter in range(max_iter):             # <<<<<<<<<<<<<<
+ *             # w_prev <- w
+ *             dcopy(n_features, <DOUBLE*>w.data, 1, <DOUBLE*>w_prev.data, 1)
+ */
+        __pyx_t_15 = __pyx_v_max_iter;
+        for (__pyx_t_16 = 0; __pyx_t_16 < __pyx_t_15; __pyx_t_16+=1) {
+          __pyx_v_n_iter = __pyx_t_16;
+
+          /* "prox_elasticnet/prox_fast.pyx":432
+ *         for n_iter in range(max_iter):
+ *             # w_prev <- w
+ *             dcopy(n_features, <DOUBLE*>w.data, 1, <DOUBLE*>w_prev.data, 1)             # <<<<<<<<<<<<<<
+ * 
+ *             # w <- v - sigma * (X^T * X * v - X^T * y)
+ */
+          cblas_dcopy(__pyx_v_n_features, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w->data), 1, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w_prev->data), 1);
+
+          /* "prox_elasticnet/prox_fast.pyx":435
+ * 
+ *             # w <- v - sigma * (X^T * X * v - X^T * y)
+ *             residual(n_features, n_samples, <DOUBLE*>X.data, <DOUBLE*>y.data,             # <<<<<<<<<<<<<<
+ *                 <DOUBLE*>v.data, <DOUBLE*>rv.data)
+ *             grad_sq_loss(n_samples, n_features, <DOUBLE*>X.data,
+ */
+          __pyx_f_15prox_elasticnet_9prox_fast_residual(__pyx_v_n_features, __pyx_v_n_samples, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_X->data), ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_y->data), ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_v->data), ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_rv->data));
+
+          /* "prox_elasticnet/prox_fast.pyx":437
+ *             residual(n_features, n_samples, <DOUBLE*>X.data, <DOUBLE*>y.data,
+ *                 <DOUBLE*>v.data, <DOUBLE*>rv.data)
+ *             grad_sq_loss(n_samples, n_features, <DOUBLE*>X.data,             # <<<<<<<<<<<<<<
+ *                 <DOUBLE*>rv.data, <DOUBLE*>g.data)
+ *             dcopy(n_features, <DOUBLE*>v.data, 1, <DOUBLE*>w.data, 1)
+ */
+          __pyx_f_15prox_elasticnet_9prox_fast_grad_sq_loss(__pyx_v_n_samples, __pyx_v_n_features, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_X->data), ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_rv->data), ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_g->data));
+
+          /* "prox_elasticnet/prox_fast.pyx":439
+ *             grad_sq_loss(n_samples, n_features, <DOUBLE*>X.data,
+ *                 <DOUBLE*>rv.data, <DOUBLE*>g.data)
+ *             dcopy(n_features, <DOUBLE*>v.data, 1, <DOUBLE*>w.data, 1)             # <<<<<<<<<<<<<<
+ *             daxpy(n_features, -sigma, <DOUBLE*>g.data, 1, <DOUBLE*>w.data, 1)
+ * 
+ */
+          cblas_dcopy(__pyx_v_n_features, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_v->data), 1, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w->data), 1);
+
+          /* "prox_elasticnet/prox_fast.pyx":440
+ *                 <DOUBLE*>rv.data, <DOUBLE*>g.data)
+ *             dcopy(n_features, <DOUBLE*>v.data, 1, <DOUBLE*>w.data, 1)
+ *             daxpy(n_features, -sigma, <DOUBLE*>g.data, 1, <DOUBLE*>w.data, 1)             # <<<<<<<<<<<<<<
+ * 
+ *             # w <- S_{sigma*alpha}(w)
+ */
+          cblas_daxpy(__pyx_v_n_features, (-__pyx_v_sigma), ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_g->data), 1, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w->data), 1);
+
+          /* "prox_elasticnet/prox_fast.pyx":443
+ * 
+ *             # w <- S_{sigma*alpha}(w)
+ *             soft_threshold(sigma*alpha, n_features, <DOUBLE*>w.data)             # <<<<<<<<<<<<<<
+ * 
+ *             # w <- shrink_factor * w
+ */
+          __pyx_f_15prox_elasticnet_9prox_fast_soft_threshold((__pyx_v_sigma * __pyx_v_alpha), __pyx_v_n_features, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w->data));
+
+          /* "prox_elasticnet/prox_fast.pyx":446
+ * 
+ *             # w <- shrink_factor * w
+ *             dscal(n_features, shrink_factor, <DOUBLE*>w.data, 1)             # <<<<<<<<<<<<<<
+ * 
+ *             # Check for a sufficient decrease
+ */
+          cblas_dscal(__pyx_v_n_features, __pyx_v_shrink_factor, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w->data), 1);
+
+          /* "prox_elasticnet/prox_fast.pyx":449
+ * 
+ *             # Check for a sufficient decrease
+ *             if fixed_sigma == 0:             # <<<<<<<<<<<<<<
+ *                 while suff_decrease(n_features, n_samples, <DOUBLE*>X.data,
+ *                     <DOUBLE*> v.data, <DOUBLE*> w.data, sigma) < 0:
+ */
+          __pyx_t_11 = ((__pyx_v_fixed_sigma == 0) != 0);
+          if (__pyx_t_11) {
+
+            /* "prox_elasticnet/prox_fast.pyx":450
+ *             # Check for a sufficient decrease
+ *             if fixed_sigma == 0:
+ *                 while suff_decrease(n_features, n_samples, <DOUBLE*>X.data,             # <<<<<<<<<<<<<<
+ *                     <DOUBLE*> v.data, <DOUBLE*> w.data, sigma) < 0:
+ *                     # Try smaller step size
+ */
+            while (1) {
+
+              /* "prox_elasticnet/prox_fast.pyx":451
+ *             if fixed_sigma == 0:
+ *                 while suff_decrease(n_features, n_samples, <DOUBLE*>X.data,
+ *                     <DOUBLE*> v.data, <DOUBLE*> w.data, sigma) < 0:             # <<<<<<<<<<<<<<
+ *                     # Try smaller step size
+ *                     sigma = eta * sigma
+ */
+              __pyx_t_11 = ((__pyx_f_15prox_elasticnet_9prox_fast_suff_decrease(__pyx_v_n_features, __pyx_v_n_samples, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_X->data), ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_v->data), ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w->data), __pyx_v_sigma) < 0.0) != 0);
+              if (!__pyx_t_11) break;
+
+              /* "prox_elasticnet/prox_fast.pyx":453
+ *                     <DOUBLE*> v.data, <DOUBLE*> w.data, sigma) < 0:
+ *                     # Try smaller step size
+ *                     sigma = eta * sigma             # <<<<<<<<<<<<<<
+ *                     # update shrink_factor
+ *                     shrink_factor = 1.0/(1.0 + sigma * beta)
+ */
+              __pyx_v_sigma = (__pyx_v_eta * __pyx_v_sigma);
+
+              /* "prox_elasticnet/prox_fast.pyx":455
+ *                     sigma = eta * sigma
+ *                     # update shrink_factor
+ *                     shrink_factor = 1.0/(1.0 + sigma * beta)             # <<<<<<<<<<<<<<
+ * 
+ *                     # Evaluate prox-grad step again with smaller sigma
+ */
+              __pyx_v_shrink_factor = (1.0 / (1.0 + (__pyx_v_sigma * __pyx_v_beta)));
+
+              /* "prox_elasticnet/prox_fast.pyx":459
+ *                     # Evaluate prox-grad step again with smaller sigma
+ *                     # w <- v - sigma * g
+ *                     dcopy(n_features, <DOUBLE*>v.data, 1, <DOUBLE*>w.data, 1)             # <<<<<<<<<<<<<<
+ *                     daxpy(n_features, -sigma, <DOUBLE*>g.data, 1,
+ *                             <DOUBLE*>w.data, 1)
+ */
+              cblas_dcopy(__pyx_v_n_features, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_v->data), 1, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w->data), 1);
+
+              /* "prox_elasticnet/prox_fast.pyx":460
+ *                     # w <- v - sigma * g
+ *                     dcopy(n_features, <DOUBLE*>v.data, 1, <DOUBLE*>w.data, 1)
+ *                     daxpy(n_features, -sigma, <DOUBLE*>g.data, 1,             # <<<<<<<<<<<<<<
+ *                             <DOUBLE*>w.data, 1)
+ * 
+ */
+              cblas_daxpy(__pyx_v_n_features, (-__pyx_v_sigma), ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_g->data), 1, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w->data), 1);
+
+              /* "prox_elasticnet/prox_fast.pyx":464
+ * 
+ *                     # w <- S_{sigma*alpha}(w)
+ *                     soft_threshold(sigma*alpha, n_features, <DOUBLE*>w.data)             # <<<<<<<<<<<<<<
+ * 
+ *                     # w <- shrink_factor * w
+ */
+              __pyx_f_15prox_elasticnet_9prox_fast_soft_threshold((__pyx_v_sigma * __pyx_v_alpha), __pyx_v_n_features, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w->data));
+
+              /* "prox_elasticnet/prox_fast.pyx":467
+ * 
+ *                     # w <- shrink_factor * w
+ *                     dscal(n_features, shrink_factor, <DOUBLE*>w.data, 1)             # <<<<<<<<<<<<<<
+ * 
+ *             # delta_w <- w - w_prev
+ */
+              cblas_dscal(__pyx_v_n_features, __pyx_v_shrink_factor, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w->data), 1);
+            }
+
+            /* "prox_elasticnet/prox_fast.pyx":449
+ * 
+ *             # Check for a sufficient decrease
+ *             if fixed_sigma == 0:             # <<<<<<<<<<<<<<
+ *                 while suff_decrease(n_features, n_samples, <DOUBLE*>X.data,
+ *                     <DOUBLE*> v.data, <DOUBLE*> w.data, sigma) < 0:
+ */
+          }
+
+          /* "prox_elasticnet/prox_fast.pyx":470
+ * 
+ *             # delta_w <- w - w_prev
+ *             dcopy(n_features, <DOUBLE*>w.data, 1, <DOUBLE*>delta_w.data, 1)             # <<<<<<<<<<<<<<
+ *             daxpy(n_features, -1.0, <DOUBLE*>w_prev.data, 1,
+ *                     <DOUBLE*>delta_w.data, 1)
+ */
+          cblas_dcopy(__pyx_v_n_features, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w->data), 1, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_delta_w->data), 1);
+
+          /* "prox_elasticnet/prox_fast.pyx":471
+ *             # delta_w <- w - w_prev
+ *             dcopy(n_features, <DOUBLE*>w.data, 1, <DOUBLE*>delta_w.data, 1)
+ *             daxpy(n_features, -1.0, <DOUBLE*>w_prev.data, 1,             # <<<<<<<<<<<<<<
+ *                     <DOUBLE*>delta_w.data, 1)
+ * 
+ */
+          cblas_daxpy(__pyx_v_n_features, -1.0, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w_prev->data), 1, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_delta_w->data), 1);
+
+          /* "prox_elasticnet/prox_fast.pyx":475
+ * 
+ *             # calculate relative error
+ *             min_w_max = fmin(vmax(n_features, <DOUBLE*>w.data),             # <<<<<<<<<<<<<<
+ *                              vmax(n_features, <DOUBLE*>w_prev.data))
+ *             d_w_max = abs_max(n_features, <DOUBLE*>delta_w.data)
+ */
+          __pyx_v_min_w_max = __pyx_f_15prox_elasticnet_9prox_fast_fmin(__pyx_f_15prox_elasticnet_9prox_fast_vmax(__pyx_v_n_features, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w->data)), __pyx_f_15prox_elasticnet_9prox_fast_vmax(__pyx_v_n_features, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w_prev->data)));
+
+          /* "prox_elasticnet/prox_fast.pyx":477
+ *             min_w_max = fmin(vmax(n_features, <DOUBLE*>w.data),
+ *                              vmax(n_features, <DOUBLE*>w_prev.data))
+ *             d_w_max = abs_max(n_features, <DOUBLE*>delta_w.data)             # <<<<<<<<<<<<<<
+ *             if (min_w_max == 0 or d_w_max/min_w_max < d_w_tol
+ *                     or n_iter == max_iter - 1):
+ */
+          __pyx_v_d_w_max = __pyx_f_15prox_elasticnet_9prox_fast_abs_max(__pyx_v_n_features, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_delta_w->data));
+
+          /* "prox_elasticnet/prox_fast.pyx":478
+ *                              vmax(n_features, <DOUBLE*>w_prev.data))
+ *             d_w_max = abs_max(n_features, <DOUBLE*>delta_w.data)
+ *             if (min_w_max == 0 or d_w_max/min_w_max < d_w_tol             # <<<<<<<<<<<<<<
+ *                     or n_iter == max_iter - 1):
+ *                 # check dual gap
+ */
+          __pyx_t_12 = ((__pyx_v_min_w_max == 0.0) != 0);
+          if (!__pyx_t_12) {
+          } else {
+            __pyx_t_11 = __pyx_t_12;
+            goto __pyx_L15_bool_binop_done;
+          }
+
+          /* "prox_elasticnet/prox_fast.pyx":479
+ *             d_w_max = abs_max(n_features, <DOUBLE*>delta_w.data)
+ *             if (min_w_max == 0 or d_w_max/min_w_max < d_w_tol
+ *                     or n_iter == max_iter - 1):             # <<<<<<<<<<<<<<
+ *                 # check dual gap
+ *                 gap = dual_gap(n_features, n_samples, <DOUBLE*>X.data,
+ */
+          __pyx_t_12 = (((__pyx_v_d_w_max / __pyx_v_min_w_max) < __pyx_v_d_w_tol) != 0);
+          if (!__pyx_t_12) {
+          } else {
+            __pyx_t_11 = __pyx_t_12;
+            goto __pyx_L15_bool_binop_done;
+          }
+          __pyx_t_12 = ((__pyx_v_n_iter == (__pyx_v_max_iter - 1)) != 0);
+          __pyx_t_11 = __pyx_t_12;
+          __pyx_L15_bool_binop_done:;
+
+          /* "prox_elasticnet/prox_fast.pyx":478
+ *                              vmax(n_features, <DOUBLE*>w_prev.data))
+ *             d_w_max = abs_max(n_features, <DOUBLE*>delta_w.data)
+ *             if (min_w_max == 0 or d_w_max/min_w_max < d_w_tol             # <<<<<<<<<<<<<<
+ *                     or n_iter == max_iter - 1):
+ *                 # check dual gap
+ */
+          if (__pyx_t_11) {
+
+            /* "prox_elasticnet/prox_fast.pyx":481
+ *                     or n_iter == max_iter - 1):
+ *                 # check dual gap
+ *                 gap = dual_gap(n_features, n_samples, <DOUBLE*>X.data,             # <<<<<<<<<<<<<<
+ *                         <DOUBLE*>y.data, <DOUBLE*>w.data, alpha, beta)
+ *                 if gap < tol:
+ */
+            __pyx_v_gap = __pyx_f_15prox_elasticnet_9prox_fast_dual_gap(__pyx_v_n_features, __pyx_v_n_samples, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_X->data), ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_y->data), ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w->data), __pyx_v_alpha, __pyx_v_beta);
+
+            /* "prox_elasticnet/prox_fast.pyx":483
+ *                 gap = dual_gap(n_features, n_samples, <DOUBLE*>X.data,
+ *                         <DOUBLE*>y.data, <DOUBLE*>w.data, alpha, beta)
+ *                 if gap < tol:             # <<<<<<<<<<<<<<
+ *                     # have reached desired tolerance
+ *                     break
+ */
+            __pyx_t_11 = ((__pyx_v_gap < __pyx_v_tol) != 0);
+            if (__pyx_t_11) {
+
+              /* "prox_elasticnet/prox_fast.pyx":485
+ *                 if gap < tol:
+ *                     # have reached desired tolerance
+ *                     break             # <<<<<<<<<<<<<<
+ * 
+ *             # update acceleration parameter
+ */
+              goto __pyx_L10_break;
+
+              /* "prox_elasticnet/prox_fast.pyx":483
+ *                 gap = dual_gap(n_features, n_samples, <DOUBLE*>X.data,
+ *                         <DOUBLE*>y.data, <DOUBLE*>w.data, alpha, beta)
+ *                 if gap < tol:             # <<<<<<<<<<<<<<
+ *                     # have reached desired tolerance
+ *                     break
+ */
+            }
+
+            /* "prox_elasticnet/prox_fast.pyx":478
+ *                              vmax(n_features, <DOUBLE*>w_prev.data))
+ *             d_w_max = abs_max(n_features, <DOUBLE*>delta_w.data)
+ *             if (min_w_max == 0 or d_w_max/min_w_max < d_w_tol             # <<<<<<<<<<<<<<
+ *                     or n_iter == max_iter - 1):
+ *                 # check dual gap
+ */
+          }
+
+          /* "prox_elasticnet/prox_fast.pyx":488
+ * 
+ *             # update acceleration parameter
+ *             t_prev = t             # <<<<<<<<<<<<<<
+ *             t = (1.0 + c_sqrt(1.0 + 4.0 * t_prev * t_prev))/2.0
+ *             accel_parameter = (t_prev - 1.0)/t
+ */
+          __pyx_v_t_prev = __pyx_v_t;
+
+          /* "prox_elasticnet/prox_fast.pyx":489
+ *             # update acceleration parameter
+ *             t_prev = t
+ *             t = (1.0 + c_sqrt(1.0 + 4.0 * t_prev * t_prev))/2.0             # <<<<<<<<<<<<<<
+ *             accel_parameter = (t_prev - 1.0)/t
+ * 
+ */
+          __pyx_v_t = ((1.0 + sqrt((1.0 + ((4.0 * __pyx_v_t_prev) * __pyx_v_t_prev)))) / 2.0);
+
+          /* "prox_elasticnet/prox_fast.pyx":490
+ *             t_prev = t
+ *             t = (1.0 + c_sqrt(1.0 + 4.0 * t_prev * t_prev))/2.0
+ *             accel_parameter = (t_prev - 1.0)/t             # <<<<<<<<<<<<<<
+ * 
+ *             # v <- w + accel_parameter * delta_w
+ */
+          __pyx_v_accel_parameter = ((__pyx_v_t_prev - 1.0) / __pyx_v_t);
+
+          /* "prox_elasticnet/prox_fast.pyx":493
+ * 
+ *             # v <- w + accel_parameter * delta_w
+ *             dcopy(n_features, <DOUBLE*>w.data, 1, <DOUBLE*>v.data, 1)             # <<<<<<<<<<<<<<
+ *             daxpy(n_features, accel_parameter, <DOUBLE*>delta_w.data, 1,
+ *                     <DOUBLE*>v.data, 1)
+ */
+          cblas_dcopy(__pyx_v_n_features, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w->data), 1, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_v->data), 1);
+
+          /* "prox_elasticnet/prox_fast.pyx":494
+ *             # v <- w + accel_parameter * delta_w
+ *             dcopy(n_features, <DOUBLE*>w.data, 1, <DOUBLE*>v.data, 1)
+ *             daxpy(n_features, accel_parameter, <DOUBLE*>delta_w.data, 1,             # <<<<<<<<<<<<<<
+ *                     <DOUBLE*>v.data, 1)
+ * 
+ */
+          cblas_daxpy(__pyx_v_n_features, __pyx_v_accel_parameter, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_delta_w->data), 1, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_v->data), 1);
+        }
+        __pyx_L10_break:;
+      }
+
+      /* "prox_elasticnet/prox_fast.pyx":419
+ *         fixed_sigma = 0
+ * 
+ *     with nogil:             # <<<<<<<<<<<<<<
+ *         y_norm_sq = ddot(n_samples, <DOUBLE*>y.data, 1, <DOUBLE*>y.data, 1)
+ *         # Scale tolerance by norm(y,2)^2
+ */
+      /*finally:*/ {
+        /*normal exit:*/{
+          #ifdef WITH_THREAD
+          Py_BLOCK_THREADS
+          #endif
+          goto __pyx_L8;
+        }
+        __pyx_L8:;
+      }
+  }
+
+  /* "prox_elasticnet/prox_fast.pyx":497
+ *                     <DOUBLE*>v.data, 1)
+ * 
+ *     return w, gap, tol, n_iter + 1             # <<<<<<<<<<<<<<
+ * 
+ * @cython.boundscheck(False)
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_4 = PyFloat_FromDouble(__pyx_v_gap); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 497; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_tol); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 497; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_5 = __Pyx_PyInt_From_long((__pyx_v_n_iter + 1)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 497; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_1 = PyTuple_New(4); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 497; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_INCREF(((PyObject *)__pyx_v_w));
+  __Pyx_GIVEREF(((PyObject *)__pyx_v_w));
+  PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)__pyx_v_w));
+  __Pyx_GIVEREF(__pyx_t_4);
+  PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_t_4);
+  __Pyx_GIVEREF(__pyx_t_3);
+  PyTuple_SET_ITEM(__pyx_t_1, 2, __pyx_t_3);
+  __Pyx_GIVEREF(__pyx_t_5);
+  PyTuple_SET_ITEM(__pyx_t_1, 3, __pyx_t_5);
+  __pyx_t_4 = 0;
+  __pyx_t_3 = 0;
+  __pyx_t_5 = 0;
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "prox_elasticnet/prox_fast.pyx":331
+ * @cython.wraparound(False)
+ * @cython.cdivision(True)
+ * def enet_prox_gradient(np.ndarray[DOUBLE, ndim=1] w,             # <<<<<<<<<<<<<<
+ *                             double alpha, double beta,
+ *                             np.ndarray[DOUBLE, ndim=2, mode='fortran'] X,
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  { PyObject *__pyx_type, *__pyx_value, *__pyx_tb;
+    __Pyx_ErrFetch(&__pyx_type, &__pyx_value, &__pyx_tb);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_X.rcbuffer->pybuffer);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_delta_w.rcbuffer->pybuffer);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_g.rcbuffer->pybuffer);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_rv.rcbuffer->pybuffer);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_v.rcbuffer->pybuffer);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_w.rcbuffer->pybuffer);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_w_prev.rcbuffer->pybuffer);
+    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_y.rcbuffer->pybuffer);
+  __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
+  __Pyx_AddTraceback("prox_elasticnet.prox_fast.enet_prox_gradient", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  goto __pyx_L2;
+  __pyx_L0:;
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_X.rcbuffer->pybuffer);
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_delta_w.rcbuffer->pybuffer);
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_g.rcbuffer->pybuffer);
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_rv.rcbuffer->pybuffer);
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_v.rcbuffer->pybuffer);
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_w.rcbuffer->pybuffer);
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_w_prev.rcbuffer->pybuffer);
+  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_y.rcbuffer->pybuffer);
+  __pyx_L2:;
+  __Pyx_XDECREF((PyObject *)__pyx_v_v);
+  __Pyx_XDECREF((PyObject *)__pyx_v_g);
+  __Pyx_XDECREF((PyObject *)__pyx_v_delta_w);
+  __Pyx_XDECREF((PyObject *)__pyx_v_w_prev);
+  __Pyx_XDECREF((PyObject *)__pyx_v_rv);
+  __Pyx_XDECREF(__pyx_v_XtX);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "prox_elasticnet/prox_fast.pyx":502
+ * @cython.wraparound(False)
+ * @cython.cdivision(True)
+ * def enet_prox_gradient_gram(np.ndarray[DOUBLE, ndim=1] w,             # <<<<<<<<<<<<<<
+ *                             double alpha, double beta,
+ *                             np.ndarray[DOUBLE, ndim=2, mode='c'] XtX,
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_15prox_elasticnet_9prox_fast_3enet_prox_gradient_gram(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_15prox_elasticnet_9prox_fast_2enet_prox_gradient_gram[] = "Cython implementation of Fast Iterative Shrinkage Thresholding Algorithm\n    (FISTA) for elastic-net regression.\n\n        The objective function is:\n\n        (1/2) * norm(X*w - y, 2)^2 + alpha norm(w, 1) + (beta/2) norm(w, 2)^2\n\n    Parameters\n    ----------\n    w : np.ndarray, shape (n_features,)\n        initial guess for weights\n\n    alpha : double\n        l-1 regularization parameter\n\n    beta : double\n        l-2 regularization parameter\n\n    XtX : C-contiguous np.ndarray, shape (n_features, n_features)\n        Gram matrix for training data\n\n    Xty : C-contiguous np.ndarray, shape (n_features,)\n        X^T * y\n\n    y : C-contiguous np.ndarray, shape (n_samples,)\n        target values\n\n    max_iter : int\n        maximum number of iterations\n\n    eta : double\n        backtracking line search shrinkage parameter\n\n    init_step : double\n        initial step size parameter\n\n    tol : double\n        stop if duality gap is less than tol\n\n    Returns\n    -------\n    w : np.ndarray, shape (n_parameters,)\n        optimal weight vector\n\n    gap : double\n        duality gap achieved\n\n    n_iter : int\n        number of iterations performed\n\n    sigma : double\n        current value of step-size\n    ";
+static PyMethodDef __pyx_mdef_15prox_elasticnet_9prox_fast_3enet_prox_gradient_gram = {"enet_prox_gradient_gram", (PyCFunction)__pyx_pw_15prox_elasticnet_9prox_fast_3enet_prox_gradient_gram, METH_VARARGS|METH_KEYWORDS, __pyx_doc_15prox_elasticnet_9prox_fast_2enet_prox_gradient_gram};
+static PyObject *__pyx_pw_15prox_elasticnet_9prox_fast_3enet_prox_gradient_gram(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyArrayObject *__pyx_v_w = 0;
+  double __pyx_v_alpha;
+  double __pyx_v_beta;
+  PyArrayObject *__pyx_v_XtX = 0;
+  PyArrayObject *__pyx_v_Xty = 0;
+  PyArrayObject *__pyx_v_y = 0;
+  int __pyx_v_max_iter;
+  double __pyx_v_eta;
+  double __pyx_v_init_step;
+  double __pyx_v_tol;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("enet_prox_gradient_gram (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_w,&__pyx_n_s_alpha,&__pyx_n_s_beta,&__pyx_n_s_XtX,&__pyx_n_s_Xty,&__pyx_n_s_y,&__pyx_n_s_max_iter,&__pyx_n_s_eta,&__pyx_n_s_init_step,&__pyx_n_s_tol,0};
+    PyObject* values[10] = {0,0,0,0,0,0,0,0,0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case 10: values[9] = PyTuple_GET_ITEM(__pyx_args, 9);
+        case  9: values[8] = PyTuple_GET_ITEM(__pyx_args, 8);
+        case  8: values[7] = PyTuple_GET_ITEM(__pyx_args, 7);
+        case  7: values[6] = PyTuple_GET_ITEM(__pyx_args, 6);
+        case  6: values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
+        case  5: values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
+        case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_w)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        case  1:
+        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_alpha)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("enet_prox_gradient_gram", 1, 10, 10, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 502; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        }
+        case  2:
+        if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_beta)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("enet_prox_gradient_gram", 1, 10, 10, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 502; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        }
+        case  3:
+        if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_XtX)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("enet_prox_gradient_gram", 1, 10, 10, 3); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 502; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        }
+        case  4:
+        if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_Xty)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("enet_prox_gradient_gram", 1, 10, 10, 4); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 502; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        }
+        case  5:
+        if (likely((values[5] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_y)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("enet_prox_gradient_gram", 1, 10, 10, 5); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 502; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        }
+        case  6:
+        if (likely((values[6] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_max_iter)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("enet_prox_gradient_gram", 1, 10, 10, 6); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 502; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        }
+        case  7:
+        if (likely((values[7] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_eta)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("enet_prox_gradient_gram", 1, 10, 10, 7); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 502; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        }
+        case  8:
+        if (likely((values[8] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_init_step)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("enet_prox_gradient_gram", 1, 10, 10, 8); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 502; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        }
+        case  9:
+        if (likely((values[9] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_tol)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("enet_prox_gradient_gram", 1, 10, 10, 9); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 502; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "enet_prox_gradient_gram") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 502; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 10) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+      values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+      values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+      values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
+      values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
+      values[6] = PyTuple_GET_ITEM(__pyx_args, 6);
+      values[7] = PyTuple_GET_ITEM(__pyx_args, 7);
+      values[8] = PyTuple_GET_ITEM(__pyx_args, 8);
+      values[9] = PyTuple_GET_ITEM(__pyx_args, 9);
+    }
+    __pyx_v_w = ((PyArrayObject *)values[0]);
+    __pyx_v_alpha = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_alpha == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 503; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_beta = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_beta == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 503; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_XtX = ((PyArrayObject *)values[3]);
+    __pyx_v_Xty = ((PyArrayObject *)values[4]);
+    __pyx_v_y = ((PyArrayObject *)values[5]);
+    __pyx_v_max_iter = __Pyx_PyInt_As_int(values[6]); if (unlikely((__pyx_v_max_iter == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 507; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_eta = __pyx_PyFloat_AsDouble(values[7]); if (unlikely((__pyx_v_eta == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 507; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_init_step = __pyx_PyFloat_AsDouble(values[8]); if (unlikely((__pyx_v_init_step == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 507; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_tol = __pyx_PyFloat_AsDouble(values[9]); if (unlikely((__pyx_v_tol == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 508; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("enet_prox_gradient_gram", 1, 10, 10, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 502; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("prox_elasticnet.prox_fast.enet_prox_gradient_gram", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_w), __pyx_ptype_5numpy_ndarray, 1, "w", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 502; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_XtX), __pyx_ptype_5numpy_ndarray, 1, "XtX", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 504; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_Xty), __pyx_ptype_5numpy_ndarray, 1, "Xty", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 505; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_y), __pyx_ptype_5numpy_ndarray, 1, "y", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 506; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_15prox_elasticnet_9prox_fast_2enet_prox_gradient_gram(__pyx_self, __pyx_v_w, __pyx_v_alpha, __pyx_v_beta, __pyx_v_XtX, __pyx_v_Xty, __pyx_v_y, __pyx_v_max_iter, __pyx_v_eta, __pyx_v_init_step, __pyx_v_tol);
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_15prox_elasticnet_9prox_fast_2enet_prox_gradient_gram(CYTHON_UNUSED PyObject *__pyx_self, PyArrayObject *__pyx_v_w, double __pyx_v_alpha, double __pyx_v_beta, PyArrayObject *__pyx_v_XtX, PyArrayObject *__pyx_v_Xty, PyArrayObject *__pyx_v_y, int __pyx_v_max_iter, double __pyx_v_eta, double __pyx_v_init_step, double __pyx_v_tol) {
+  unsigned int __pyx_v_n_samples;
+  unsigned int __pyx_v_n_features;
+  int __pyx_v_n_iter;
+  double __pyx_v_t;
+  double __pyx_v_t_prev;
+  double __pyx_v_sigma;
+  double __pyx_v_shrink_factor;
+  double __pyx_v_accel_parameter;
+  double __pyx_v_min_w_max;
+  double __pyx_v_d_w_max;
+  double __pyx_v_gap;
+  double __pyx_v_y_norm_sq;
+  double __pyx_v_d_w_tol;
+  PyArrayObject *__pyx_v_v = 0;
+  PyArrayObject *__pyx_v_g = 0;
+  PyArrayObject *__pyx_v_delta_w = 0;
+  PyArrayObject *__pyx_v_w_prev = 0;
+  int __pyx_v_fixed_sigma;
   __Pyx_LocalBuf_ND __pyx_pybuffernd_XtX;
   __Pyx_Buffer __pyx_pybuffer_XtX;
   __Pyx_LocalBuf_ND __pyx_pybuffernd_Xty;
@@ -2663,16 +4563,15 @@ static PyObject *__pyx_pf_9prox_fast_enet_prox_gradient(CYTHON_UNUSED PyObject *
   PyArrayObject *__pyx_t_7 = NULL;
   PyArrayObject *__pyx_t_8 = NULL;
   PyArrayObject *__pyx_t_9 = NULL;
-  PyArrayObject *__pyx_t_10 = NULL;
-  PyArrayObject *__pyx_t_11 = NULL;
-  int __pyx_t_12;
+  int __pyx_t_10;
+  int __pyx_t_11;
+  double __pyx_t_12;
   int __pyx_t_13;
   int __pyx_t_14;
-  int __pyx_t_15;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("enet_prox_gradient", 0);
+  __Pyx_RefNannySetupContext("enet_prox_gradient_gram", 0);
   __pyx_pybuffer_v.pybuffer.buf = NULL;
   __pyx_pybuffer_v.refcount = 0;
   __pyx_pybuffernd_v.data = NULL;
@@ -2689,6 +4588,10 @@ static PyObject *__pyx_pf_9prox_fast_enet_prox_gradient(CYTHON_UNUSED PyObject *
   __pyx_pybuffer_w_prev.refcount = 0;
   __pyx_pybuffernd_w_prev.data = NULL;
   __pyx_pybuffernd_w_prev.rcbuffer = &__pyx_pybuffer_w_prev;
+  __pyx_pybuffer_w.pybuffer.buf = NULL;
+  __pyx_pybuffer_w.refcount = 0;
+  __pyx_pybuffernd_w.data = NULL;
+  __pyx_pybuffernd_w.rcbuffer = &__pyx_pybuffer_w;
   __pyx_pybuffer_XtX.pybuffer.buf = NULL;
   __pyx_pybuffer_XtX.refcount = 0;
   __pyx_pybuffernd_XtX.data = NULL;
@@ -2697,101 +4600,98 @@ static PyObject *__pyx_pf_9prox_fast_enet_prox_gradient(CYTHON_UNUSED PyObject *
   __pyx_pybuffer_Xty.refcount = 0;
   __pyx_pybuffernd_Xty.data = NULL;
   __pyx_pybuffernd_Xty.rcbuffer = &__pyx_pybuffer_Xty;
-  __pyx_pybuffer_w.pybuffer.buf = NULL;
-  __pyx_pybuffer_w.refcount = 0;
-  __pyx_pybuffernd_w.data = NULL;
-  __pyx_pybuffernd_w.rcbuffer = &__pyx_pybuffer_w;
-  __pyx_pybuffer_X.pybuffer.buf = NULL;
-  __pyx_pybuffer_X.refcount = 0;
-  __pyx_pybuffernd_X.data = NULL;
-  __pyx_pybuffernd_X.rcbuffer = &__pyx_pybuffer_X;
   __pyx_pybuffer_y.pybuffer.buf = NULL;
   __pyx_pybuffer_y.refcount = 0;
   __pyx_pybuffernd_y.data = NULL;
   __pyx_pybuffernd_y.rcbuffer = &__pyx_pybuffer_y;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_w.rcbuffer->pybuffer, (PyObject*)__pyx_v_w, &__Pyx_TypeInfo_nn___pyx_t_9prox_fast_DOUBLE, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 235; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_w.rcbuffer->pybuffer, (PyObject*)__pyx_v_w, &__Pyx_TypeInfo_nn___pyx_t_15prox_elasticnet_9prox_fast_DOUBLE, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 502; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __pyx_pybuffernd_w.diminfo[0].strides = __pyx_pybuffernd_w.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_w.diminfo[0].shape = __pyx_pybuffernd_w.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_X.rcbuffer->pybuffer, (PyObject*)__pyx_v_X, &__Pyx_TypeInfo_nn___pyx_t_9prox_fast_DOUBLE, PyBUF_FORMAT| PyBUF_F_CONTIGUOUS, 2, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 235; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_XtX.rcbuffer->pybuffer, (PyObject*)__pyx_v_XtX, &__Pyx_TypeInfo_nn___pyx_t_15prox_elasticnet_9prox_fast_DOUBLE, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 2, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 502; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
-  __pyx_pybuffernd_X.diminfo[0].strides = __pyx_pybuffernd_X.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_X.diminfo[0].shape = __pyx_pybuffernd_X.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_X.diminfo[1].strides = __pyx_pybuffernd_X.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_X.diminfo[1].shape = __pyx_pybuffernd_X.rcbuffer->pybuffer.shape[1];
+  __pyx_pybuffernd_XtX.diminfo[0].strides = __pyx_pybuffernd_XtX.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_XtX.diminfo[0].shape = __pyx_pybuffernd_XtX.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_XtX.diminfo[1].strides = __pyx_pybuffernd_XtX.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_XtX.diminfo[1].shape = __pyx_pybuffernd_XtX.rcbuffer->pybuffer.shape[1];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_y.rcbuffer->pybuffer, (PyObject*)__pyx_v_y, &__Pyx_TypeInfo_nn___pyx_t_9prox_fast_DOUBLE, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 235; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_Xty.rcbuffer->pybuffer, (PyObject*)__pyx_v_Xty, &__Pyx_TypeInfo_nn___pyx_t_15prox_elasticnet_9prox_fast_DOUBLE, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 502; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  }
+  __pyx_pybuffernd_Xty.diminfo[0].strides = __pyx_pybuffernd_Xty.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_Xty.diminfo[0].shape = __pyx_pybuffernd_Xty.rcbuffer->pybuffer.shape[0];
+  {
+    __Pyx_BufFmt_StackElem __pyx_stack[1];
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_y.rcbuffer->pybuffer, (PyObject*)__pyx_v_y, &__Pyx_TypeInfo_nn___pyx_t_15prox_elasticnet_9prox_fast_DOUBLE, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 502; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   __pyx_pybuffernd_y.diminfo[0].strides = __pyx_pybuffernd_y.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_y.diminfo[0].shape = __pyx_pybuffernd_y.rcbuffer->pybuffer.shape[0];
 
-  /* "prox_fast.pyx":290
+  /* "prox_elasticnet/prox_fast.pyx":564
  * 
  *     # Initialize C variables
- *     cdef unsigned int n_samples = X.shape[0]             # <<<<<<<<<<<<<<
- *     cdef unsigned int n_features = X.shape[1]
+ *     cdef unsigned int n_samples = y.shape[0]             # <<<<<<<<<<<<<<
+ *     cdef unsigned int n_features = XtX.shape[0]
  *     cdef int n_iter = 0
  */
-  __pyx_v_n_samples = (__pyx_v_X->dimensions[0]);
+  __pyx_v_n_samples = (__pyx_v_y->dimensions[0]);
 
-  /* "prox_fast.pyx":291
+  /* "prox_elasticnet/prox_fast.pyx":565
  *     # Initialize C variables
- *     cdef unsigned int n_samples = X.shape[0]
- *     cdef unsigned int n_features = X.shape[1]             # <<<<<<<<<<<<<<
+ *     cdef unsigned int n_samples = y.shape[0]
+ *     cdef unsigned int n_features = XtX.shape[0]             # <<<<<<<<<<<<<<
  *     cdef int n_iter = 0
  *     cdef double t = 1.0
  */
-  __pyx_v_n_features = (__pyx_v_X->dimensions[1]);
+  __pyx_v_n_features = (__pyx_v_XtX->dimensions[0]);
 
-  /* "prox_fast.pyx":292
- *     cdef unsigned int n_samples = X.shape[0]
- *     cdef unsigned int n_features = X.shape[1]
+  /* "prox_elasticnet/prox_fast.pyx":566
+ *     cdef unsigned int n_samples = y.shape[0]
+ *     cdef unsigned int n_features = XtX.shape[0]
  *     cdef int n_iter = 0             # <<<<<<<<<<<<<<
  *     cdef double t = 1.0
  *     cdef double t_prev
  */
   __pyx_v_n_iter = 0;
 
-  /* "prox_fast.pyx":293
- *     cdef unsigned int n_features = X.shape[1]
+  /* "prox_elasticnet/prox_fast.pyx":567
+ *     cdef unsigned int n_features = XtX.shape[0]
  *     cdef int n_iter = 0
  *     cdef double t = 1.0             # <<<<<<<<<<<<<<
  *     cdef double t_prev
- *     cdef double sigma = sigma_0
+ *     cdef double sigma = init_step
  */
   __pyx_v_t = 1.0;
 
-  /* "prox_fast.pyx":295
+  /* "prox_elasticnet/prox_fast.pyx":569
  *     cdef double t = 1.0
  *     cdef double t_prev
- *     cdef double sigma = sigma_0             # <<<<<<<<<<<<<<
+ *     cdef double sigma = init_step             # <<<<<<<<<<<<<<
  *     cdef double shrink_factor
  *     cdef double accel_parameter
  */
-  __pyx_v_sigma = __pyx_v_sigma_0;
+  __pyx_v_sigma = __pyx_v_init_step;
 
-  /* "prox_fast.pyx":301
- *     cdef double d_w_max
+  /* "prox_elasticnet/prox_fast.pyx":576
  *     cdef double gap
+ *     cdef double y_norm_sq
  *     cdef double d_w_tol = tol             # <<<<<<<<<<<<<<
  *     cdef np.ndarray[DOUBLE, ndim=1] v = np.empty(n_features)
  *     cdef np.ndarray[DOUBLE, ndim=1] g = np.empty(n_features)
  */
   __pyx_v_d_w_tol = __pyx_v_tol;
 
-  /* "prox_fast.pyx":302
- *     cdef double gap
+  /* "prox_elasticnet/prox_fast.pyx":577
+ *     cdef double y_norm_sq
  *     cdef double d_w_tol = tol
  *     cdef np.ndarray[DOUBLE, ndim=1] v = np.empty(n_features)             # <<<<<<<<<<<<<<
  *     cdef np.ndarray[DOUBLE, ndim=1] g = np.empty(n_features)
  *     cdef np.ndarray[DOUBLE, ndim=1] delta_w = np.empty(n_features)
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 302; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 577; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_empty); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 302; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_empty); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 577; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyInt_From_unsigned_int(__pyx_v_n_features); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 302; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyInt_From_unsigned_int(__pyx_v_n_features); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 577; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_4 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_3))) {
@@ -2804,28 +4704,28 @@ static PyObject *__pyx_pf_9prox_fast_enet_prox_gradient(CYTHON_UNUSED PyObject *
     }
   }
   if (!__pyx_t_4) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 302; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 577; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else {
-    __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 302; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 577; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4); __pyx_t_4 = NULL;
     __Pyx_GIVEREF(__pyx_t_2);
     PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_t_2);
     __pyx_t_2 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 302; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 577; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 302; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 577; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_6 = ((PyArrayObject *)__pyx_t_1);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_v.rcbuffer->pybuffer, (PyObject*)__pyx_t_6, &__Pyx_TypeInfo_nn___pyx_t_9prox_fast_DOUBLE, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_v.rcbuffer->pybuffer, (PyObject*)__pyx_t_6, &__Pyx_TypeInfo_nn___pyx_t_15prox_elasticnet_9prox_fast_DOUBLE, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
       __pyx_v_v = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_v.rcbuffer->pybuffer.buf = NULL;
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 302; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 577; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     } else {__pyx_pybuffernd_v.diminfo[0].strides = __pyx_pybuffernd_v.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_v.diminfo[0].shape = __pyx_pybuffernd_v.rcbuffer->pybuffer.shape[0];
     }
   }
@@ -2833,19 +4733,19 @@ static PyObject *__pyx_pf_9prox_fast_enet_prox_gradient(CYTHON_UNUSED PyObject *
   __pyx_v_v = ((PyArrayObject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "prox_fast.pyx":303
+  /* "prox_elasticnet/prox_fast.pyx":578
  *     cdef double d_w_tol = tol
  *     cdef np.ndarray[DOUBLE, ndim=1] v = np.empty(n_features)
  *     cdef np.ndarray[DOUBLE, ndim=1] g = np.empty(n_features)             # <<<<<<<<<<<<<<
  *     cdef np.ndarray[DOUBLE, ndim=1] delta_w = np.empty(n_features)
  *     cdef np.ndarray[DOUBLE, ndim=1] w_prev = np.empty(n_features)
  */
-  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 303; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 578; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_empty); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 303; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_empty); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 578; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyInt_From_unsigned_int(__pyx_v_n_features); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 303; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyInt_From_unsigned_int(__pyx_v_n_features); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 578; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_2 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_5))) {
@@ -2858,28 +4758,28 @@ static PyObject *__pyx_pf_9prox_fast_enet_prox_gradient(CYTHON_UNUSED PyObject *
     }
   }
   if (!__pyx_t_2) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 303; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 578; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else {
-    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 303; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 578; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_2); __pyx_t_2 = NULL;
     __Pyx_GIVEREF(__pyx_t_3);
     PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_t_3);
     __pyx_t_3 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 303; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 578; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 303; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 578; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_7 = ((PyArrayObject *)__pyx_t_1);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_g.rcbuffer->pybuffer, (PyObject*)__pyx_t_7, &__Pyx_TypeInfo_nn___pyx_t_9prox_fast_DOUBLE, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_g.rcbuffer->pybuffer, (PyObject*)__pyx_t_7, &__Pyx_TypeInfo_nn___pyx_t_15prox_elasticnet_9prox_fast_DOUBLE, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
       __pyx_v_g = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_g.rcbuffer->pybuffer.buf = NULL;
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 303; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 578; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     } else {__pyx_pybuffernd_g.diminfo[0].strides = __pyx_pybuffernd_g.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_g.diminfo[0].shape = __pyx_pybuffernd_g.rcbuffer->pybuffer.shape[0];
     }
   }
@@ -2887,19 +4787,19 @@ static PyObject *__pyx_pf_9prox_fast_enet_prox_gradient(CYTHON_UNUSED PyObject *
   __pyx_v_g = ((PyArrayObject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "prox_fast.pyx":304
+  /* "prox_elasticnet/prox_fast.pyx":579
  *     cdef np.ndarray[DOUBLE, ndim=1] v = np.empty(n_features)
  *     cdef np.ndarray[DOUBLE, ndim=1] g = np.empty(n_features)
  *     cdef np.ndarray[DOUBLE, ndim=1] delta_w = np.empty(n_features)             # <<<<<<<<<<<<<<
  *     cdef np.ndarray[DOUBLE, ndim=1] w_prev = np.empty(n_features)
- *     cdef np.ndarray[DOUBLE, ndim=2, mode='c'] XtX = np.empty([n_features, n_features])
+ * 
  */
-  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 304; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 579; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_empty); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 304; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_empty); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 579; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyInt_From_unsigned_int(__pyx_v_n_features); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 304; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_PyInt_From_unsigned_int(__pyx_v_n_features); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 579; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_3 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_4))) {
@@ -2912,28 +4812,28 @@ static PyObject *__pyx_pf_9prox_fast_enet_prox_gradient(CYTHON_UNUSED PyObject *
     }
   }
   if (!__pyx_t_3) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 304; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 579; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else {
-    __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 304; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 579; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_3); __pyx_t_3 = NULL;
     __Pyx_GIVEREF(__pyx_t_5);
     PyTuple_SET_ITEM(__pyx_t_2, 0+1, __pyx_t_5);
     __pyx_t_5 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 304; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 579; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 304; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 579; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_8 = ((PyArrayObject *)__pyx_t_1);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_w.rcbuffer->pybuffer, (PyObject*)__pyx_t_8, &__Pyx_TypeInfo_nn___pyx_t_9prox_fast_DOUBLE, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_delta_w.rcbuffer->pybuffer, (PyObject*)__pyx_t_8, &__Pyx_TypeInfo_nn___pyx_t_15prox_elasticnet_9prox_fast_DOUBLE, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
       __pyx_v_delta_w = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_delta_w.rcbuffer->pybuffer.buf = NULL;
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 304; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 579; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     } else {__pyx_pybuffernd_delta_w.diminfo[0].strides = __pyx_pybuffernd_delta_w.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_delta_w.diminfo[0].shape = __pyx_pybuffernd_delta_w.rcbuffer->pybuffer.shape[0];
     }
   }
@@ -2941,19 +4841,19 @@ static PyObject *__pyx_pf_9prox_fast_enet_prox_gradient(CYTHON_UNUSED PyObject *
   __pyx_v_delta_w = ((PyArrayObject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "prox_fast.pyx":305
+  /* "prox_elasticnet/prox_fast.pyx":580
  *     cdef np.ndarray[DOUBLE, ndim=1] g = np.empty(n_features)
  *     cdef np.ndarray[DOUBLE, ndim=1] delta_w = np.empty(n_features)
  *     cdef np.ndarray[DOUBLE, ndim=1] w_prev = np.empty(n_features)             # <<<<<<<<<<<<<<
- *     cdef np.ndarray[DOUBLE, ndim=2, mode='c'] XtX = np.empty([n_features, n_features])
- *     cdef np.ndarray[DOUBLE, ndim=1, mode='c'] Xty = np.empty(n_features)
+ * 
+ *     if eta == 0 and init_step == 0:
  */
-  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 305; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 580; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_empty); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 305; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_empty); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 580; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyInt_From_unsigned_int(__pyx_v_n_features); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 305; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_PyInt_From_unsigned_int(__pyx_v_n_features); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 580; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_5 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_2))) {
@@ -2966,28 +4866,28 @@ static PyObject *__pyx_pf_9prox_fast_enet_prox_gradient(CYTHON_UNUSED PyObject *
     }
   }
   if (!__pyx_t_5) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 305; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 580; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_1);
   } else {
-    __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 305; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 580; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_5); __pyx_t_5 = NULL;
     __Pyx_GIVEREF(__pyx_t_4);
     PyTuple_SET_ITEM(__pyx_t_3, 0+1, __pyx_t_4);
     __pyx_t_4 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 305; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 580; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 305; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 580; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_9 = ((PyArrayObject *)__pyx_t_1);
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_w_prev.rcbuffer->pybuffer, (PyObject*)__pyx_t_9, &__Pyx_TypeInfo_nn___pyx_t_9prox_fast_DOUBLE, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_w_prev.rcbuffer->pybuffer, (PyObject*)__pyx_t_9, &__Pyx_TypeInfo_nn___pyx_t_15prox_elasticnet_9prox_fast_DOUBLE, PyBUF_FORMAT| PyBUF_STRIDES, 1, 0, __pyx_stack) == -1)) {
       __pyx_v_w_prev = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_w_prev.rcbuffer->pybuffer.buf = NULL;
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 305; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 580; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     } else {__pyx_pybuffernd_w_prev.diminfo[0].strides = __pyx_pybuffernd_w_prev.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_w_prev.diminfo[0].shape = __pyx_pybuffernd_w_prev.rcbuffer->pybuffer.shape[0];
     }
   }
@@ -2995,202 +4895,90 @@ static PyObject *__pyx_pf_9prox_fast_enet_prox_gradient(CYTHON_UNUSED PyObject *
   __pyx_v_w_prev = ((PyArrayObject *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "prox_fast.pyx":306
- *     cdef np.ndarray[DOUBLE, ndim=1] delta_w = np.empty(n_features)
+  /* "prox_elasticnet/prox_fast.pyx":582
  *     cdef np.ndarray[DOUBLE, ndim=1] w_prev = np.empty(n_features)
- *     cdef np.ndarray[DOUBLE, ndim=2, mode='c'] XtX = np.empty([n_features, n_features])             # <<<<<<<<<<<<<<
- *     cdef np.ndarray[DOUBLE, ndim=1, mode='c'] Xty = np.empty(n_features)
  * 
+ *     if eta == 0 and init_step == 0:             # <<<<<<<<<<<<<<
+ *         # Use fixed step size
+ *         fixed_sigma = True
  */
-  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 306; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_empty); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 306; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyInt_From_unsigned_int(__pyx_v_n_features); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 306; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyInt_From_unsigned_int(__pyx_v_n_features); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 306; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = PyList_New(2); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 306; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_GIVEREF(__pyx_t_2);
-  PyList_SET_ITEM(__pyx_t_5, 0, __pyx_t_2);
-  __Pyx_GIVEREF(__pyx_t_4);
-  PyList_SET_ITEM(__pyx_t_5, 1, __pyx_t_4);
-  __pyx_t_2 = 0;
-  __pyx_t_4 = 0;
-  __pyx_t_4 = NULL;
-  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_3))) {
-    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
-    if (likely(__pyx_t_4)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-      __Pyx_INCREF(__pyx_t_4);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_3, function);
-    }
-  }
-  if (!__pyx_t_4) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_5); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 306; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_11 = ((__pyx_v_eta == 0.0) != 0);
+  if (__pyx_t_11) {
   } else {
-    __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 306; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_10 = __pyx_t_11;
+    goto __pyx_L4_bool_binop_done;
+  }
+  __pyx_t_11 = ((__pyx_v_init_step == 0.0) != 0);
+  __pyx_t_10 = __pyx_t_11;
+  __pyx_L4_bool_binop_done:;
+  if (__pyx_t_10) {
+
+    /* "prox_elasticnet/prox_fast.pyx":584
+ *     if eta == 0 and init_step == 0:
+ *         # Use fixed step size
+ *         fixed_sigma = True             # <<<<<<<<<<<<<<
+ *         # Determine optimal step size
+ *         sigma = 1/norm(XtX, ord=2)
+ */
+    __pyx_v_fixed_sigma = 1;
+
+    /* "prox_elasticnet/prox_fast.pyx":586
+ *         fixed_sigma = True
+ *         # Determine optimal step size
+ *         sigma = 1/norm(XtX, ord=2)             # <<<<<<<<<<<<<<
+ *     else:
+ *         # Use adaptive step size selected by backtracking line search
+ */
+    __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_norm); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 586; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 586; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_4); __pyx_t_4 = NULL;
-    __Pyx_GIVEREF(__pyx_t_5);
-    PyTuple_SET_ITEM(__pyx_t_2, 0+1, __pyx_t_5);
-    __pyx_t_5 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 306; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_1);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  }
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 306; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_10 = ((PyArrayObject *)__pyx_t_1);
-  {
-    __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_XtX.rcbuffer->pybuffer, (PyObject*)__pyx_t_10, &__Pyx_TypeInfo_nn___pyx_t_9prox_fast_DOUBLE, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 2, 0, __pyx_stack) == -1)) {
-      __pyx_v_XtX = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_XtX.rcbuffer->pybuffer.buf = NULL;
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 306; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    } else {__pyx_pybuffernd_XtX.diminfo[0].strides = __pyx_pybuffernd_XtX.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_XtX.diminfo[0].shape = __pyx_pybuffernd_XtX.rcbuffer->pybuffer.shape[0]; __pyx_pybuffernd_XtX.diminfo[1].strides = __pyx_pybuffernd_XtX.rcbuffer->pybuffer.strides[1]; __pyx_pybuffernd_XtX.diminfo[1].shape = __pyx_pybuffernd_XtX.rcbuffer->pybuffer.shape[1];
-    }
-  }
-  __pyx_t_10 = 0;
-  __pyx_v_XtX = ((PyArrayObject *)__pyx_t_1);
-  __pyx_t_1 = 0;
-
-  /* "prox_fast.pyx":307
- *     cdef np.ndarray[DOUBLE, ndim=1] w_prev = np.empty(n_features)
- *     cdef np.ndarray[DOUBLE, ndim=2, mode='c'] XtX = np.empty([n_features, n_features])
- *     cdef np.ndarray[DOUBLE, ndim=1, mode='c'] Xty = np.empty(n_features)             # <<<<<<<<<<<<<<
- * 
- *     # XtX <- X^T*X
- */
-  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 307; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_empty); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 307; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyInt_From_unsigned_int(__pyx_v_n_features); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 307; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = NULL;
-  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_2))) {
-    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_2);
-    if (likely(__pyx_t_5)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-      __Pyx_INCREF(__pyx_t_5);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_2, function);
-    }
-  }
-  if (!__pyx_t_5) {
-    __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 307; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __Pyx_GOTREF(__pyx_t_1);
-  } else {
-    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 307; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_INCREF(((PyObject *)__pyx_v_XtX));
+    __Pyx_GIVEREF(((PyObject *)__pyx_v_XtX));
+    PyTuple_SET_ITEM(__pyx_t_2, 0, ((PyObject *)__pyx_v_XtX));
+    __pyx_t_3 = PyDict_New(); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 586; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_3);
+    if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_ord, __pyx_int_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 586; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 586; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_5); __pyx_t_5 = NULL;
-    __Pyx_GIVEREF(__pyx_t_3);
-    PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_t_3);
-    __pyx_t_3 = 0;
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 307; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __pyx_t_3 = __Pyx_PyNumber_Divide(__pyx_int_1, __pyx_t_4); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 586; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_12 = __pyx_PyFloat_AsDouble(__pyx_t_3); if (unlikely((__pyx_t_12 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 586; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __pyx_v_sigma = __pyx_t_12;
+
+    /* "prox_elasticnet/prox_fast.pyx":582
+ *     cdef np.ndarray[DOUBLE, ndim=1] w_prev = np.empty(n_features)
+ * 
+ *     if eta == 0 and init_step == 0:             # <<<<<<<<<<<<<<
+ *         # Use fixed step size
+ *         fixed_sigma = True
+ */
+    goto __pyx_L3;
   }
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_5numpy_ndarray))))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 307; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_11 = ((PyArrayObject *)__pyx_t_1);
-  {
-    __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_Xty.rcbuffer->pybuffer, (PyObject*)__pyx_t_11, &__Pyx_TypeInfo_nn___pyx_t_9prox_fast_DOUBLE, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) {
-      __pyx_v_Xty = ((PyArrayObject *)Py_None); __Pyx_INCREF(Py_None); __pyx_pybuffernd_Xty.rcbuffer->pybuffer.buf = NULL;
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 307; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    } else {__pyx_pybuffernd_Xty.diminfo[0].strides = __pyx_pybuffernd_Xty.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_Xty.diminfo[0].shape = __pyx_pybuffernd_Xty.rcbuffer->pybuffer.shape[0];
-    }
-  }
-  __pyx_t_11 = 0;
-  __pyx_v_Xty = ((PyArrayObject *)__pyx_t_1);
-  __pyx_t_1 = 0;
 
-  /* "prox_fast.pyx":310
- * 
- *     # XtX <- X^T*X
- *     dgemm(CblasColMajor, CblasTrans, CblasNoTrans, n_features, n_features,             # <<<<<<<<<<<<<<
- *           n_samples, 1.0, <DOUBLE*>X.data, n_samples, <DOUBLE*>X.data,
- *           n_samples, 0, <DOUBLE*>XtX.data, n_features)
- */
-  cblas_dgemm(CblasColMajor, CblasTrans, CblasNoTrans, __pyx_v_n_features, __pyx_v_n_features, __pyx_v_n_samples, 1.0, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_X->data), __pyx_v_n_samples, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_X->data), __pyx_v_n_samples, 0.0, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_XtX->data), __pyx_v_n_features);
-
-  /* "prox_fast.pyx":315
- * 
- *     # Xty <- X^T*y
- *     dgemv(CblasColMajor, CblasTrans, n_samples, n_features, 1.0,             # <<<<<<<<<<<<<<
- *             <DOUBLE*>X.data, n_samples, <DOUBLE*>y.data, 1, 0,
- *             <DOUBLE*>Xty.data, 1)
- */
-  cblas_dgemv(CblasColMajor, CblasTrans, __pyx_v_n_samples, __pyx_v_n_features, 1.0, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_X->data), __pyx_v_n_samples, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_y->data), 1, 0.0, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_Xty->data), 1);
-
-  /* "prox_fast.pyx":320
- * 
- *     # v <- w
- *     dcopy(n_features, <DOUBLE*>w.data, 1, <DOUBLE*>v.data, 1)             # <<<<<<<<<<<<<<
- * 
- *     # Determine optimal step size (1/Lipschitz constant)
- */
-  cblas_dcopy(__pyx_v_n_features, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_w->data), 1, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_v->data), 1);
-
-  /* "prox_fast.pyx":326
- * 
- *     # Set shrink factor
- *     shrink_factor = 1.0/(1.0 + sigma * beta)             # <<<<<<<<<<<<<<
- * 
- *     dcopy(n_features, <DOUBLE*>w.data, 1, <DOUBLE*>v.data, 1)
- */
-  __pyx_v_shrink_factor = (1.0 / (1.0 + (__pyx_v_sigma * __pyx_v_beta)));
-
-  /* "prox_fast.pyx":328
- *     shrink_factor = 1.0/(1.0 + sigma * beta)
- * 
- *     dcopy(n_features, <DOUBLE*>w.data, 1, <DOUBLE*>v.data, 1)             # <<<<<<<<<<<<<<
- *     dscal(n_features, 0.8, <DOUBLE*>v.data, 1)
- *     grad_sq_loss(n_features, <DOUBLE*>XtX.data, <DOUBLE*>Xty.data,
- */
-  cblas_dcopy(__pyx_v_n_features, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_w->data), 1, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_v->data), 1);
-
-  /* "prox_fast.pyx":329
- * 
- *     dcopy(n_features, <DOUBLE*>w.data, 1, <DOUBLE*>v.data, 1)
- *     dscal(n_features, 0.8, <DOUBLE*>v.data, 1)             # <<<<<<<<<<<<<<
- *     grad_sq_loss(n_features, <DOUBLE*>XtX.data, <DOUBLE*>Xty.data,
- *                         <DOUBLE*>v.data, <DOUBLE*>g.data)
- */
-  cblas_dscal(__pyx_v_n_features, 0.8, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_v->data), 1);
-
-  /* "prox_fast.pyx":330
- *     dcopy(n_features, <DOUBLE*>w.data, 1, <DOUBLE*>v.data, 1)
- *     dscal(n_features, 0.8, <DOUBLE*>v.data, 1)
- *     grad_sq_loss(n_features, <DOUBLE*>XtX.data, <DOUBLE*>Xty.data,             # <<<<<<<<<<<<<<
- *                         <DOUBLE*>v.data, <DOUBLE*>g.data)
- * 
- */
-  __pyx_f_9prox_fast_grad_sq_loss(__pyx_v_n_features, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_XtX->data), ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_Xty->data), ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_v->data), ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_g->data));
-
-  /* "prox_fast.pyx":334
- * 
- *     # Scale tolerance by norm(y,2)^2
- *     tol = tol * ddot(n_samples, <DOUBLE*>y.data, 1, <DOUBLE*>y.data, 1)             # <<<<<<<<<<<<<<
+  /* "prox_elasticnet/prox_fast.pyx":589
+ *     else:
+ *         # Use adaptive step size selected by backtracking line search
+ *         fixed_sigma = False             # <<<<<<<<<<<<<<
  * 
  *     with nogil:
  */
-  __pyx_v_tol = (__pyx_v_tol * cblas_ddot(__pyx_v_n_samples, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_y->data), 1, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_y->data), 1));
+  /*else*/ {
+    __pyx_v_fixed_sigma = 0;
+  }
+  __pyx_L3:;
 
-  /* "prox_fast.pyx":336
- *     tol = tol * ddot(n_samples, <DOUBLE*>y.data, 1, <DOUBLE*>y.data, 1)
+  /* "prox_elasticnet/prox_fast.pyx":591
+ *         fixed_sigma = False
  * 
  *     with nogil:             # <<<<<<<<<<<<<<
- *         for n_iter in range(max_iter):
- *             # w_prev <- w
+ *         y_norm_sq = ddot(n_samples, <DOUBLE*>y.data, 1, <DOUBLE*>y.data, 1)
+ *         # Scale tolerance by norm(y,2)
  */
   {
       #ifdef WITH_THREAD
@@ -3199,274 +4987,323 @@ static PyObject *__pyx_pf_9prox_fast_enet_prox_gradient(CYTHON_UNUSED PyObject *
       #endif
       /*try:*/ {
 
-        /* "prox_fast.pyx":337
+        /* "prox_elasticnet/prox_fast.pyx":592
  * 
  *     with nogil:
+ *         y_norm_sq = ddot(n_samples, <DOUBLE*>y.data, 1, <DOUBLE*>y.data, 1)             # <<<<<<<<<<<<<<
+ *         # Scale tolerance by norm(y,2)
+ *         tol = tol * y_norm_sq
+ */
+        __pyx_v_y_norm_sq = cblas_ddot(__pyx_v_n_samples, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_y->data), 1, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_y->data), 1);
+
+        /* "prox_elasticnet/prox_fast.pyx":594
+ *         y_norm_sq = ddot(n_samples, <DOUBLE*>y.data, 1, <DOUBLE*>y.data, 1)
+ *         # Scale tolerance by norm(y,2)
+ *         tol = tol * y_norm_sq             # <<<<<<<<<<<<<<
+ * 
+ *         # Set shrink factor
+ */
+        __pyx_v_tol = (__pyx_v_tol * __pyx_v_y_norm_sq);
+
+        /* "prox_elasticnet/prox_fast.pyx":597
+ * 
+ *         # Set shrink factor
+ *         shrink_factor = 1.0/(1.0 + sigma * beta)             # <<<<<<<<<<<<<<
+ * 
+ *         # v <- w
+ */
+        __pyx_v_shrink_factor = (1.0 / (1.0 + (__pyx_v_sigma * __pyx_v_beta)));
+
+        /* "prox_elasticnet/prox_fast.pyx":600
+ * 
+ *         # v <- w
+ *         dcopy(n_features, <DOUBLE*>w.data, 1, <DOUBLE*>v.data, 1)             # <<<<<<<<<<<<<<
+ * 
+ *         for n_iter in range(max_iter):
+ */
+        cblas_dcopy(__pyx_v_n_features, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w->data), 1, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_v->data), 1);
+
+        /* "prox_elasticnet/prox_fast.pyx":602
+ *         dcopy(n_features, <DOUBLE*>w.data, 1, <DOUBLE*>v.data, 1)
+ * 
  *         for n_iter in range(max_iter):             # <<<<<<<<<<<<<<
  *             # w_prev <- w
  *             dcopy(n_features, <DOUBLE*>w.data, 1, <DOUBLE*>w_prev.data, 1)
  */
-        __pyx_t_12 = __pyx_v_max_iter;
-        for (__pyx_t_13 = 0; __pyx_t_13 < __pyx_t_12; __pyx_t_13+=1) {
-          __pyx_v_n_iter = __pyx_t_13;
+        __pyx_t_13 = __pyx_v_max_iter;
+        for (__pyx_t_14 = 0; __pyx_t_14 < __pyx_t_13; __pyx_t_14+=1) {
+          __pyx_v_n_iter = __pyx_t_14;
 
-          /* "prox_fast.pyx":339
+          /* "prox_elasticnet/prox_fast.pyx":604
  *         for n_iter in range(max_iter):
  *             # w_prev <- w
  *             dcopy(n_features, <DOUBLE*>w.data, 1, <DOUBLE*>w_prev.data, 1)             # <<<<<<<<<<<<<<
  * 
- *             # w <- v - sigma * (X^T * X * v - X^T * y)
+ *             # w <- v - sigma * (XtX * v - Xty)
  */
-          cblas_dcopy(__pyx_v_n_features, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_w->data), 1, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_w_prev->data), 1);
+          cblas_dcopy(__pyx_v_n_features, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w->data), 1, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w_prev->data), 1);
 
-          /* "prox_fast.pyx":342
+          /* "prox_elasticnet/prox_fast.pyx":607
  * 
- *             # w <- v - sigma * (X^T * X * v - X^T * y)
- *             grad_sq_loss(n_features, <DOUBLE*>XtX.data, <DOUBLE*>Xty.data,             # <<<<<<<<<<<<<<
+ *             # w <- v - sigma * (XtX * v - Xty)
+ *             grad_sq_loss_gram(n_features, <DOUBLE*>XtX.data, <DOUBLE*>Xty.data,             # <<<<<<<<<<<<<<
  *                 <DOUBLE*>v.data, <DOUBLE*>g.data)
  *             dcopy(n_features, <DOUBLE*>v.data, 1, <DOUBLE*>w.data, 1)
  */
-          __pyx_f_9prox_fast_grad_sq_loss(__pyx_v_n_features, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_XtX->data), ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_Xty->data), ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_v->data), ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_g->data));
+          __pyx_f_15prox_elasticnet_9prox_fast_grad_sq_loss_gram(__pyx_v_n_features, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_XtX->data), ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_Xty->data), ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_v->data), ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_g->data));
 
-          /* "prox_fast.pyx":344
- *             grad_sq_loss(n_features, <DOUBLE*>XtX.data, <DOUBLE*>Xty.data,
+          /* "prox_elasticnet/prox_fast.pyx":609
+ *             grad_sq_loss_gram(n_features, <DOUBLE*>XtX.data, <DOUBLE*>Xty.data,
  *                 <DOUBLE*>v.data, <DOUBLE*>g.data)
  *             dcopy(n_features, <DOUBLE*>v.data, 1, <DOUBLE*>w.data, 1)             # <<<<<<<<<<<<<<
  *             daxpy(n_features, -sigma, <DOUBLE*>g.data, 1, <DOUBLE*>w.data, 1)
  * 
  */
-          cblas_dcopy(__pyx_v_n_features, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_v->data), 1, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_w->data), 1);
+          cblas_dcopy(__pyx_v_n_features, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_v->data), 1, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w->data), 1);
 
-          /* "prox_fast.pyx":345
+          /* "prox_elasticnet/prox_fast.pyx":610
  *                 <DOUBLE*>v.data, <DOUBLE*>g.data)
  *             dcopy(n_features, <DOUBLE*>v.data, 1, <DOUBLE*>w.data, 1)
  *             daxpy(n_features, -sigma, <DOUBLE*>g.data, 1, <DOUBLE*>w.data, 1)             # <<<<<<<<<<<<<<
  * 
  *             # w <- S_{sigma*alpha}(w)
  */
-          cblas_daxpy(__pyx_v_n_features, (-__pyx_v_sigma), ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_g->data), 1, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_w->data), 1);
+          cblas_daxpy(__pyx_v_n_features, (-__pyx_v_sigma), ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_g->data), 1, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w->data), 1);
 
-          /* "prox_fast.pyx":348
+          /* "prox_elasticnet/prox_fast.pyx":613
  * 
  *             # w <- S_{sigma*alpha}(w)
  *             soft_threshold(sigma*alpha, n_features, <DOUBLE*>w.data)             # <<<<<<<<<<<<<<
  * 
  *             # w <- shrink_factor * w
  */
-          __pyx_f_9prox_fast_soft_threshold((__pyx_v_sigma * __pyx_v_alpha), __pyx_v_n_features, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_w->data));
+          __pyx_f_15prox_elasticnet_9prox_fast_soft_threshold((__pyx_v_sigma * __pyx_v_alpha), __pyx_v_n_features, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w->data));
 
-          /* "prox_fast.pyx":351
+          /* "prox_elasticnet/prox_fast.pyx":616
  * 
  *             # w <- shrink_factor * w
  *             dscal(n_features, shrink_factor, <DOUBLE*>w.data, 1)             # <<<<<<<<<<<<<<
  * 
- *             # Check for a sufficient decrease in
+ *             # Check for a sufficient decrease
  */
-          cblas_dscal(__pyx_v_n_features, __pyx_v_shrink_factor, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_w->data), 1);
+          cblas_dscal(__pyx_v_n_features, __pyx_v_shrink_factor, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w->data), 1);
 
-          /* "prox_fast.pyx":354
+          /* "prox_elasticnet/prox_fast.pyx":619
  * 
- *             # Check for a sufficient decrease in
- *             while sufficient_decrease(n_features, n_samples, <DOUBLE*>X.data,             # <<<<<<<<<<<<<<
- *                 <DOUBLE*> v.data, <DOUBLE*> w.data, sigma) < 0 :
- *                 # Try smaller step size
+ *             # Check for a sufficient decrease
+ *             if not fixed_sigma:             # <<<<<<<<<<<<<<
+ *                 while suff_decrease_gram(n_features, <DOUBLE*>XtX.data,
+ *                     <DOUBLE*>v.data, <DOUBLE*>w.data, sigma) < 0:
  */
-          while (1) {
+          __pyx_t_10 = ((!(__pyx_v_fixed_sigma != 0)) != 0);
+          if (__pyx_t_10) {
 
-            /* "prox_fast.pyx":355
- *             # Check for a sufficient decrease in
- *             while sufficient_decrease(n_features, n_samples, <DOUBLE*>X.data,
- *                 <DOUBLE*> v.data, <DOUBLE*> w.data, sigma) < 0 :             # <<<<<<<<<<<<<<
- *                 # Try smaller step size
- *                 sigma = eta * sigma
+            /* "prox_elasticnet/prox_fast.pyx":620
+ *             # Check for a sufficient decrease
+ *             if not fixed_sigma:
+ *                 while suff_decrease_gram(n_features, <DOUBLE*>XtX.data,             # <<<<<<<<<<<<<<
+ *                     <DOUBLE*>v.data, <DOUBLE*>w.data, sigma) < 0:
+ *                     # Try smaller step size
  */
-            __pyx_t_14 = ((__pyx_f_9prox_fast_sufficient_decrease(__pyx_v_n_features, __pyx_v_n_samples, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_X->data), ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_v->data), ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_w->data), __pyx_v_sigma) < 0.0) != 0);
-            if (!__pyx_t_14) break;
+            while (1) {
 
-            /* "prox_fast.pyx":357
- *                 <DOUBLE*> v.data, <DOUBLE*> w.data, sigma) < 0 :
- *                 # Try smaller step size
- *                 sigma = eta * sigma             # <<<<<<<<<<<<<<
- *                 # update shrink_factor
- *                 shrink_factor = 1.0/(1.0 + sigma * beta)
+              /* "prox_elasticnet/prox_fast.pyx":621
+ *             if not fixed_sigma:
+ *                 while suff_decrease_gram(n_features, <DOUBLE*>XtX.data,
+ *                     <DOUBLE*>v.data, <DOUBLE*>w.data, sigma) < 0:             # <<<<<<<<<<<<<<
+ *                     # Try smaller step size
+ *                     sigma = eta * sigma
  */
-            __pyx_v_sigma = (__pyx_v_eta * __pyx_v_sigma);
+              __pyx_t_10 = ((__pyx_f_15prox_elasticnet_9prox_fast_suff_decrease_gram(__pyx_v_n_features, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_XtX->data), ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_v->data), ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w->data), __pyx_v_sigma) < 0.0) != 0);
+              if (!__pyx_t_10) break;
 
-            /* "prox_fast.pyx":359
- *                 sigma = eta * sigma
- *                 # update shrink_factor
- *                 shrink_factor = 1.0/(1.0 + sigma * beta)             # <<<<<<<<<<<<<<
+              /* "prox_elasticnet/prox_fast.pyx":623
+ *                     <DOUBLE*>v.data, <DOUBLE*>w.data, sigma) < 0:
+ *                     # Try smaller step size
+ *                     sigma = eta * sigma             # <<<<<<<<<<<<<<
+ *                     # update shrink_factor
+ *                     shrink_factor = 1.0/(1.0 + sigma * beta)
+ */
+              __pyx_v_sigma = (__pyx_v_eta * __pyx_v_sigma);
+
+              /* "prox_elasticnet/prox_fast.pyx":625
+ *                     sigma = eta * sigma
+ *                     # update shrink_factor
+ *                     shrink_factor = 1.0/(1.0 + sigma * beta)             # <<<<<<<<<<<<<<
  * 
- *                 # Evaluate prox-grad step again with smaller sigma
+ *                     # Evaluate prox-grad step again with smaller sigma
  */
-            __pyx_v_shrink_factor = (1.0 / (1.0 + (__pyx_v_sigma * __pyx_v_beta)));
+              __pyx_v_shrink_factor = (1.0 / (1.0 + (__pyx_v_sigma * __pyx_v_beta)));
 
-            /* "prox_fast.pyx":363
- *                 # Evaluate prox-grad step again with smaller sigma
- *                 # w <- v - sigma * g
- *                 dcopy(n_features, <DOUBLE*>v.data, 1, <DOUBLE*>w.data, 1)             # <<<<<<<<<<<<<<
- *                 daxpy(n_features, -sigma, <DOUBLE*>g.data, 1,
- *                         <DOUBLE*>w.data, 1)
+              /* "prox_elasticnet/prox_fast.pyx":629
+ *                     # Evaluate prox-grad step again with smaller sigma
+ *                     # w <- v - sigma * g
+ *                     dcopy(n_features, <DOUBLE*>v.data, 1, <DOUBLE*>w.data, 1)             # <<<<<<<<<<<<<<
+ *                     daxpy(n_features, -sigma, <DOUBLE*>g.data, 1,
+ *                             <DOUBLE*>w.data, 1)
  */
-            cblas_dcopy(__pyx_v_n_features, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_v->data), 1, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_w->data), 1);
+              cblas_dcopy(__pyx_v_n_features, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_v->data), 1, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w->data), 1);
 
-            /* "prox_fast.pyx":364
- *                 # w <- v - sigma * g
- *                 dcopy(n_features, <DOUBLE*>v.data, 1, <DOUBLE*>w.data, 1)
- *                 daxpy(n_features, -sigma, <DOUBLE*>g.data, 1,             # <<<<<<<<<<<<<<
- *                         <DOUBLE*>w.data, 1)
+              /* "prox_elasticnet/prox_fast.pyx":630
+ *                     # w <- v - sigma * g
+ *                     dcopy(n_features, <DOUBLE*>v.data, 1, <DOUBLE*>w.data, 1)
+ *                     daxpy(n_features, -sigma, <DOUBLE*>g.data, 1,             # <<<<<<<<<<<<<<
+ *                             <DOUBLE*>w.data, 1)
  * 
  */
-            cblas_daxpy(__pyx_v_n_features, (-__pyx_v_sigma), ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_g->data), 1, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_w->data), 1);
+              cblas_daxpy(__pyx_v_n_features, (-__pyx_v_sigma), ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_g->data), 1, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w->data), 1);
 
-            /* "prox_fast.pyx":368
+              /* "prox_elasticnet/prox_fast.pyx":634
  * 
- *                 # w <- S_{sigma*alpha}(w)
- *                 soft_threshold(sigma*alpha, n_features, <DOUBLE*>w.data)             # <<<<<<<<<<<<<<
+ *                     # w <- S_{sigma*alpha}(w)
+ *                     soft_threshold(sigma*alpha, n_features, <DOUBLE*>w.data)             # <<<<<<<<<<<<<<
  * 
- *                 # w <- shrink_factor * w
+ *                     # w <- shrink_factor * w
  */
-            __pyx_f_9prox_fast_soft_threshold((__pyx_v_sigma * __pyx_v_alpha), __pyx_v_n_features, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_w->data));
+              __pyx_f_15prox_elasticnet_9prox_fast_soft_threshold((__pyx_v_sigma * __pyx_v_alpha), __pyx_v_n_features, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w->data));
 
-            /* "prox_fast.pyx":371
+              /* "prox_elasticnet/prox_fast.pyx":637
  * 
- *                 # w <- shrink_factor * w
- *                 dscal(n_features, shrink_factor, <DOUBLE*>w.data, 1)             # <<<<<<<<<<<<<<
+ *                     # w <- shrink_factor * w
+ *                     dscal(n_features, shrink_factor, <DOUBLE*>w.data, 1)             # <<<<<<<<<<<<<<
  * 
  *             # delta_w <- w - w_prev
  */
-            cblas_dscal(__pyx_v_n_features, __pyx_v_shrink_factor, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_w->data), 1);
+              cblas_dscal(__pyx_v_n_features, __pyx_v_shrink_factor, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w->data), 1);
+            }
+
+            /* "prox_elasticnet/prox_fast.pyx":619
+ * 
+ *             # Check for a sufficient decrease
+ *             if not fixed_sigma:             # <<<<<<<<<<<<<<
+ *                 while suff_decrease_gram(n_features, <DOUBLE*>XtX.data,
+ *                     <DOUBLE*>v.data, <DOUBLE*>w.data, sigma) < 0:
+ */
           }
 
-          /* "prox_fast.pyx":374
+          /* "prox_elasticnet/prox_fast.pyx":640
  * 
  *             # delta_w <- w - w_prev
  *             dcopy(n_features, <DOUBLE*>w.data, 1, <DOUBLE*>delta_w.data, 1)             # <<<<<<<<<<<<<<
  *             daxpy(n_features, -1.0, <DOUBLE*>w_prev.data, 1,
  *                     <DOUBLE*>delta_w.data, 1)
  */
-          cblas_dcopy(__pyx_v_n_features, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_w->data), 1, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_delta_w->data), 1);
+          cblas_dcopy(__pyx_v_n_features, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w->data), 1, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_delta_w->data), 1);
 
-          /* "prox_fast.pyx":375
+          /* "prox_elasticnet/prox_fast.pyx":641
  *             # delta_w <- w - w_prev
  *             dcopy(n_features, <DOUBLE*>w.data, 1, <DOUBLE*>delta_w.data, 1)
  *             daxpy(n_features, -1.0, <DOUBLE*>w_prev.data, 1,             # <<<<<<<<<<<<<<
  *                     <DOUBLE*>delta_w.data, 1)
  * 
  */
-          cblas_daxpy(__pyx_v_n_features, -1.0, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_w_prev->data), 1, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_delta_w->data), 1);
+          cblas_daxpy(__pyx_v_n_features, -1.0, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w_prev->data), 1, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_delta_w->data), 1);
 
-          /* "prox_fast.pyx":379
+          /* "prox_elasticnet/prox_fast.pyx":645
  * 
  *             # calculate relative error
  *             min_w_max = fmin(vmax(n_features, <DOUBLE*>w.data),             # <<<<<<<<<<<<<<
  *                              vmax(n_features, <DOUBLE*>w_prev.data))
  *             d_w_max = abs_max(n_features, <DOUBLE*>delta_w.data)
  */
-          __pyx_v_min_w_max = __pyx_f_9prox_fast_fmin(__pyx_f_9prox_fast_vmax(__pyx_v_n_features, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_w->data)), __pyx_f_9prox_fast_vmax(__pyx_v_n_features, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_w_prev->data)));
+          __pyx_v_min_w_max = __pyx_f_15prox_elasticnet_9prox_fast_fmin(__pyx_f_15prox_elasticnet_9prox_fast_vmax(__pyx_v_n_features, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w->data)), __pyx_f_15prox_elasticnet_9prox_fast_vmax(__pyx_v_n_features, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w_prev->data)));
 
-          /* "prox_fast.pyx":381
+          /* "prox_elasticnet/prox_fast.pyx":647
  *             min_w_max = fmin(vmax(n_features, <DOUBLE*>w.data),
  *                              vmax(n_features, <DOUBLE*>w_prev.data))
  *             d_w_max = abs_max(n_features, <DOUBLE*>delta_w.data)             # <<<<<<<<<<<<<<
- *             if (n_iter > 2) and (min_w_max == 0 or d_w_max/min_w_max < d_w_tol
+ *             if (min_w_max == 0 or d_w_max/min_w_max < d_w_tol
  *                     or n_iter == max_iter - 1):
  */
-          __pyx_v_d_w_max = __pyx_f_9prox_fast_abs_max(__pyx_v_n_features, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_delta_w->data));
+          __pyx_v_d_w_max = __pyx_f_15prox_elasticnet_9prox_fast_abs_max(__pyx_v_n_features, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_delta_w->data));
 
-          /* "prox_fast.pyx":382
+          /* "prox_elasticnet/prox_fast.pyx":648
  *                              vmax(n_features, <DOUBLE*>w_prev.data))
  *             d_w_max = abs_max(n_features, <DOUBLE*>delta_w.data)
- *             if (n_iter > 2) and (min_w_max == 0 or d_w_max/min_w_max < d_w_tol             # <<<<<<<<<<<<<<
+ *             if (min_w_max == 0 or d_w_max/min_w_max < d_w_tol             # <<<<<<<<<<<<<<
  *                     or n_iter == max_iter - 1):
- *                 # check duality gap
+ *                 # check dual gap
  */
-          __pyx_t_15 = ((__pyx_v_n_iter > 2) != 0);
-          if (__pyx_t_15) {
+          __pyx_t_11 = ((__pyx_v_min_w_max == 0.0) != 0);
+          if (!__pyx_t_11) {
           } else {
-            __pyx_t_14 = __pyx_t_15;
-            goto __pyx_L11_bool_binop_done;
-          }
-          __pyx_t_15 = ((__pyx_v_min_w_max == 0.0) != 0);
-          if (!__pyx_t_15) {
-          } else {
-            __pyx_t_14 = __pyx_t_15;
-            goto __pyx_L11_bool_binop_done;
+            __pyx_t_10 = __pyx_t_11;
+            goto __pyx_L15_bool_binop_done;
           }
 
-          /* "prox_fast.pyx":383
+          /* "prox_elasticnet/prox_fast.pyx":649
  *             d_w_max = abs_max(n_features, <DOUBLE*>delta_w.data)
- *             if (n_iter > 2) and (min_w_max == 0 or d_w_max/min_w_max < d_w_tol
+ *             if (min_w_max == 0 or d_w_max/min_w_max < d_w_tol
  *                     or n_iter == max_iter - 1):             # <<<<<<<<<<<<<<
- *                 # check duality gap
- *                 gap = duality_gap(n_features, n_samples, <DOUBLE*>X.data,
+ *                 # check dual gap
+ *                 gap = dual_gap_gram(n_features, <DOUBLE*>XtX.data,
  */
-          __pyx_t_15 = (((__pyx_v_d_w_max / __pyx_v_min_w_max) < __pyx_v_d_w_tol) != 0);
-          if (!__pyx_t_15) {
+          __pyx_t_11 = (((__pyx_v_d_w_max / __pyx_v_min_w_max) < __pyx_v_d_w_tol) != 0);
+          if (!__pyx_t_11) {
           } else {
-            __pyx_t_14 = __pyx_t_15;
-            goto __pyx_L11_bool_binop_done;
+            __pyx_t_10 = __pyx_t_11;
+            goto __pyx_L15_bool_binop_done;
           }
-          __pyx_t_15 = ((__pyx_v_n_iter == (__pyx_v_max_iter - 1)) != 0);
-          __pyx_t_14 = __pyx_t_15;
-          __pyx_L11_bool_binop_done:;
+          __pyx_t_11 = ((__pyx_v_n_iter == (__pyx_v_max_iter - 1)) != 0);
+          __pyx_t_10 = __pyx_t_11;
+          __pyx_L15_bool_binop_done:;
 
-          /* "prox_fast.pyx":382
+          /* "prox_elasticnet/prox_fast.pyx":648
  *                              vmax(n_features, <DOUBLE*>w_prev.data))
  *             d_w_max = abs_max(n_features, <DOUBLE*>delta_w.data)
- *             if (n_iter > 2) and (min_w_max == 0 or d_w_max/min_w_max < d_w_tol             # <<<<<<<<<<<<<<
+ *             if (min_w_max == 0 or d_w_max/min_w_max < d_w_tol             # <<<<<<<<<<<<<<
  *                     or n_iter == max_iter - 1):
- *                 # check duality gap
+ *                 # check dual gap
  */
-          if (__pyx_t_14) {
+          if (__pyx_t_10) {
 
-            /* "prox_fast.pyx":385
+            /* "prox_elasticnet/prox_fast.pyx":651
  *                     or n_iter == max_iter - 1):
- *                 # check duality gap
- *                 gap = duality_gap(n_features, n_samples, <DOUBLE*>X.data,             # <<<<<<<<<<<<<<
- *                         <DOUBLE*>y.data, <DOUBLE*>w.data, alpha, beta)
- *                 if gap < tol:
+ *                 # check dual gap
+ *                 gap = dual_gap_gram(n_features, <DOUBLE*>XtX.data,             # <<<<<<<<<<<<<<
+ *                         <DOUBLE*>Xty.data, <DOUBLE*>w.data, alpha, beta,
+ *                         y_norm_sq)
  */
-            __pyx_v_gap = __pyx_f_9prox_fast_duality_gap(__pyx_v_n_features, __pyx_v_n_samples, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_X->data), ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_y->data), ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_w->data), __pyx_v_alpha, __pyx_v_beta);
+            __pyx_v_gap = __pyx_f_15prox_elasticnet_9prox_fast_dual_gap_gram(__pyx_v_n_features, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_XtX->data), ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_Xty->data), ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w->data), __pyx_v_alpha, __pyx_v_beta, __pyx_v_y_norm_sq);
 
-            /* "prox_fast.pyx":387
- *                 gap = duality_gap(n_features, n_samples, <DOUBLE*>X.data,
- *                         <DOUBLE*>y.data, <DOUBLE*>w.data, alpha, beta)
+            /* "prox_elasticnet/prox_fast.pyx":654
+ *                         <DOUBLE*>Xty.data, <DOUBLE*>w.data, alpha, beta,
+ *                         y_norm_sq)
  *                 if gap < tol:             # <<<<<<<<<<<<<<
  *                     # have reached desired tolerance
  *                     break
  */
-            __pyx_t_14 = ((__pyx_v_gap < __pyx_v_tol) != 0);
-            if (__pyx_t_14) {
+            __pyx_t_10 = ((__pyx_v_gap < __pyx_v_tol) != 0);
+            if (__pyx_t_10) {
 
-              /* "prox_fast.pyx":389
+              /* "prox_elasticnet/prox_fast.pyx":656
  *                 if gap < tol:
  *                     # have reached desired tolerance
  *                     break             # <<<<<<<<<<<<<<
  * 
  *             # update acceleration parameter
  */
-              goto __pyx_L7_break;
+              goto __pyx_L10_break;
 
-              /* "prox_fast.pyx":387
- *                 gap = duality_gap(n_features, n_samples, <DOUBLE*>X.data,
- *                         <DOUBLE*>y.data, <DOUBLE*>w.data, alpha, beta)
+              /* "prox_elasticnet/prox_fast.pyx":654
+ *                         <DOUBLE*>Xty.data, <DOUBLE*>w.data, alpha, beta,
+ *                         y_norm_sq)
  *                 if gap < tol:             # <<<<<<<<<<<<<<
  *                     # have reached desired tolerance
  *                     break
  */
             }
 
-            /* "prox_fast.pyx":382
+            /* "prox_elasticnet/prox_fast.pyx":648
  *                              vmax(n_features, <DOUBLE*>w_prev.data))
  *             d_w_max = abs_max(n_features, <DOUBLE*>delta_w.data)
- *             if (n_iter > 2) and (min_w_max == 0 or d_w_max/min_w_max < d_w_tol             # <<<<<<<<<<<<<<
+ *             if (min_w_max == 0 or d_w_max/min_w_max < d_w_tol             # <<<<<<<<<<<<<<
  *                     or n_iter == max_iter - 1):
- *                 # check duality gap
+ *                 # check dual gap
  */
           }
 
-          /* "prox_fast.pyx":392
+          /* "prox_elasticnet/prox_fast.pyx":659
  * 
  *             # update acceleration parameter
  *             t_prev = t             # <<<<<<<<<<<<<<
@@ -3475,7 +5312,7 @@ static PyObject *__pyx_pf_9prox_fast_enet_prox_gradient(CYTHON_UNUSED PyObject *
  */
           __pyx_v_t_prev = __pyx_v_t;
 
-          /* "prox_fast.pyx":393
+          /* "prox_elasticnet/prox_fast.pyx":660
  *             # update acceleration parameter
  *             t_prev = t
  *             t = (1.0 + c_sqrt(1.0 + 4.0 * t_prev * t_prev))/2.0             # <<<<<<<<<<<<<<
@@ -3484,7 +5321,7 @@ static PyObject *__pyx_pf_9prox_fast_enet_prox_gradient(CYTHON_UNUSED PyObject *
  */
           __pyx_v_t = ((1.0 + sqrt((1.0 + ((4.0 * __pyx_v_t_prev) * __pyx_v_t_prev)))) / 2.0);
 
-          /* "prox_fast.pyx":394
+          /* "prox_elasticnet/prox_fast.pyx":661
  *             t_prev = t
  *             t = (1.0 + c_sqrt(1.0 + 4.0 * t_prev * t_prev))/2.0
  *             accel_parameter = (t_prev - 1.0)/t             # <<<<<<<<<<<<<<
@@ -3493,81 +5330,81 @@ static PyObject *__pyx_pf_9prox_fast_enet_prox_gradient(CYTHON_UNUSED PyObject *
  */
           __pyx_v_accel_parameter = ((__pyx_v_t_prev - 1.0) / __pyx_v_t);
 
-          /* "prox_fast.pyx":397
+          /* "prox_elasticnet/prox_fast.pyx":664
  * 
  *             # v <- w + accel_parameter * delta_w
  *             dcopy(n_features, <DOUBLE*>w.data, 1, <DOUBLE*>v.data, 1)             # <<<<<<<<<<<<<<
  *             daxpy(n_features, accel_parameter, <DOUBLE*>delta_w.data, 1,
  *                     <DOUBLE*>v.data, 1)
  */
-          cblas_dcopy(__pyx_v_n_features, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_w->data), 1, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_v->data), 1);
+          cblas_dcopy(__pyx_v_n_features, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_w->data), 1, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_v->data), 1);
 
-          /* "prox_fast.pyx":398
+          /* "prox_elasticnet/prox_fast.pyx":665
  *             # v <- w + accel_parameter * delta_w
  *             dcopy(n_features, <DOUBLE*>w.data, 1, <DOUBLE*>v.data, 1)
  *             daxpy(n_features, accel_parameter, <DOUBLE*>delta_w.data, 1,             # <<<<<<<<<<<<<<
  *                     <DOUBLE*>v.data, 1)
  * 
  */
-          cblas_daxpy(__pyx_v_n_features, __pyx_v_accel_parameter, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_delta_w->data), 1, ((__pyx_t_9prox_fast_DOUBLE *)__pyx_v_v->data), 1);
+          cblas_daxpy(__pyx_v_n_features, __pyx_v_accel_parameter, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_delta_w->data), 1, ((__pyx_t_15prox_elasticnet_9prox_fast_DOUBLE *)__pyx_v_v->data), 1);
         }
-        __pyx_L7_break:;
+        __pyx_L10_break:;
       }
 
-      /* "prox_fast.pyx":336
- *     tol = tol * ddot(n_samples, <DOUBLE*>y.data, 1, <DOUBLE*>y.data, 1)
+      /* "prox_elasticnet/prox_fast.pyx":591
+ *         fixed_sigma = False
  * 
  *     with nogil:             # <<<<<<<<<<<<<<
- *         for n_iter in range(max_iter):
- *             # w_prev <- w
+ *         y_norm_sq = ddot(n_samples, <DOUBLE*>y.data, 1, <DOUBLE*>y.data, 1)
+ *         # Scale tolerance by norm(y,2)
  */
       /*finally:*/ {
         /*normal exit:*/{
           #ifdef WITH_THREAD
           Py_BLOCK_THREADS
           #endif
-          goto __pyx_L5;
+          goto __pyx_L8;
         }
-        __pyx_L5:;
+        __pyx_L8:;
       }
   }
 
-  /* "prox_fast.pyx":401
+  /* "prox_elasticnet/prox_fast.pyx":668
  *                     <DOUBLE*>v.data, 1)
  * 
  *     return w, gap, tol, n_iter + 1             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_gap); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 401; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_tol); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 401; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyInt_From_long((__pyx_v_n_iter + 1)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 401; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = PyTuple_New(4); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 401; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_gap); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 668; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_4 = PyFloat_FromDouble(__pyx_v_tol); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 668; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_2 = __Pyx_PyInt_From_long((__pyx_v_n_iter + 1)); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 668; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_1 = PyTuple_New(4); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 668; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(((PyObject *)__pyx_v_w));
   __Pyx_GIVEREF(((PyObject *)__pyx_v_w));
-  PyTuple_SET_ITEM(__pyx_t_3, 0, ((PyObject *)__pyx_v_w));
-  __Pyx_GIVEREF(__pyx_t_1);
-  PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_1);
-  __Pyx_GIVEREF(__pyx_t_2);
-  PyTuple_SET_ITEM(__pyx_t_3, 2, __pyx_t_2);
+  PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)__pyx_v_w));
+  __Pyx_GIVEREF(__pyx_t_3);
+  PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_4);
-  PyTuple_SET_ITEM(__pyx_t_3, 3, __pyx_t_4);
-  __pyx_t_1 = 0;
-  __pyx_t_2 = 0;
-  __pyx_t_4 = 0;
-  __pyx_r = __pyx_t_3;
+  PyTuple_SET_ITEM(__pyx_t_1, 2, __pyx_t_4);
+  __Pyx_GIVEREF(__pyx_t_2);
+  PyTuple_SET_ITEM(__pyx_t_1, 3, __pyx_t_2);
   __pyx_t_3 = 0;
+  __pyx_t_4 = 0;
+  __pyx_t_2 = 0;
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "prox_fast.pyx":235
+  /* "prox_elasticnet/prox_fast.pyx":502
  * @cython.wraparound(False)
  * @cython.cdivision(True)
- * def enet_prox_gradient(np.ndarray[DOUBLE, ndim=1] w,             # <<<<<<<<<<<<<<
+ * def enet_prox_gradient_gram(np.ndarray[DOUBLE, ndim=1] w,             # <<<<<<<<<<<<<<
  *                             double alpha, double beta,
- *                             np.ndarray[DOUBLE, ndim=2, mode='fortran'] X,
+ *                             np.ndarray[DOUBLE, ndim=2, mode='c'] XtX,
  */
 
   /* function exit code */
@@ -3579,7 +5416,6 @@ static PyObject *__pyx_pf_9prox_fast_enet_prox_gradient(CYTHON_UNUSED PyObject *
   __Pyx_XDECREF(__pyx_t_5);
   { PyObject *__pyx_type, *__pyx_value, *__pyx_tb;
     __Pyx_ErrFetch(&__pyx_type, &__pyx_value, &__pyx_tb);
-    __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_X.rcbuffer->pybuffer);
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_XtX.rcbuffer->pybuffer);
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_Xty.rcbuffer->pybuffer);
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_delta_w.rcbuffer->pybuffer);
@@ -3589,11 +5425,10 @@ static PyObject *__pyx_pf_9prox_fast_enet_prox_gradient(CYTHON_UNUSED PyObject *
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_w_prev.rcbuffer->pybuffer);
     __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_y.rcbuffer->pybuffer);
   __Pyx_ErrRestore(__pyx_type, __pyx_value, __pyx_tb);}
-  __Pyx_AddTraceback("prox_fast.enet_prox_gradient", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("prox_elasticnet.prox_fast.enet_prox_gradient_gram", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   goto __pyx_L2;
   __pyx_L0:;
-  __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_X.rcbuffer->pybuffer);
   __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_XtX.rcbuffer->pybuffer);
   __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_Xty.rcbuffer->pybuffer);
   __Pyx_SafeReleaseBuffer(&__pyx_pybuffernd_delta_w.rcbuffer->pybuffer);
@@ -3607,8 +5442,6 @@ static PyObject *__pyx_pf_9prox_fast_enet_prox_gradient(CYTHON_UNUSED PyObject *
   __Pyx_XDECREF((PyObject *)__pyx_v_g);
   __Pyx_XDECREF((PyObject *)__pyx_v_delta_w);
   __Pyx_XDECREF((PyObject *)__pyx_v_w_prev);
-  __Pyx_XDECREF((PyObject *)__pyx_v_XtX);
-  __Pyx_XDECREF((PyObject *)__pyx_v_Xty);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -5785,6 +7618,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_MemoryError, __pyx_k_MemoryError, sizeof(__pyx_k_MemoryError), 0, 0, 1, 1},
   {&__pyx_kp_u_Non_native_byte_order_not_suppor, __pyx_k_Non_native_byte_order_not_suppor, sizeof(__pyx_k_Non_native_byte_order_not_suppor), 0, 1, 0, 0},
   {&__pyx_n_s_RuntimeError, __pyx_k_RuntimeError, sizeof(__pyx_k_RuntimeError), 0, 0, 1, 1},
+  {&__pyx_n_s_T, __pyx_k_T, sizeof(__pyx_k_T), 0, 0, 1, 1},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
   {&__pyx_n_s_X, __pyx_k_X, sizeof(__pyx_k_X), 0, 0, 1, 1},
   {&__pyx_n_s_XtX, __pyx_k_XtX, sizeof(__pyx_k_XtX), 0, 0, 1, 1},
@@ -5795,13 +7629,17 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_d_w_max, __pyx_k_d_w_max, sizeof(__pyx_k_d_w_max), 0, 0, 1, 1},
   {&__pyx_n_s_d_w_tol, __pyx_k_d_w_tol, sizeof(__pyx_k_d_w_tol), 0, 0, 1, 1},
   {&__pyx_n_s_delta_w, __pyx_k_delta_w, sizeof(__pyx_k_delta_w), 0, 0, 1, 1},
+  {&__pyx_n_s_dot, __pyx_k_dot, sizeof(__pyx_k_dot), 0, 0, 1, 1},
   {&__pyx_n_s_empty, __pyx_k_empty, sizeof(__pyx_k_empty), 0, 0, 1, 1},
   {&__pyx_n_s_enet_prox_gradient, __pyx_k_enet_prox_gradient, sizeof(__pyx_k_enet_prox_gradient), 0, 0, 1, 1},
+  {&__pyx_n_s_enet_prox_gradient_gram, __pyx_k_enet_prox_gradient_gram, sizeof(__pyx_k_enet_prox_gradient_gram), 0, 0, 1, 1},
   {&__pyx_n_s_eta, __pyx_k_eta, sizeof(__pyx_k_eta), 0, 0, 1, 1},
+  {&__pyx_n_s_fixed_sigma, __pyx_k_fixed_sigma, sizeof(__pyx_k_fixed_sigma), 0, 0, 1, 1},
   {&__pyx_n_s_g, __pyx_k_g, sizeof(__pyx_k_g), 0, 0, 1, 1},
   {&__pyx_n_s_gap, __pyx_k_gap, sizeof(__pyx_k_gap), 0, 0, 1, 1},
   {&__pyx_kp_s_home_nmarchant_Dropbox_Educatio, __pyx_k_home_nmarchant_Dropbox_Educatio, sizeof(__pyx_k_home_nmarchant_Dropbox_Educatio), 0, 0, 1, 0},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
+  {&__pyx_n_s_init_step, __pyx_k_init_step, sizeof(__pyx_k_init_step), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_max_iter, __pyx_k_max_iter, sizeof(__pyx_k_max_iter), 0, 0, 1, 1},
   {&__pyx_n_s_min_w_max, __pyx_k_min_w_max, sizeof(__pyx_k_min_w_max), 0, 0, 1, 1},
@@ -5814,11 +7652,12 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_np, __pyx_k_np, sizeof(__pyx_k_np), 0, 0, 1, 1},
   {&__pyx_n_s_numpy, __pyx_k_numpy, sizeof(__pyx_k_numpy), 0, 0, 1, 1},
   {&__pyx_n_s_numpy_linalg, __pyx_k_numpy_linalg, sizeof(__pyx_k_numpy_linalg), 0, 0, 1, 1},
-  {&__pyx_n_s_prox_fast, __pyx_k_prox_fast, sizeof(__pyx_k_prox_fast), 0, 0, 1, 1},
+  {&__pyx_n_s_ord, __pyx_k_ord, sizeof(__pyx_k_ord), 0, 0, 1, 1},
+  {&__pyx_n_s_prox_elasticnet_prox_fast, __pyx_k_prox_elasticnet_prox_fast, sizeof(__pyx_k_prox_elasticnet_prox_fast), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
+  {&__pyx_n_s_rv, __pyx_k_rv, sizeof(__pyx_k_rv), 0, 0, 1, 1},
   {&__pyx_n_s_shrink_factor, __pyx_k_shrink_factor, sizeof(__pyx_k_shrink_factor), 0, 0, 1, 1},
   {&__pyx_n_s_sigma, __pyx_k_sigma, sizeof(__pyx_k_sigma), 0, 0, 1, 1},
-  {&__pyx_n_s_sigma_0, __pyx_k_sigma_0, sizeof(__pyx_k_sigma_0), 0, 0, 1, 1},
   {&__pyx_n_s_t, __pyx_k_t, sizeof(__pyx_k_t), 0, 0, 1, 1},
   {&__pyx_n_s_t_prev, __pyx_k_t_prev, sizeof(__pyx_k_t_prev), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
@@ -5829,11 +7668,12 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_w_prev, __pyx_k_w_prev, sizeof(__pyx_k_w_prev), 0, 0, 1, 1},
   {&__pyx_n_s_warnings, __pyx_k_warnings, sizeof(__pyx_k_warnings), 0, 0, 1, 1},
   {&__pyx_n_s_y, __pyx_k_y, sizeof(__pyx_k_y), 0, 0, 1, 1},
+  {&__pyx_n_s_y_norm_sq, __pyx_k_y_norm_sq, sizeof(__pyx_k_y_norm_sq), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 98; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_n_s_MemoryError); if (!__pyx_builtin_MemoryError) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 163; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 86; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_n_s_MemoryError); if (!__pyx_builtin_MemoryError) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 166; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 218; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 799; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   return 0;
@@ -5911,17 +7751,29 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
 
-  /* "prox_fast.pyx":235
+  /* "prox_elasticnet/prox_fast.pyx":331
  * @cython.wraparound(False)
  * @cython.cdivision(True)
  * def enet_prox_gradient(np.ndarray[DOUBLE, ndim=1] w,             # <<<<<<<<<<<<<<
  *                             double alpha, double beta,
  *                             np.ndarray[DOUBLE, ndim=2, mode='fortran'] X,
  */
-  __pyx_tuple__7 = PyTuple_Pack(27, __pyx_n_s_w, __pyx_n_s_alpha, __pyx_n_s_beta, __pyx_n_s_X, __pyx_n_s_y, __pyx_n_s_max_iter, __pyx_n_s_eta, __pyx_n_s_sigma_0, __pyx_n_s_tol, __pyx_n_s_n_samples, __pyx_n_s_n_features, __pyx_n_s_n_iter, __pyx_n_s_t, __pyx_n_s_t_prev, __pyx_n_s_sigma, __pyx_n_s_shrink_factor, __pyx_n_s_accel_parameter, __pyx_n_s_min_w_max, __pyx_n_s_d_w_max, __pyx_n_s_gap, __pyx_n_s_d_w_tol, __pyx_n_s_v, __pyx_n_s_g, __pyx_n_s_delta_w, __pyx_n_s_w_prev, __pyx_n_s_XtX, __pyx_n_s_Xty); if (unlikely(!__pyx_tuple__7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 235; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__7 = PyTuple_Pack(29, __pyx_n_s_w, __pyx_n_s_alpha, __pyx_n_s_beta, __pyx_n_s_X, __pyx_n_s_y, __pyx_n_s_max_iter, __pyx_n_s_eta, __pyx_n_s_init_step, __pyx_n_s_tol, __pyx_n_s_n_samples, __pyx_n_s_n_features, __pyx_n_s_n_iter, __pyx_n_s_t, __pyx_n_s_t_prev, __pyx_n_s_sigma, __pyx_n_s_shrink_factor, __pyx_n_s_accel_parameter, __pyx_n_s_min_w_max, __pyx_n_s_d_w_max, __pyx_n_s_gap, __pyx_n_s_d_w_tol, __pyx_n_s_y_norm_sq, __pyx_n_s_v, __pyx_n_s_g, __pyx_n_s_delta_w, __pyx_n_s_w_prev, __pyx_n_s_rv, __pyx_n_s_fixed_sigma, __pyx_n_s_XtX); if (unlikely(!__pyx_tuple__7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 331; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__7);
   __Pyx_GIVEREF(__pyx_tuple__7);
-  __pyx_codeobj__8 = (PyObject*)__Pyx_PyCode_New(9, 0, 27, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_nmarchant_Dropbox_Educatio, __pyx_n_s_enet_prox_gradient, 235, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 235; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__8 = (PyObject*)__Pyx_PyCode_New(9, 0, 29, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_nmarchant_Dropbox_Educatio, __pyx_n_s_enet_prox_gradient, 331, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 331; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+
+  /* "prox_elasticnet/prox_fast.pyx":502
+ * @cython.wraparound(False)
+ * @cython.cdivision(True)
+ * def enet_prox_gradient_gram(np.ndarray[DOUBLE, ndim=1] w,             # <<<<<<<<<<<<<<
+ *                             double alpha, double beta,
+ *                             np.ndarray[DOUBLE, ndim=2, mode='c'] XtX,
+ */
+  __pyx_tuple__9 = PyTuple_Pack(28, __pyx_n_s_w, __pyx_n_s_alpha, __pyx_n_s_beta, __pyx_n_s_XtX, __pyx_n_s_Xty, __pyx_n_s_y, __pyx_n_s_max_iter, __pyx_n_s_eta, __pyx_n_s_init_step, __pyx_n_s_tol, __pyx_n_s_n_samples, __pyx_n_s_n_features, __pyx_n_s_n_iter, __pyx_n_s_t, __pyx_n_s_t_prev, __pyx_n_s_sigma, __pyx_n_s_shrink_factor, __pyx_n_s_accel_parameter, __pyx_n_s_min_w_max, __pyx_n_s_d_w_max, __pyx_n_s_gap, __pyx_n_s_y_norm_sq, __pyx_n_s_d_w_tol, __pyx_n_s_v, __pyx_n_s_g, __pyx_n_s_delta_w, __pyx_n_s_w_prev, __pyx_n_s_fixed_sigma); if (unlikely(!__pyx_tuple__9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 502; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__9);
+  __Pyx_GIVEREF(__pyx_tuple__9);
+  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(10, 0, 28, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_nmarchant_Dropbox_Educatio, __pyx_n_s_enet_prox_gradient_gram, 502, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 502; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -5931,6 +7783,8 @@ static int __Pyx_InitCachedConstants(void) {
 
 static int __Pyx_InitGlobals(void) {
   if (__Pyx_InitStrings(__pyx_string_tab) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_int_1 = PyInt_FromLong(1); if (unlikely(!__pyx_int_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_int_2 = PyInt_FromLong(2); if (unlikely(!__pyx_int_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -6004,14 +7858,14 @@ PyMODINIT_FUNC PyInit_prox_fast(void)
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   #endif
-  if (__pyx_module_is_main_prox_fast) {
+  if (__pyx_module_is_main_prox_elasticnet__prox_fast) {
     if (PyObject_SetAttrString(__pyx_m, "__name__", __pyx_n_s_main) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    if (!PyDict_GetItemString(modules, "prox_fast")) {
-      if (unlikely(PyDict_SetItemString(modules, "prox_fast", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (!PyDict_GetItemString(modules, "prox_elasticnet.prox_fast")) {
+      if (unlikely(PyDict_SetItemString(modules, "prox_elasticnet.prox_fast", __pyx_m) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
   }
   #endif
@@ -6045,7 +7899,7 @@ PyMODINIT_FUNC PyInit_prox_fast(void)
   if (__Pyx_patch_abc() < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   #endif
 
-  /* "prox_fast.pyx":6
+  /* "prox_elasticnet/prox_fast.pyx":6
  * 
  * # Initialize Numpy C-API
  * import numpy as np             # <<<<<<<<<<<<<<
@@ -6057,7 +7911,7 @@ PyMODINIT_FUNC PyInit_prox_fast(void)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 6; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "prox_fast.pyx":8
+  /* "prox_elasticnet/prox_fast.pyx":8
  * import numpy as np
  * cimport numpy as np
  * np.import_array()             # <<<<<<<<<<<<<<
@@ -6066,7 +7920,7 @@ PyMODINIT_FUNC PyInit_prox_fast(void)
  */
   import_array();
 
-  /* "prox_fast.pyx":11
+  /* "prox_elasticnet/prox_fast.pyx":11
  * 
  * # Use to calculate optimal step size
  * from numpy.linalg import norm             # <<<<<<<<<<<<<<
@@ -6087,7 +7941,7 @@ PyMODINIT_FUNC PyInit_prox_fast(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "prox_fast.pyx":15
+  /* "prox_elasticnet/prox_fast.pyx":15
  * cimport cython
  * from cpython cimport bool
  * import warnings             # <<<<<<<<<<<<<<
@@ -6099,19 +7953,31 @@ PyMODINIT_FUNC PyInit_prox_fast(void)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_warnings, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "prox_fast.pyx":235
+  /* "prox_elasticnet/prox_fast.pyx":331
  * @cython.wraparound(False)
  * @cython.cdivision(True)
  * def enet_prox_gradient(np.ndarray[DOUBLE, ndim=1] w,             # <<<<<<<<<<<<<<
  *                             double alpha, double beta,
  *                             np.ndarray[DOUBLE, ndim=2, mode='fortran'] X,
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_9prox_fast_1enet_prox_gradient, NULL, __pyx_n_s_prox_fast); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 235; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_15prox_elasticnet_9prox_fast_1enet_prox_gradient, NULL, __pyx_n_s_prox_elasticnet_prox_fast); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 331; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_enet_prox_gradient, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 235; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_enet_prox_gradient, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 331; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "prox_fast.pyx":1
+  /* "prox_elasticnet/prox_fast.pyx":502
+ * @cython.wraparound(False)
+ * @cython.cdivision(True)
+ * def enet_prox_gradient_gram(np.ndarray[DOUBLE, ndim=1] w,             # <<<<<<<<<<<<<<
+ *                             double alpha, double beta,
+ *                             np.ndarray[DOUBLE, ndim=2, mode='c'] XtX,
+ */
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_15prox_elasticnet_9prox_fast_3enet_prox_gradient_gram, NULL, __pyx_n_s_prox_elasticnet_prox_fast); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 502; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_enet_prox_gradient_gram, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 502; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "prox_elasticnet/prox_fast.pyx":1
  * # Author: Neil G. Marchant <ngmarchant@gmail.com>             # <<<<<<<<<<<<<<
  * #
  * # Licence:
@@ -6137,11 +8003,11 @@ PyMODINIT_FUNC PyInit_prox_fast(void)
   __Pyx_XDECREF(__pyx_t_2);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init prox_fast", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init prox_elasticnet.prox_fast", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     Py_DECREF(__pyx_m); __pyx_m = 0;
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init prox_fast");
+    PyErr_SetString(PyExc_ImportError, "init prox_elasticnet.prox_fast");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
