@@ -1,5 +1,17 @@
 # Authors: Olivier Grisel <olivier.grisel@ensta.org>
 #          Alexandre Gramfort <alexandre.gramfort@inria.fr>
+#
+# Modified by Neil Marchant <ngmarchant@gmail.com> from the 0.18.X branch.
+# Modifications include:
+# * Removing tests for Lasso* methods (or replacing with test for ElasticNet
+#   instead)
+# * Removing tests for MultiTask* methods
+# * Removing tests for the positive constraint option
+# * Adding tests for eta and init_step parameters
+# * Fixing the accuracy of *_almost_equal assertions (since prox_elasticnet
+#   generally does not do better than the desired tolerance, whereas 
+#   coordinate descent often does do better)
+#
 # License: BSD 3 clause
 
 from sys import version_info
@@ -325,3 +337,29 @@ def test_non_float_y():
     clf_float = ElasticNet(fit_intercept=False)
     clf_float.fit(X, y_float)
     assert_array_equal(clf.coef_, clf_float.coef_)
+    
+def test_fixed_optimal_step_size():
+
+    X = np.array([[-1.], [0.], [1.]])
+    y = [-1, 0, 1]
+
+    clf_1 = ElasticNet(adaptive_step=False, tol=1e-8)
+    clf_2 = ElasticNet(adaptive_step=True, tol=1e-8)
+    clf_1.fit(X, y)
+    clf_2.fit(X, y)
+    
+    assert_array_almost_equal(clf_1.coef_, clf_2.coef_, decimal=6)    
+    
+def test_enet_eta_and_init_step_zero_warning():
+
+    X = np.array([[-1.], [0.], [1.]])
+    y = [-1, 0, 1]
+    tol = 1e-2
+    clf_1 = ElasticNet(eta=0, tol=tol)
+    clf_2 = ElasticNet(init_step=0, tol=tol)
+    clf_3 = ElasticNetCV(eta=0, n_alphas=3, tol=tol)
+    clf_4 = ElasticNetCV(init_step=0, n_alphas=3, tol=tol)
+    assert_warns(UserWarning, clf_1.fit, X, y)
+    assert_warns(UserWarning, clf_2.fit, X, y)
+    assert_warns(UserWarning, clf_3.fit, X, y)
+    assert_warns(UserWarning, clf_4.fit, X, y)

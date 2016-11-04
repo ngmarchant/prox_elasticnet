@@ -24,16 +24,17 @@ compiler, the ATLAS libraries and the following Python packages:
 To install these dependencies on a Debian-based system, run::
 
     $ sudo apt-get install build-essential python-dev python-setuptools \
-                     python-numpy python-scipy python-sklearn \
+                     python-numpy python-scipy python-sklearn cython
                      libatlas-dev libatlas3gf-base
 
-(replace ``python`` with ``python3`` if using Python 3).
+(replace ``python`` with ``python3`` and ``cython`` with ``cython3`` if using 
+Python 3).
 
 On RHEL/Fedora and derivatives, run::
 
     $ sudo dnf install make automake gcc gcc-c++ python3-devel \
                  python3-setuptools python3-numpy python3-scipy \
-                 python3-sklearn atlas-devel
+                 python3-sklearn python3-Cython atlas-devel
 
 
 Once these dependencies are installed, change to the directory of the source
@@ -79,5 +80,4 @@ or::
 
     help(prox_elasticnet.ElasticNetCV)
     
-You can also check out the Jupyter notebook ``Demo.ipynb`` included with the 
-source code.
+You can also check out the Jupyter notebook located at ``demo/demo.ipynb``.

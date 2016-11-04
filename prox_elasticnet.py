@@ -3,7 +3,17 @@
 #         Olivier Grisel <olivier.grisel@ensta.org>
 #         Alexis Mignon <alexis.mignon@gmail.com>
 #         Manoj Kumar <manojkumarsivaraj334@gmail.com>
-#         Neil Marchant <ngmarchant@gmail.com>
+#
+#
+# Modified by Neil Marchant <ngmarchant@gmail.com> from the 0.18.X branch.
+# Modifications include:
+# * Removing Lasso* methods
+# * Removing MultiTask* methods
+# * Linking to prox_fast extension rather than cd_fast
+# * Adding parameters `init_step` and `eta` which are required by the proximal
+#   gradient method with backtracking
+# * Removing parameters associated with coordinate descent: e.g. cyclic, random
+# * Removing positive constraint option
 #
 # License: BSD clause 3
 
@@ -44,10 +54,8 @@ from sklearn.utils.extmath import safe_sparse_dot
 from sklearn.externals.joblib import Parallel, delayed
 from sklearn.utils.validation import column_or_1d
 
-
 from . import prox_fast
 
-### Not my code ###
 def _alpha_grid(X, y, Xy=None, l1_ratio=1.0, fit_intercept=True,
                 eps=1e-3, n_alphas=100, normalize=False, copy_X=True):
     """ Compute the grid of alpha values for elastic net parameter search
@@ -222,23 +230,15 @@ def _path_residuals(X, y, train, test, path, path_params, alphas=None,
 
 ### My code ###
 
-def enet_path(X, y, l1_ratio=0.5, eps=1e-3, eta = 0.5, init_step = 10,
-              n_alphas=100, alphas=None, precompute='auto', Xy=None,
-              copy_X=True, coef_init=None, verbose=False, return_n_iter=False,
-              check_input=True, **params):
+def enet_path(X, y, l1_ratio=0.5, eps=1e-3, eta=0.5, init_step=10,
+              adaptive_step=True, n_alphas=100, alphas=None, precompute='auto', 
+              Xy=None, copy_X=True, coef_init=None, verbose=False, 
+              return_n_iter=False, check_input=True, **params):
     """Compute elastic net path with coordinate descent
-    The elastic net optimization function varies for mono and multi-outputs.
-    For mono-output tasks it is::
+    The optimization function is::
         1 / (2 * n_samples) * ||y - Xw||^2_2
         + alpha * l1_ratio * ||w||_1
         + 0.5 * alpha * (1 - l1_ratio) * ||w||^2_2
-    For multi-output tasks it is::
-        (1 / (2 * n_samples)) * ||Y - XW||^Fro_2
-        + alpha * l1_ratio * ||W||_21
-        + 0.5 * alpha * (1 - l1_ratio) * ||W||_Fro^2
-    Where::
-        ||W||_21 = \sum_i \sqrt{\sum_j w_{ij}^2}
-    i.e. the sum of norm of each row.
     Read more in the :ref:`User Guide <elastic_net>`.
     Parameters
     ----------
@@ -259,6 +259,15 @@ def enet_path(X, y, l1_ratio=0.5, eps=1e-3, eta = 0.5, init_step = 10,
     alphas : ndarray, optional
         List of alphas where to compute the models.
         If None alphas are set automatically
+    eta : float, optional
+        Shrinkage parameter for backtracking line search. It must satisfy
+        0 < eta < 1.
+    init_step : float, optional
+        Initial step size used for the backtracking line search. It must be a
+        positive number.
+    adaptive_step : boolean, optional, default True
+        Whether to calculate the optimal step size or use an adaptive step size
+        chosen through a backtracking line search.
     precompute : True | False | 'auto' | array-like
         Whether to use a precomputed Gram matrix to speed up
         calculations. If set to ``'auto'`` let us decide. The Gram
@@ -292,16 +301,20 @@ def enet_path(X, y, l1_ratio=0.5, eps=1e-3, eta = 0.5, init_step = 10,
         The number of iterations taken by the coordinate descent optimizer to
         reach the specified tolerance for each alpha.
         (Is returned when ``return_n_iter`` is set to True).
-    Notes
-    -----
-    See examples/plot_lasso_coordinate_descent_path.py for an example.
     See also
     --------
-    MultiTaskElasticNet
-    MultiTaskElasticNetCV
     ElasticNet
     ElasticNetCV
     """
+    # Direct prox_fast to use fixed optimal step size by passing eta = 0 and 
+    # init_step = 0 (which would otherwise be invalid) 
+    if not adaptive_step:
+        eta_ = 0
+        init_step_ = 0
+    else:
+        eta_ = eta
+        init_step_ = init_step
+    
     # We expect X and y to be already float64 Fortran ordered when bypassing
     # checks
     if check_input:
@@ -313,7 +326,7 @@ def enet_path(X, y, l1_ratio=0.5, eps=1e-3, eta = 0.5, init_step = 10,
             Xy = check_array(Xy, dtype=np.float64, order='C', copy=False,
                              ensure_2d=False)
     n_samples, n_features = X.shape
-
+    
     # MultiTaskElasticNet does not support sparse matrices
     if sparse.isspmatrix(X):
         if 'X_offset' in params:
@@ -340,7 +353,7 @@ def enet_path(X, y, l1_ratio=0.5, eps=1e-3, eta = 0.5, init_step = 10,
 
     n_alphas = len(alphas)
     tol = params.get('tol', 1e-4)
-    max_iter = params.get('max_iter', 1000)
+    max_iter = params.get('max_iter', 10000)
     dual_gaps = np.empty(n_alphas)
     n_iters = []
 
@@ -366,11 +379,11 @@ def enet_path(X, y, l1_ratio=0.5, eps=1e-3, eta = 0.5, init_step = 10,
                 precompute = check_array(precompute, dtype=np.float64,
                                          order='C')
             model = prox_fast.enet_prox_gradient_gram(
-                coef_, l1_reg, l2_reg, precompute, Xy, y, max_iter, eta,
-                init_step, tol)
+                coef_, l1_reg, l2_reg, precompute, Xy, y, max_iter, eta_,
+                init_step_, tol)
         elif precompute is False:
             model = prox_fast.enet_prox_gradient(
-                coef_, l1_reg, l2_reg, X, y, max_iter, eta, init_step, tol)
+                coef_, l1_reg, l2_reg, X, y, max_iter, eta_, init_step_, tol)
         else:
             raise ValueError("Precompute should be one of True, False, "
                              "'auto' or array-like")
@@ -440,6 +453,15 @@ class ElasticNet(LinearModel, RegressorMixin) :
         However, if you wish to standardize, please use
         `preprocessing.StandardScaler` before calling `fit` on an estimator
         with `normalize=False`.
+    eta : float, optional
+        Shrinkage parameter for backtracking line search. It must satisfy
+        0 < eta < 1.
+    init_step : float, optional
+        Initial step size used for the backtracking line search. It must be a
+        positive number.
+    adaptive_step : boolean, optional, default True
+        Whether to calculate the optimal step size or use an adaptive step size
+        chosen through a backtracking line search.
     precompute : True | False | array-like
         Whether to use a precomputed Gram matrix to speed up
         calculations. If set to ``'auto'`` let us decide. The Gram
@@ -478,9 +500,10 @@ class ElasticNet(LinearModel, RegressorMixin) :
 
     path = staticmethod(enet_path)
 
-    def __init__(self, alpha=1.0, l1_ratio=0.5, eta = 0.5, init_step = 10,
-             fit_intercept=True, normalize=False, precompute=False,
-             max_iter=1000, copy_X=True, tol=1e-4, warm_start=False):
+    def __init__(self, alpha=1.0, l1_ratio=0.5, eta=0.5, init_step=10,
+             fit_intercept=True, adaptive_step=True, normalize=False, 
+             precompute=False, max_iter=10000, copy_X=True, tol=1e-4, 
+             warm_start=False):
         # Initialise parameters
         self.alpha = alpha
         self.l1_ratio = l1_ratio
@@ -491,6 +514,7 @@ class ElasticNet(LinearModel, RegressorMixin) :
         self.copy_X = copy_X
         self.tol = tol
         self.eta = eta
+        self.adaptive_step = adaptive_step
         self.init_step = init_step
         self.warm_start = warm_start
         self.coef_ = None
@@ -509,7 +533,21 @@ class ElasticNet(LinearModel, RegressorMixin) :
                           "slower even when n_samples > n_features. Hence "
                           "it will be removed in 0.18.",
                           DeprecationWarning, stacklevel=2)
-
+        
+        if not (self.eta > 0 and self.eta < 1):
+            self.eta = 0.5
+            warnings.warn("Value given for eta is invalid. It must satisfy the "
+                          "constraint 0 < eta < 1. Setting eta to the default "
+                          "value (0.5).", 
+                          stacklevel = 2)
+        
+        if not (self.init_step > 0):
+            self.init_step = 10
+            warnings.warn("Value given for init_step is invalid. It must be "
+                          "a positive number. Setting init_step to the default "
+                          "value (10).", 
+                          stacklevel = 2)
+        
         if check_input:
             # Ensure that X and y are float64 Fortran ordered arrays.
             # Also check for consistency in the dimensions, and that y doesn't
@@ -560,8 +598,8 @@ class ElasticNet(LinearModel, RegressorMixin) :
                       l1_ratio=self.l1_ratio, eps=None, eta = self.eta,
                       init_step = self.init_step, n_alphas=None,
                       alphas=[self.alpha], precompute=precompute, Xy=this_Xy,
-                      fit_intercept=False, normalize=False, copy_X=True,
-                      verbose=False, tol=self.tol,
+                      fit_intercept=False, adaptive_step=self.adaptive_step,
+                      normalize=False, copy_X=True, verbose=False, tol=self.tol,
                       X_offset=X_offset, X_scale=X_scale, return_n_iter=True,
                       coef_init=coef_[k], max_iter=self.max_iter,
                       check_input=False)
@@ -579,15 +617,15 @@ class ElasticNet(LinearModel, RegressorMixin) :
         # return self for chaining fit and predict calls
         return self
 
-### Not my code
+
 class LinearModelCV(six.with_metaclass(ABCMeta, LinearModel)):
     """Base class for iterative model fitting along a regularization path"""
 
     @abstractmethod
     def __init__(self, eps=1e-3, n_alphas=100, alphas=None, fit_intercept=True,
-                 normalize=False, precompute='auto', max_iter=1000, tol=1e-4,
-                 eta = 0.5, init_step = 10, copy_X=True, cv=None, verbose=False,
-                 n_jobs=1):
+                 normalize=False, precompute='auto', max_iter=10000, tol=1e-4,
+                 eta=0.5, init_step=10, adaptive_step=True, copy_X=True, 
+                 cv=None, verbose=False, n_jobs=1):
         self.eps = eps
         self.n_alphas = n_alphas
         self.alphas = alphas
@@ -598,6 +636,7 @@ class LinearModelCV(six.with_metaclass(ABCMeta, LinearModel)):
         self.tol = tol
         self.eta = eta
         self.init_step = init_step
+        self.adaptive_step = adaptive_step
         self.copy_X = copy_X
         self.cv = cv
         self.verbose = verbose
@@ -618,6 +657,20 @@ class LinearModelCV(six.with_metaclass(ABCMeta, LinearModel)):
         y = np.asarray(y, dtype=np.float64)
         if y.shape[0] == 0:
             raise ValueError("y has 0 samples: %r" % y)
+            
+        if not (self.eta > 0 and self.eta < 1):
+            self.eta = 0.5
+            warnings.warn("Value given for eta is invalid. It must satisfy the "
+                          "constraint 0 < eta < 1. Setting eta to the default "
+                          "value (0.5).", 
+                          stacklevel = 2)
+        
+        if not (self.init_step > 0):
+            self.init_step = 10
+            warnings.warn("Value given for init_step is invalid. It must be "
+                          "a positive number. Setting init_step to the default "
+                          "value (10).", 
+                          stacklevel = 2)
 
         if hasattr(self, 'l1_ratio'):
             model_str = 'ElasticNet'
@@ -640,10 +693,8 @@ class LinearModelCV(six.with_metaclass(ABCMeta, LinearModel)):
             elif y.ndim == 1:
                 raise ValueError("For mono-task outputs, use "
                                  "%sCV" % (model_str))
-            if model_str == 'ElasticNet':
-                model = MultiTaskElasticNet()
             else:
-                model = MultiTaskLasso()
+                raise ValueError("Multi-task outputs not supported")
 
         # This makes sure that there is no duplication in memory.
         # Dealing right with copy_X is important in the following:
@@ -798,6 +849,15 @@ class ElasticNetCV(LinearModelCV, RegressorMixin):
     alphas : numpy array, optional
         List of alphas where to compute the models.
         If None alphas are set automatically
+    eta : float, optional
+        Shrinkage parameter for backtracking line search. It must satisfy
+        0 < eta < 1.
+    init_step : float, optional
+        Initial step size used for the backtracking line search. It must be a
+        positive number.
+    adaptive_step : boolean, optional, default True
+        Whether to calculate the optimal step size or use an adaptive step size
+        chosen through a backtracking line search.
     precompute : True | False | 'auto' | array-like
         Whether to use a precomputed Gram matrix to speed up
         calculations. If set to ``'auto'`` let us decide. The Gram
@@ -860,8 +920,6 @@ class ElasticNetCV(LinearModelCV, RegressorMixin):
         the specified tolerance for the optimal alpha.
     Notes
     -----
-    See examples/linear_model/lasso_path_with_crossvalidation.py
-    for an example.
     To avoid unnecessary memory duplication the X argument of the fit method
     should be directly passed as a Fortran-contiguous numpy array.
     The parameter l1_ratio corresponds to alpha in the glmnet R package
@@ -884,8 +942,9 @@ class ElasticNetCV(LinearModelCV, RegressorMixin):
 
     def __init__(self, l1_ratio=0.5, eps=1e-3, n_alphas=100, alphas=None,
                  fit_intercept=True, normalize=False, precompute='auto',
-                 max_iter=1000, tol=1e-4, eta=0.5, init_step=10, cv=None,
-                 copy_X=True, verbose=0, n_jobs=1):
+                 max_iter=10000, tol=1e-4, eta=0.5, init_step=10, 
+                 adaptive_step=True, cv=None, copy_X=True, verbose=0, 
+                 n_jobs=1):
         self.l1_ratio = l1_ratio
         self.eps = eps
         self.n_alphas = n_alphas
@@ -897,6 +956,7 @@ class ElasticNetCV(LinearModelCV, RegressorMixin):
         self.tol = tol
         self.eta = eta
         self.init_step = init_step
+        self.adaptive_step = adaptive_step
         self.cv = cv
         self.copy_X = copy_X
         self.verbose = verbose

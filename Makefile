@@ -2,6 +2,7 @@ init:
 	pip3 install -r requirements.txt
 
 install:
+	cython3 -a prox_fast.pyx
 	python3 setup.py install --user
     
 test: clean

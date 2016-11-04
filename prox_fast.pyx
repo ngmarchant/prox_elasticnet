@@ -1,6 +1,6 @@
 # Author: Neil G. Marchant <ngmarchant@gmail.com>
 #
-# Licence:
+# Licence: BSD clause 3
 
 # Initialize Numpy C-API
 import numpy as np

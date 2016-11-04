@@ -39,7 +39,8 @@ if __name__ == '__main__':
     
     setup(
         version='0.0.1',
-        description='A Python package which implements the Elastic Net using the proximal gradient method',
+        description='A Python package which implements the Elastic Net using \
+            the proximal gradient method',
         long_description=readme,
         author='Neil G. Marchant',
         author_email='ngmarchant@gmail.com',
